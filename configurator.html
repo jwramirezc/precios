@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurador a Medida - Sistema de Gestión</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body>
+
+    <header id="configurator-header">
+        <h1>Cotizador de Servicios</h1>
+        <p>Arma tu plan a la medida seleccionando los módulos que necesitas</p>
+        <div class="mt-3">
+            <a href="index.html" class="text-white text-decoration-underline small"><i
+                    class="fa-solid fa-arrow-left me-1"></i> Volver a Planes</a>
+        </div>
+    </header>
+
+    <div class="container" id="configurator-container">
+        <!-- Main Content: Modules -->
+        <main>
+            <div id="modules-container" class="modules-grid">
+                <!-- Modules will be injected here by JS -->
+            </div>
+        </main>
+
+        <!-- Sidebar: Configuration & Price -->
+        <aside>
+            <div class="configurator-panel">
+                <h2 class="section-title">Configuración</h2>
+
+                <!-- License Type -->
+                <div class="control-group">
+                    <label>Tipo de Licencia</label>
+                    <div class="license-options">
+                        <div class="radio-card active" data-value="saas" onclick="setLicense('saas')">SaaS (Nube)</div>
+                        <div class="radio-card" data-value="on_premise" onclick="setLicense('on_premise')">On Premise
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Billing Frequency (SaaS Only) -->
+                <div class="control-group" id="billing-frequency-group">
+                    <label>Frecuencia de Pago</label>
+                    <div class="license-options">
+                        <div class="radio-card active" id="btn-monthly" onclick="setBilling('monthly')">Mensual</div>
+                        <div class="radio-card" id="btn-annual" onclick="setBilling('annual')">Anual (-15%)</div>
+                    </div>
+                </div>
+
+                <!-- Users Slider -->
+                <div class="control-group">
+                    <label>Número de Usuarios: <span id="user-count-display">10</span></label>
+                    <div class="range-wrap">
+                        <input type="range" id="users-input" min="1" max="500" value="10"
+                            oninput="updateUsers(this.value)">
+                    </div>
+                </div>
+
+                <!-- Storage -->
+                <div class="control-group">
+                    <label>Almacenamiento (GB)</label>
+                    <input type="number" id="storage-input" value="100" min="10" step="10"
+                        onchange="updateStorage(this.value)">
+                </div>
+
+                <!-- Currency Selector -->
+                <div class="control-group">
+                    <label>Moneda</label>
+                    <div class="license-options">
+                        <div class="radio-card active" id="btn-cop" onclick="setCurrency('COP')">COP (Pesos)</div>
+                        <div class="radio-card" id="btn-usd" onclick="setCurrency('USD')">USD (Dólares)</div>
+                    </div>
+                </div>
+
+                <!-- Total -->
+                <div class="price-display">
+                    <span class="price-label" id="price-label">Precio Estimado Mensual</span>
+                    <span class="total-price" id="total-price">$0</span>
+                </div>
+
+                <a href="#" class="btn-cta">Solicitar Propuesta Formal</a>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/calculator.js"></script>
+    <script src="assets/js/configurator.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>
