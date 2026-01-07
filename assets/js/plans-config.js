@@ -89,8 +89,29 @@ const PLANS_CONFIG = [
         style: 'white' // bg-white text-dark styling
     },
     {
+        id: 'dev_custom',
+        name: 'PROCESOS A MEDIDA',
+        icon: 'fa-code-branch', // Icon representing development/branching
+        description: 'Desarrollo y adaptación de procesos específicos.',
+        price: 'Contactar',
+        userLimit: 'Proyectos Especiales',
+        highlight: false,
+        features: [
+            'Diagnóstico de proceso',
+'Levantamiento integral de requisitos',
+'Documentación del proceso y Casos de Uso',
+'Diseño del proceso y arquitectura funcional',
+'Prototipo funcional y demostración ejecutiva',
+'Líder de proyecto asignado',
+'Soporte técnico y funcional por 12 meses'
+        ],
+        buttonText: 'Contactar Ventas',
+        buttonAction: 'contact',
+        style: 'standard'
+    },
+    {
         id: 'custom',
-        name: 'A MEDIDA',
+        name: 'CREA TU PLAN',
         icon: 'fa-sliders-h',
         description: 'Arma tu plan seleccionando módulos, usuarios y almacenamiento específico.',
         price: null, // No price display
