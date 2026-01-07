@@ -15,7 +15,8 @@ const PLANS_CONFIG = [
         features: [
             'Correspondencia',
             'Gestión Documental',
-            'Archivo Central'
+            'Archivo Central',
+            'Firmas Electrónicas Simples Ilimitadas'
         ],
         buttonText: 'Contactar Ventas',
         buttonAction: 'contact', // contact | custom
@@ -30,9 +31,14 @@ const PLANS_CONFIG = [
         userLimit: 50,
         highlight: true,
         features: [
-            'Todo lo de Basic',
+            'Correspondencia',
+            'Gestión Documental',
+            'Archivo Central',
             'Módulo PQRS',
-            'Reportes Ampliados'
+            'Reportes Ampliados',
+            'Firmas Electrónicas Simples Ilimitadas',
+            '50 emails certificados por mes',
+            '50 firmas certificadas por mes',
         ],
         buttonText: 'Contactar Ventas',
         buttonAction: 'contact',
@@ -47,10 +53,17 @@ const PLANS_CONFIG = [
         userLimit: 100,
         highlight: false,
         features: [
-            'Todo lo de Standard',
+            'Correspondencia',
+            'Gestión Documental',
+            'Archivo Central',
+            'Módulo PQRS',
+            'Reportes Ampliados',
             'Mesa de Servicio',
             'Sistema ISO 9001:2015',
-            'Integraciones Avanzadas'
+            'Integraciones Avanzadas',
+            'Firmas Electrónicas Simples Ilimitadas',
+            '100 emails certificados por mes',
+            '100 firmas certificadas por mes',
         ],
         buttonText: 'Contactar Ventas',
         buttonAction: 'contact',
