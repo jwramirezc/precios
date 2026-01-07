@@ -1,7 +1,28 @@
+// State
+let currentCurrency = 'COP'; 
+
 /**
  * Plans Renderer
  * Generates HTML for the pricing cards based on PLANS_CONFIG.
  */
+
+function toggleCurrency(isCop) {
+    currentCurrency = isCop ? 'COP' : 'USD';
+    
+    // Update labels styling
+    const lblCop = document.getElementById('label-cop');
+    const lblUsd = document.getElementById('label-usd');
+    
+    if(isCop) {
+        lblCop.className = 'fw-bold text-primary';
+        lblUsd.className = 'fw-bold text-muted';
+    } else {
+        lblCop.className = 'fw-bold text-muted';
+        lblUsd.className = 'fw-bold text-primary';
+    }
+
+    renderPlans('plans-container-dynamic', PLANS_CONFIG);
+}
 
 function renderPlans(containerId, data) {
     const container = document.getElementById(containerId);
@@ -34,8 +55,7 @@ function renderPlans(containerId, data) {
             textColor = 'text-dark';
         } else if (plan.style === 'dashed') {
             borderStyle = 'border-2 border-dashed';
-            cardClass = `card h-100 shadow-sm rounded-4 pricing-card`; // Re-declare to avoid defaults if needed, or append
-            // We'll apply inline style for specific border color/bg as per original design
+            cardClass = `card h-100 shadow-sm rounded-4 pricing-card`; 
         }
 
         col.innerHTML = `
@@ -83,9 +103,33 @@ function renderPriceSection(plan, textColor) {
                  <div class="mb-4 invisible"><label class="form-label small fw-bold">&nbsp;</label><input class="form-control invisible"></div>`;
     }
     
-    // Standard Price
+    // Calculate Price
+    let finalPrice = plan.price;
+    let currencyLabel = 'USD';
+    
+    if (currentCurrency === 'COP') {
+        // Ensure PRICING_CONFIG is loaded
+        if (typeof PRICING_CONFIG === 'undefined') {
+            console.error('PRICING_CONFIG not found. Make sure config.js is loaded.');
+            return `<h4 class="text-center fw-bold mb-4 text-danger">Error de Configuración</h4>`;
+        }
+        
+        const rate = PRICING_CONFIG.exchangeRate;
+        finalPrice = plan.price * rate;
+        currencyLabel = 'COP';
+    }
+
+    // Format Price
+    const formattedPrice = new Intl.NumberFormat('es-CO', {
+        style: 'currency',
+        currency: currentCurrency === 'COP' ? 'COP' : 'USD',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 0
+    }).format(finalPrice);
+    
+    // Standard Price with currency toggle support
     return `
-        <h4 class="text-center fw-bold mb-4 ${textColor}">Desde $${plan.price} USD<small class="text-muted fw-normal">/mes</small></h4>
+        <h4 class="text-center fw-bold mb-4 ${textColor}">Desde ${formattedPrice} ${currencyLabel}<small class="text-muted fw-normal">/mes</small></h4>
     `;
 }
 
@@ -97,7 +141,7 @@ function renderFeatureList(plan, iconColor) {
     // User Limit Item
     if (plan.userLimit) {
         let text = typeof plan.userLimit === 'number' ? `Hasta ${plan.userLimit} usuarios` : `${plan.userLimit}`;
-        if(typeof plan.userLimit === 'string' && plan.userLimit.includes('Más')) text = `${plan.userLimit} usuarios`; // Fix for Enterprise wording
+        if(typeof plan.userLimit === 'string' && plan.userLimit.includes('Más')) text = `${plan.userLimit} usuarios`; 
         
         html += `<li class="mb-2 fw-bold"><i class="fa-solid fa-users ${iconColor} me-2"></i>${text}</li>`;
     }
@@ -128,6 +172,11 @@ function getBtnClass(plan) {
 document.addEventListener('DOMContentLoaded', () => {
     // Only render if container exists
     if(document.getElementById('plans-container-dynamic')) {
+        // Ensure switch matches default state
+        const switchEl = document.getElementById('currencySwitch');
+        if(switchEl) {
+            switchEl.checked = (currentCurrency === 'COP');
+        }
         renderPlans('plans-container-dynamic', PLANS_CONFIG);
     }
 });

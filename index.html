@@ -29,6 +29,16 @@
             <div class="text-center mb-5">
                 <h2 class="display-4 fw-bold" style="color: var(--primary);">Planes y Precios</h2>
                 <p class="lead text-muted">Selecciona el plan ideal para escalar tu operación</p>
+
+                <!-- Currency Toggle -->
+                <div class="d-flex justify-content-center align-items-center mt-4 gap-3">
+                    <span class="fw-bold text-muted" id="label-usd">USD</span>
+                    <div class="form-check form-switch fs-4">
+                        <input class="form-check-input" type="checkbox" role="switch" id="currencySwitch" checked
+                            onchange="toggleCurrency(this.checked)">
+                    </div>
+                    <span class="fw-bold text-primary" id="label-cop">COP</span>
+                </div>
             </div>
 
             <!-- Dynamic Plans Container -->
@@ -39,6 +49,7 @@
     </section>
 
     <!-- Scripts -->
+    <script src="assets/js/config.js"></script>
     <script src="assets/js/plans-config.js"></script>
     <script src="assets/js/plans-renderer.js"></script>
     <script src="assets/js/main.js"></script>
