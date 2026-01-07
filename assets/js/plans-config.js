@@ -61,7 +61,7 @@ const PLANS_CONFIG = [
             'Módulo de Mesa de Servicio (Help Desk)',
             'Módulo Sistema ISO 9001:2015',
             'Módulo de Flujos de Trabajo',
-            'Integraciones Avanzadas',
+            'Integraciones Avanzadas (LDAP, API, ERP, CRM, etc.)',
             'Firmas Electrónicas Simples Ilimitadas',
             '100 emails certificados por mes',
             '100 firmas certificadas por mes',
@@ -79,6 +79,7 @@ const PLANS_CONFIG = [
         userLimit: 'Más de 100', // Text
         highlight: false,
         features: [
+            'Licenciamiento On Premise o SaaS',
             'Escalabilidad Ilimitada',
             'Soporte Prioritario',
             'Instancias Dedicadas'
