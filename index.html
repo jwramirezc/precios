@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurador de Precios - Sistema de Gestión</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>Cotizador de Servicios</h1>
+        <p>Arma tu plan a la medida seleccionando los módulos que necesitas</p>
+    </header>
+
+    <div class="container">
+        <!-- Main Content: Modules -->
+        <main>
+
+            <div id="modules-container" class="modules-grid">
+                <!-- Modules will be injected here by JS -->
+            </div>
+        </main>
+
+        <!-- Sidebar: Configuration & Price -->
+        <aside>
+            <div class="configurator-panel">
+                <h2 class="section-title">Configuración</h2>
+
+                <!-- License Type -->
+                <div class="control-group">
+                    <label>Tipo de Licencia</label>
+                    <div class="license-options">
+                        <div class="radio-card active" data-value="saas" onclick="setLicense('saas')">SaaS (Nube)</div>
+                        <div class="radio-card" data-value="on_premise" onclick="setLicense('on_premise')">On Premise
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Billing Frequency (SaaS Only) -->
+                <div class="control-group" id="billing-frequency-group">
+                    <label>Frecuencia de Pago</label>
+                    <div class="license-options">
+                        <div class="radio-card active" id="btn-monthly" onclick="setBilling('monthly')">Mensual</div>
+                        <div class="radio-card" id="btn-annual" onclick="setBilling('annual')">Anual (-15%)</div>
+                    </div>
+                </div>
+
+                <!-- Users Slider -->
+                <div class="control-group">
+                    <label>Número de Usuarios: <span id="user-count-display">10</span></label>
+                    <div class="range-wrap">
+                        <input type="range" id="users-input" min="1" max="500" value="10"
+                            oninput="updateUsers(this.value)">
+                    </div>
+                </div>
+
+                <!-- Storage -->
+                <div class="control-group">
+                    <label>Almacenamiento (GB)</label>
+                    <input type="number" id="storage-input" value="100" min="10" step="10"
+                        onchange="updateStorage(this.value)">
+                </div>
+
+                <!-- Currency Selector -->
+                <div class="control-group">
+                    <label>Moneda</label>
+                    <div class="license-options">
+                        <div class="radio-card active" id="btn-cop" onclick="setCurrency('COP')">COP (Pesos)</div>
+                        <div class="radio-card" id="btn-usd" onclick="setCurrency('USD')">USD (Dólares)</div>
+                    </div>
+                </div>
+
+                <!-- Total -->
+                <div class="price-display">
+                    <span class="price-label" id="price-label">Precio Estimado Mensual</span>
+                    <span class="total-price" id="total-price">$0</span>
+                </div>
+
+                <a href="#" class="btn-cta">Solicitar Propuesta Formal</a>
+            </div>
+        </aside>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // UI Interaction Glue Code
+        // This connects the 'app' logic from script.js to the DOM
+
+        const modulesContainer = document.getElementById('modules-container');
+        const totalPriceEl = document.getElementById('total-price');
+        const userCountDisplay = document.getElementById('user-count-display');
+        const licenseOptions = document.querySelectorAll('.radio-card');
+
+        function renderModules() {
+            modulesContainer.innerHTML = '';
+            app.calculator.modules.forEach(module => {
+                const card = document.createElement('div');
+                card.className = `module-card ${module.selected ? 'selected' : ''}`;
+                card.onclick = () => toggleModuleUI(module.id);
+
+                card.innerHTML = `
+                    <div class="module-icon">${module.icon}</div>
+                    <div class="module-name">${module.name}</div>
+                    <div class="module-desc">${module.description}</div>
+                `;
+                modulesContainer.appendChild(card);
+            });
+        }
+
+        function toggleModuleUI(id) {
+            app.calculator.toggleModule(id);
+            renderModules();
+            updatePriceUI();
+        }
+
+        function updatePriceUI() {
+            // Update Label
+            const labelEl = document.getElementById('price-label');
+            if (app.calculator.licenseType === 'saas' && app.calculator.billingCycle === 'annual') {
+                labelEl.textContent = 'Precio Estimado Anual';
+            } else {
+                labelEl.textContent = 'Precio Estimado Mensual';
+            }
+
+            // Use the new public method for formatted string
+            totalPriceEl.textContent = app.calculator.getFormattedTotal();
+        }
+
+        window.setCurrency = function (curr) {
+            app.calculator.updateConfig('currency', curr);
+
+            // UI Toggle Logic
+            document.getElementById('btn-cop').className = `radio-card ${curr === 'COP' ? 'active' : ''}`;
+            document.getElementById('btn-usd').className = `radio-card ${curr === 'USD' ? 'active' : ''}`;
+
+            updatePriceUI();
+        }
+
+        window.setBilling = function (cycle) {
+            app.calculator.updateConfig('billingCycle', cycle);
+
+            // UI Toggle Logic
+            document.getElementById('btn-monthly').className = `radio-card ${cycle === 'monthly' ? 'active' : ''}`;
+            document.getElementById('btn-annual').className = `radio-card ${cycle === 'annual' ? 'active' : ''}`;
+
+            updatePriceUI();
+        }
+
+        // Configuration Functions exposed to HTML
+        window.setLicense = function (type) {
+            app.calculator.updateConfig('licenseType', type);
+
+            // Update UI styles
+            licenseOptions.forEach(opt => {
+                if (opt.dataset.value === type) opt.classList.add('active');
+                else opt.classList.remove('active');
+            });
+
+            // Toggle Billing Visibility
+            const billingGroup = document.getElementById('billing-frequency-group');
+            if (type === 'saas') {
+                billingGroup.style.display = 'block';
+            } else {
+                billingGroup.style.display = 'none';
+            }
+
+            updatePriceUI();
+        }
+
+        window.updateUsers = function (val) {
+            app.calculator.updateConfig('userCount', parseInt(val));
+            userCountDisplay.textContent = val;
+            updatePriceUI();
+        }
+
+        window.updateStorage = function (val) {
+            app.calculator.updateConfig('storageGB', parseInt(val));
+            updatePriceUI();
+        }
+
+        // Initial Render
+        renderModules();
+        updatePriceUI();
+
+    </script>
+</body>
+
+</html>
