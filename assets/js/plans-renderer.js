@@ -1,27 +1,35 @@
 // State
 let currentCurrency = 'COP'; 
+let billingCycle = 'monthly'; // monthly | annual
 
 /**
  * Plans Renderer
  * Generates HTML for the pricing cards based on PLANS_CONFIG.
  */
 
-function toggleCurrency(isCop) {
-    currentCurrency = isCop ? 'COP' : 'USD';
-    
-    // Update labels styling
-    const lblCop = document.getElementById('label-cop');
-    const lblUsd = document.getElementById('label-usd');
-    
-    if(isCop) {
-        lblCop.className = 'fw-bold text-primary';
-        lblUsd.className = 'fw-bold text-muted';
-    } else {
-        lblCop.className = 'fw-bold text-muted';
-        lblUsd.className = 'fw-bold text-primary';
-    }
-
+function toggleCurrency(isUsd) {
+    currentCurrency = isUsd ? 'USD' : 'COP';
+    updateLabels();
     renderPlans('plans-container-dynamic', PLANS_CONFIG);
+}
+
+function toggleBilling(isAnnual) {
+    billingCycle = isAnnual ? 'annual' : 'monthly';
+    updateLabels();
+    renderPlans('plans-container-dynamic', PLANS_CONFIG);
+}
+
+function updateLabels() {
+    // Currency Labels
+    document.getElementById('label-cop').className = `fw-bold ${currentCurrency === 'COP' ? 'text-primary' : 'text-muted'}`;
+    document.getElementById('label-usd').className = `fw-bold ${currentCurrency === 'USD' ? 'text-primary' : 'text-muted'}`;
+
+    // Billing Labels
+    const annualBadge = '<span class="badge bg-success small rounded-pill ms-1">-15%</span>';
+    document.getElementById('label-monthly').className = `fw-bold ${billingCycle === 'monthly' ? 'text-primary' : 'text-muted'}`;
+    const lblAnnual = document.getElementById('label-annual');
+    lblAnnual.className = `fw-bold ${billingCycle === 'annual' ? 'text-primary' : 'text-muted'}`;
+    lblAnnual.innerHTML = `Anual ${annualBadge}`;
 }
 
 function renderPlans(containerId, data) {
@@ -103,19 +111,26 @@ function renderPriceSection(plan, textColor) {
                  <div class="mb-4 invisible"><label class="form-label small fw-bold">&nbsp;</label><input class="form-control invisible"></div>`;
     }
     
-    // Calculate Price
+    // Config Check
+    if (typeof PRICING_CONFIG === 'undefined') {
+        console.error('PRICING_CONFIG not found.');
+        return `<h4 class="text-center fw-bold mb-4 text-danger">Error Config</h4>`;
+    }
+
+    // Base Price (Monthly USD)
     let finalPrice = plan.price;
+    let periodLabel = '/mes';
+
+    // Apply Annual Logic
+    if (billingCycle === 'annual') {
+        finalPrice = finalPrice * 12 * PRICING_CONFIG.annualSaaSMultiplier;
+        periodLabel = '/año';
+    }
+
+    // Apply Currency Logic
     let currencyLabel = 'USD';
-    
     if (currentCurrency === 'COP') {
-        // Ensure PRICING_CONFIG is loaded
-        if (typeof PRICING_CONFIG === 'undefined') {
-            console.error('PRICING_CONFIG not found. Make sure config.js is loaded.');
-            return `<h4 class="text-center fw-bold mb-4 text-danger">Error de Configuración</h4>`;
-        }
-        
-        const rate = PRICING_CONFIG.exchangeRate;
-        finalPrice = plan.price * rate;
+        finalPrice = finalPrice * PRICING_CONFIG.exchangeRate;
         currencyLabel = 'COP';
     }
 
@@ -127,9 +142,8 @@ function renderPriceSection(plan, textColor) {
         maximumFractionDigits: 0
     }).format(finalPrice);
     
-    // Standard Price with currency toggle support
     return `
-        <h4 class="text-center fw-bold mb-4 ${textColor}">Desde ${formattedPrice} ${currencyLabel}<small class="text-muted fw-normal">/mes</small></h4>
+        <h4 class="text-center fw-bold mb-4 ${textColor}">Desde ${formattedPrice} ${currencyLabel}<small class="text-muted fw-normal">${periodLabel}</small></h4>
     `;
 }
 
@@ -172,11 +186,14 @@ function getBtnClass(plan) {
 document.addEventListener('DOMContentLoaded', () => {
     // Only render if container exists
     if(document.getElementById('plans-container-dynamic')) {
-        // Ensure switch matches default state
-        const switchEl = document.getElementById('currencySwitch');
-        if(switchEl) {
-            switchEl.checked = (currentCurrency === 'COP');
-        }
+        // Bind Currency Switch (Checked = USD, Unchecked = COP)
+        const currencySwitch = document.getElementById('currencySwitch');
+        if(currencySwitch) currencySwitch.checked = (currentCurrency === 'USD');
+
+        // Bind Billing Switch (Checked = Annual, Unchecked = Monthly)
+        const billingSwitch = document.getElementById('billingSwitch');
+        if(billingSwitch) billingSwitch.checked = (billingCycle === 'annual');
+
         renderPlans('plans-container-dynamic', PLANS_CONFIG);
     }
 });

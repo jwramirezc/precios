@@ -30,14 +30,32 @@
                 <h2 class="display-4 fw-bold" style="color: var(--primary);">Planes y Precios</h2>
                 <p class="lead text-muted">Selecciona el plan ideal para escalar tu operación</p>
 
-                <!-- Currency Toggle -->
-                <div class="d-flex justify-content-center align-items-center mt-4 gap-3">
-                    <span class="fw-bold text-muted" id="label-usd">USD</span>
-                    <div class="form-check form-switch fs-4">
-                        <input class="form-check-input" type="checkbox" role="switch" id="currencySwitch" checked
-                            onchange="toggleCurrency(this.checked)">
+                <!-- Controls -->
+                <div class="d-flex flex-wrap justify-content-center align-items-center mt-4 gap-4">
+
+                    <!-- Currency Toggle -->
+                    <div class="d-flex align-items-center gap-3">
+                        <span class="fw-bold text-primary" id="label-cop">COP</span>
+                        <div class="form-check form-switch fs-4 mb-0">
+                            <input class="form-check-input" type="checkbox" role="switch" id="currencySwitch"
+                                onchange="toggleCurrency(this.checked)">
+                        </div>
+                        <span class="fw-bold text-muted" id="label-usd">USD</span>
                     </div>
-                    <span class="fw-bold text-primary" id="label-cop">COP</span>
+
+                    <div class="vr d-none d-md-block"></div>
+
+                    <!-- Billing Toggle -->
+                    <div class="d-flex align-items-center gap-3">
+                        <span class="fw-bold text-primary" id="label-monthly">Mensual</span>
+                        <div class="form-check form-switch fs-4 mb-0">
+                            <input class="form-check-input" type="checkbox" role="switch" id="billingSwitch"
+                                onchange="toggleBilling(this.checked)">
+                        </div>
+                        <span class="fw-bold text-muted" id="label-annual">Anual <span
+                                class="badge bg-success small rounded-pill ms-1">-15%</span></span>
+                    </div>
+
                 </div>
             </div>
 
