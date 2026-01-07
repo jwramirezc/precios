@@ -79,7 +79,7 @@ const PLANS_CONFIG = [
         userLimit: 'Más de 100', // Text
         highlight: false,
         features: [
-            'Licenciamiento On Premise o SaaS',
+            'Licenciamiento On Premise / SaaS',
             'Escalabilidad Ilimitada',
             'Soporte Prioritario',
             'Instancias Dedicadas'
