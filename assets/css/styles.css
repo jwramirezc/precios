@@ -62,8 +62,8 @@ header p {
     opacity: 0.9;
 }
 
-/* Main Container */
-.container {
+/* Main Container - Configurator Specific */
+#configurator-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 var(--spacing-sm);
@@ -72,8 +72,14 @@ header p {
     gap: var(--spacing-lg);
 }
 
+/* Ensure Bootstrap Container isn't messed up globally */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
 @media (max-width: 768px) {
-    .container {
+    #configurator-container {
         grid-template-columns: 1fr;
     }
 }
