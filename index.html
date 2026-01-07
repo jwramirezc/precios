@@ -4,194 +4,207 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Configurador de Precios - Sistema de Gestión</title>
+    <title>Planes y Precios - Sistema de Gestión</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="styles.css">
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 
 <body>
 
     <header>
-        <h1>Cotizador de Servicios</h1>
-        <p>Arma tu plan a la medida seleccionando los módulos que necesitas</p>
+        <h1>Sistema de Gestión</h1>
+        <p>Soluciones escalables para tu empresa</p>
     </header>
 
-    <div class="container">
-        <!-- Main Content: Modules -->
-        <main>
-
-            <div id="modules-container" class="modules-grid">
-                <!-- Modules will be injected here by JS -->
+    <!-- Plans & Pricing Section -->
+    <section id="plans-section" class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-4 fw-bold" style="color: var(--primary);">Planes y Precios</h2>
+                <p class="lead text-muted">Selecciona el plan ideal para escalar tu operación</p>
             </div>
-        </main>
 
-        <!-- Sidebar: Configuration & Price -->
-        <aside>
-            <div class="configurator-panel">
-                <h2 class="section-title">Configuración</h2>
+            <div class="row row-cols-1 row-cols-lg-3 g-4 justify-content-center">
 
-                <!-- License Type -->
-                <div class="control-group">
-                    <label>Tipo de Licencia</label>
-                    <div class="license-options">
-                        <div class="radio-card active" data-value="saas" onclick="setLicense('saas')">SaaS (Nube)</div>
-                        <div class="radio-card" data-value="on_premise" onclick="setLicense('on_premise')">On Premise
+                <!-- 1. BASIC -->
+                <div class="col">
+                    <div class="card h-100 border-0 shadow-sm rounded-4 pricing-card">
+                        <div class="card-body p-4 d-flex flex-column">
+                            <div class="mb-3 text-center">
+                                <i class="fa-solid fa-rocket fa-3x text-primary"></i>
+                            </div>
+                            <h3 class="card-title text-center fw-bold mb-3">BASIC</h3>
+                            <p class="card-text text-center text-muted small mb-4">Ideal para pequeños equipos que
+                                inician en la gestión digital.</p>
+
+                            <h4 class="text-center fw-bold mb-4">Desde $50 USD<small
+                                    class="text-muted fw-normal">/mes</small></h4>
+
+                            <div class="mb-4">
+                                <label class="form-label small fw-bold text-muted">Usuarios (Máx 5)</label>
+                                <input type="number" class="form-control" min="1" max="5" value="1">
+                            </div>
+
+                            <div class="d-grid mb-4">
+                                <button class="btn btn-primary rounded-pill py-2">Contactar Ventas</button>
+                            </div>
+
+                            <ul class="list-unstyled flex-grow-1 small">
+                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i>Correspondencia</li>
+                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i>Gestión Documental
+                                </li>
+                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i>Archivo Central</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
 
-                <!-- Billing Frequency (SaaS Only) -->
-                <div class="control-group" id="billing-frequency-group">
-                    <label>Frecuencia de Pago</label>
-                    <div class="license-options">
-                        <div class="radio-card active" id="btn-monthly" onclick="setBilling('monthly')">Mensual</div>
-                        <div class="radio-card" id="btn-annual" onclick="setBilling('annual')">Anual (-15%)</div>
+                <!-- 2. STANDARD -->
+                <div class="col">
+                    <div
+                        class="card h-100 border-primary shadow rounded-4 pricing-card position-relative overflow-hidden">
+                        <div
+                            class="position-absolute top-0 start-50 translate-middle-x bg-primary text-white px-3 py-1 rounded-bottom small fw-bold">
+                            Más Popular</div>
+                        <div class="card-body p-4 d-flex flex-column mt-3">
+                            <div class="mb-3 text-center">
+                                <i class="fa-solid fa-layer-group fa-3x text-primary"></i>
+                            </div>
+                            <h3 class="card-title text-center fw-bold mb-3">STANDARD</h3>
+                            <p class="card-text text-center text-muted small mb-4">Para empresas en crecimiento con
+                                necesidades de PQRS.</p>
+
+                            <h4 class="text-center fw-bold mb-4">Desde $150 USD<small
+                                    class="text-muted fw-normal">/mes</small></h4>
+
+                            <div class="mb-4">
+                                <label class="form-label small fw-bold text-muted">Usuarios (Máx 50)</label>
+                                <input type="number" class="form-control" min="1" max="50" value="10">
+                            </div>
+
+                            <div class="d-grid mb-4">
+                                <button class="btn btn-primary rounded-pill py-2">Contactar Ventas</button>
+                            </div>
+
+                            <ul class="list-unstyled flex-grow-1 small">
+                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i>Todo lo de Basic
+                                </li>
+                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i>Módulo PQRS</li>
+                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i>Reportes Ampliados
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Users Slider -->
-                <div class="control-group">
-                    <label>Número de Usuarios: <span id="user-count-display">10</span></label>
-                    <div class="range-wrap">
-                        <input type="range" id="users-input" min="1" max="500" value="10"
-                            oninput="updateUsers(this.value)">
+                <!-- 3. PROFESSIONAL -->
+                <div class="col">
+                    <div class="card h-100 border-0 shadow-sm rounded-4 pricing-card">
+                        <div class="card-body p-4 d-flex flex-column">
+                            <div class="mb-3 text-center">
+                                <i class="fa-solid fa-briefcase fa-3x text-primary"></i>
+                            </div>
+                            <h3 class="card-title text-center fw-bold mb-3">PROFESSIONAL</h3>
+                            <p class="card-text text-center text-muted small mb-4">Solución completa certificada con ISO
+                                9001.</p>
+
+                            <h4 class="text-center fw-bold mb-4">Desde $300 USD<small
+                                    class="text-muted fw-normal">/mes</small></h4>
+
+                            <div class="mb-4">
+                                <label class="form-label small fw-bold text-muted">Usuarios (Máx 100)</label>
+                                <input type="number" class="form-control" min="1" max="100" value="50">
+                            </div>
+
+                            <div class="d-grid mb-4">
+                                <button class="btn btn-primary rounded-pill py-2">Contactar Ventas</button>
+                            </div>
+
+                            <ul class="list-unstyled flex-grow-1 small">
+                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i>Todo lo de Standard
+                                </li>
+                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i>Mesa de Servicio
+                                </li>
+                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i>Sistema ISO
+                                    9001:2015</li>
+                                <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i>Integraciones
+                                    Avanzadas</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Storage -->
-                <div class="control-group">
-                    <label>Almacenamiento (GB)</label>
-                    <input type="number" id="storage-input" value="100" min="10" step="10"
-                        onchange="updateStorage(this.value)">
-                </div>
+                <!-- 4. ENTERPRISE -->
+                <div class="col">
+                    <div class="card h-100 border-0 shadow-sm rounded-4 pricing-card bg-white">
+                        <div class="card-body p-4 d-flex flex-column">
+                            <div class="mb-3 text-center">
+                                <i class="fa-solid fa-building fa-3x text-dark"></i>
+                            </div>
+                            <h3 class="card-title text-center fw-bold mb-3 text-dark">ENTERPRISE</h3>
+                            <p class="card-text text-center text-muted small mb-4">Infraestructura dedicada y soporte
+                                corporativo.</p>
 
-                <!-- Currency Selector -->
-                <div class="control-group">
-                    <label>Moneda</label>
-                    <div class="license-options">
-                        <div class="radio-card active" id="btn-cop" onclick="setCurrency('COP')">COP (Pesos)</div>
-                        <div class="radio-card" id="btn-usd" onclick="setCurrency('USD')">USD (Dólares)</div>
+                            <h4 class="text-center fw-bold mb-4 text-dark">Contactar</h4>
+
+                            <div class="mb-4 invisible">
+                                <!-- Placeholder for alignment -->
+                                <label class="form-label small fw-bold">&nbsp;</label>
+                                <input type="text" class="form-control invisible">
+                            </div>
+
+                            <div class="d-grid mb-4">
+                                <button class="btn btn-dark rounded-pill py-2">Contactar Ventas</button>
+                            </div>
+
+                            <ul class="list-unstyled flex-grow-1 small">
+                                <li class="mb-2"><i class="fa-solid fa-check text-dark me-2"></i>Más de 100 usuarios
+                                </li>
+                                <li class="mb-2"><i class="fa-solid fa-check text-dark me-2"></i>Escalabilidad Ilimitada
+                                </li>
+                                <li class="mb-2"><i class="fa-solid fa-check text-dark me-2"></i>Soporte Prioritario
+                                </li>
+                                <li class="mb-2"><i class="fa-solid fa-check text-dark me-2"></i>Instancias Dedicadas
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Total -->
-                <div class="price-display">
-                    <span class="price-label" id="price-label">Precio Estimado Mensual</span>
-                    <span class="total-price" id="total-price">$0</span>
+                <!-- 5. CUSTOM -->
+                <div class="col">
+                    <div class="card h-100 border-2 border-dashed shadow-sm rounded-4 pricing-card"
+                        style="border-color: var(--primary) !important; background-color: #f8f9fa;">
+                        <div class="card-body p-4 d-flex flex-column justify-content-center text-center">
+                            <div class="mb-4">
+                                <i class="fa-solid fa-sliders-h fa-4x text-primary opacity-50"></i>
+                            </div>
+                            <h3 class="card-title fw-bold mb-3">A MEDIDA</h3>
+                            <p class="card-text text-muted mb-4">Arma tu plan seleccionando módulos, usuarios y
+                                almacenamiento específico.</p>
+
+                            <div class="d-grid mt-auto">
+                                <button onclick="window.location.href='configurator.html'"
+                                    class="btn btn-outline-primary rounded-pill py-2 fw-bold">Configurar mi plan <i
+                                        class="fa-solid fa-arrow-right ms-2"></i></button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <a href="#" class="btn-cta">Solicitar Propuesta Formal</a>
             </div>
-        </aside>
-    </div>
+        </div>
+    </section>
 
-    <script src="config.js"></script>
-    <script src="script.js"></script>
-    <script>
-        // UI Interaction Glue Code
-        // This connects the 'app' logic from script.js to the DOM
-
-        const modulesContainer = document.getElementById('modules-container');
-        const totalPriceEl = document.getElementById('total-price');
-        const userCountDisplay = document.getElementById('user-count-display');
-        const licenseOptions = document.querySelectorAll('.radio-card');
-
-        function renderModules() {
-            modulesContainer.innerHTML = '';
-            app.calculator.modules.forEach(module => {
-                const card = document.createElement('div');
-                card.className = `module-card ${module.selected ? 'selected' : ''}`;
-                card.onclick = () => toggleModuleUI(module.id);
-
-                card.innerHTML = `
-                    <div class="module-icon">${module.icon}</div>
-                    <div class="module-name">${module.name}</div>
-                    <div class="module-desc">${module.description}</div>
-                `;
-                modulesContainer.appendChild(card);
-            });
-        }
-
-        function toggleModuleUI(id) {
-            app.calculator.toggleModule(id);
-            renderModules();
-            updatePriceUI();
-        }
-
-        function updatePriceUI() {
-            // Update Label
-            const labelEl = document.getElementById('price-label');
-            if (app.calculator.licenseType === 'saas' && app.calculator.billingCycle === 'annual') {
-                labelEl.textContent = 'Precio Estimado Anual';
-            } else {
-                labelEl.textContent = 'Precio Estimado Mensual';
-            }
-
-            // Use the new public method for formatted string
-            totalPriceEl.textContent = app.calculator.getFormattedTotal();
-        }
-
-        window.setCurrency = function (curr) {
-            app.calculator.updateConfig('currency', curr);
-
-            // UI Toggle Logic
-            document.getElementById('btn-cop').className = `radio-card ${curr === 'COP' ? 'active' : ''}`;
-            document.getElementById('btn-usd').className = `radio-card ${curr === 'USD' ? 'active' : ''}`;
-
-            updatePriceUI();
-        }
-
-        window.setBilling = function (cycle) {
-            app.calculator.updateConfig('billingCycle', cycle);
-
-            // UI Toggle Logic
-            document.getElementById('btn-monthly').className = `radio-card ${cycle === 'monthly' ? 'active' : ''}`;
-            document.getElementById('btn-annual').className = `radio-card ${cycle === 'annual' ? 'active' : ''}`;
-
-            updatePriceUI();
-        }
-
-        // Configuration Functions exposed to HTML
-        window.setLicense = function (type) {
-            app.calculator.updateConfig('licenseType', type);
-
-            // Update UI styles
-            licenseOptions.forEach(opt => {
-                if (opt.dataset.value === type) opt.classList.add('active');
-                else opt.classList.remove('active');
-            });
-
-            // Toggle Billing Visibility
-            const billingGroup = document.getElementById('billing-frequency-group');
-            if (type === 'saas') {
-                billingGroup.style.display = 'block';
-            } else {
-                billingGroup.style.display = 'none';
-            }
-
-            updatePriceUI();
-        }
-
-        window.updateUsers = function (val) {
-            app.calculator.updateConfig('userCount', parseInt(val));
-            userCountDisplay.textContent = val;
-            updatePriceUI();
-        }
-
-        window.updateStorage = function (val) {
-            app.calculator.updateConfig('storageGB', parseInt(val));
-            updatePriceUI();
-        }
-
-        // Initial Render
-        renderModules();
-        updatePriceUI();
-
-    </script>
+    <!-- Scripts -->
+    <script src="assets/js/main.js"></script>
 </body>
 
 </html>
