@@ -13,7 +13,7 @@ const PRICING_CONFIG = {
 };
 
 const MODULES_DATA = [
-    {
+     {
         id: 'correspondencia',
         name: 'Correspondencia',
         description: 'Centralice la correspondencia empresarial con trazabilidad completa.',
@@ -22,31 +22,68 @@ const MODULES_DATA = [
     {
         id: 'gestion_documental',
         name: 'Gestión Documental',
-        description: 'Organice, almacene y recupere documentos digitales eficientemente.',
-        icon: '<i class="fa-solid fa-file-contract"></i>'
+        description: 'Sistematice sus documentos con plantillas, flujos y trazabilidad.',
+        icon: '<i class="fa-solid fa-file-lines"></i>'
     },
     {
-        id: 'archivo_central',
-        name: 'Archivo Central y Gestión',
-        description: 'Control total de archivos físicos y cumplimiento de tablas de retención.',
-        icon: '<i class="fa-solid fa-archive"></i>'
+        id: 'archivo',
+        name: 'Archivo',
+        description: 'Gestione archivos históricos, central y gestión con ubicación y ciclo vital.',
+        icon: '<i class="fa-solid fa-box-archive"></i>'
     },
     {
-        id: 'pqrs',
-        name: 'PQRS',
-        description: 'Gestione Peticiones, Quejas, Reclamos y Sugerencias de forma ágil.',
-        icon: '<i class="fa-solid fa-comments"></i>'
-    },
-    {
-        id: 'mesa_servicio',
-        name: 'Mesa de Servicio',
-        description: 'Atención de tickets y soporte técnico interno o externo.',
+        id: 'pqr',
+        name: 'Peticiones, Quejas y Reclamos',
+        description: 'Agilice la atención al cliente con gestión sistemática de las PQR.',
         icon: '<i class="fa-solid fa-headset"></i>'
     },
     {
-        id: 'iso_9001',
+        id: 'help_desk',
+        name: 'Help Desk',
+        description: 'Resuelva incidentes con métricas y base de conocimiento integrada.',
+        icon: '<i class="fa-solid fa-life-ring"></i>'
+    },
+    {
+        id: 'iso',
         name: 'Sistema ISO 9001:2015',
-        description: 'Automatice la gestión de calidad y cumplimiento normativo.',
+        description: 'Sistematice su SGC con documentación y seguimiento integral.',
+        icon: '<i class="fa-solid fa-medal"></i>'
+    },
+    {
+        id: 'contratos',
+        name: 'Contratos',
+        description: 'Simplifique procesos contractuales con plantillas y aprobaciones digitales.',
+        icon: '<i class="fa-solid fa-file-contract"></i>'
+    },
+    {
+        id: 'historias_laborales',
+        name: 'Historias Laborales',
+        description: 'Consolide documentos del personal con gestión digital integrada.',
+        icon: '<i class="fa-solid fa-id-card"></i>'
+    },
+    {
+        id: 'cuentas_pagar',
+        name: 'Cuentas x Pagar',
+        description: 'Optimice pagos con gestión automatizada de documentos contables.',
+        icon: '<i class="fa-solid fa-file-invoice-dollar"></i>'
+    },
+    {
+        id: 'actas',
+        name: 'Actas de Reunión',
+        description: 'Documente reuniones con gestión efectiva de pendientes y responsables.',
         icon: '<i class="fa-solid fa-clipboard-check"></i>'
+    },
+    {
+        id: 'firma',
+        name: 'Firma Certificada',
+        description: 'Firme electrónicamente con respaldo normativo y seguridad.',
+        icon: '<i class="fa-solid fa-signature"></i>'
+    },
+    {
+        id: 'medida',
+        name: 'Procesos a Medida',
+        description: 'Construimos procesos a medida con parametrización especializada.',
+        icon: '<i class="fa-solid fa-gears"></i>'
     }
+    
 ];
