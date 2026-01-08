@@ -79,28 +79,7 @@ window.setBilling = function (cycle) {
     app.updatePriceUI();
 }
 
-window.setLicense = function (type) {
-    app.calculator.updateConfig('licenseType', type);
-    
-    // Update UI styles
-    const licenseOptions = document.querySelectorAll('.radio-card[data-value]');
-    licenseOptions.forEach(opt => {
-        if (opt.dataset.value === type) opt.classList.add('active');
-        else opt.classList.remove('active');
-    });
-
-    // Toggle Billing Visibility
-    const billingGroup = document.getElementById('billing-frequency-group');
-    if (billingGroup) {
-        if (type === 'saas') {
-            billingGroup.style.display = 'block';
-        } else {
-            billingGroup.style.display = 'none';
-        }
-    }
-
-    app.updatePriceUI();
-}
+// License toggle removed as per requirement (SaaS only)
 
 window.updateUsers = function (val) {
     app.calculator.updateConfig('userCount', parseInt(val));
