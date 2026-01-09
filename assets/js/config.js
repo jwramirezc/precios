@@ -39,7 +39,7 @@ const MODULES_DATA = [
     },
     {
         id: 'help_desk',
-        name: 'Help Desk',
+        name: 'Mesa de Servicio (Help Desk)',
         description: 'Resuelva incidentes con métricas y base de conocimiento integrada.',
         icon: '<i class="fa-solid fa-life-ring"></i>'
     },
