@@ -196,4 +196,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
         renderPlans('plans-container-dynamic', PLANS_CONFIG);
     }
+    
+    // Render 7 Reasons if container exists
+    if(typeof REASONS_DATA !== 'undefined' && document.getElementById('reasons-container')) {
+        renderSevenReasons('reasons-container', REASONS_DATA);
+    }
 });
+
+function renderSevenReasons(containerId, data) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    container.innerHTML = '';
+    data.forEach(item => {
+        const col = document.createElement('div');
+        col.className = 'col';
+        col.innerHTML = `
+            <div class="d-flex align-items-start gap-3">
+                <div class="text-primary fs-3"><i class="fa-solid ${item.icon}"></i></div>
+                <div>
+                    <h6 class="fw-bold mb-1">${item.title}</h6>
+                    <small class="text-muted">${item.description}</small>
+                </div>
+            </div>
+        `;
+        container.appendChild(col);
+    });
+}
