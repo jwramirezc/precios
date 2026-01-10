@@ -14,6 +14,9 @@ const COMPARISON_ITEMS = [
             { name: 'Gestión Documental', basic: true, standard: true, pro: true, enterprise: true },
             { name: 'Correspondencia', basic: true, standard: true, pro: true, enterprise: true },
             { name: 'Archivo Central', basic: true, standard: true, pro: true, enterprise: true },
+            { name: 'Creación de Plantillas', basic: 'Básicas', standard: true, pro: true, enterprise: true },
+            { name: 'Creación de Plantillas Avanzadas', basic: false, standard: false, pro: true, enterprise: true },
+            { name: 'Diseño de Flujos de Trabajo (BPM)', basic: false, standard: 'Estándar', pro: 'Avanzado', enterprise: 'A Medida' },
             { name: 'Peticiones, Quejas y Reclamos (PQR)', basic: false, standard: true, pro: true, enterprise: true },
             { name: 'Reportes y Analítica', basic: 'Básico', standard: 'Avanzado', pro: 'Avanzado', enterprise: 'Custom' },
             { name: 'Mesa de Ayuda (Help Desk)', basic: false, standard: false, pro: true, enterprise: true },
@@ -33,16 +36,19 @@ const COMPARISON_ITEMS = [
         category: 'Tecnología y Seguridad',
         features: [
             { name: 'SaaS 100% Cloud', basic: true, standard: true, pro: true, enterprise: true },
+            { name: 'Despliegue On-Premise', basic: false, standard: false, pro: false, enterprise: true },
             { name: 'Cifrado de Datos', basic: true, standard: true, pro: true, enterprise: true },
+            { name: 'Doble Factor de Autenticación (2FA)', basic: false, standard: true, pro: true, enterprise: true },
+            { name: 'Autenticación (Google / Outlook)', basic: false, standard: false, pro: true, enterprise: true },
             { name: 'Inteligencia Artificial', basic: false, standard: 'Básica', pro: 'Avanzada', enterprise: 'Avanzada + Custom' },
             { name: 'API de Integración', basic: false, standard: true, pro: true, enterprise: true },
-            { name: 'Single Sign-On (SSO)', basic: false, standard: false, pro: true, enterprise: true }
+            { name: 'Single Sign-On (SSO Corporativo)', basic: false, standard: false, pro: false, enterprise: true }
         ]
     },
     {
         category: 'Soporte y Servicio',
         features: [
-            { name: 'Soporte Técnico', basic: 'Email', standard: 'Email + Chat', pro: 'Avanzado', enterprise: 'Dedicado 24/7' },
+            { name: 'Soporte Técnico', basic: 'Email', standard: 'Email + Chat', pro: 'Avanzado', enterprise: 'Dedicado' },
             { name: 'Onboarding Asistido', basic: false, standard: true, pro: true, enterprise: true },
             { name: 'Gerente de Cuenta (CSM)', basic: false, standard: false, pro: false, enterprise: true },
             { name: 'SLA Garantizado', basic: false, standard: false, pro: '99.9%', enterprise: '99.99%' }
