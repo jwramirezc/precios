@@ -124,29 +124,54 @@ function renderPriceSection(plan, textColor) {
     // Base Price (Monthly USD)
     let finalPrice = plan.price;
     let periodLabel = '/mes';
+    let originalPrice = null; // For annual discount display
 
     // Apply Annual Logic
     if (billingCycle === 'annual') {
-        finalPrice = finalPrice * 12 * PRICING_CONFIG.annualSaaSMultiplier;
+        // Calculate original price (without discount)
+        originalPrice = plan.price * 12;
+        // Apply discount
+        finalPrice = originalPrice * PRICING_CONFIG.annualSaaSMultiplier;
         periodLabel = '/año';
     }
 
     // Apply Currency Logic
     let currencyLabel = 'USD';
     if (currentCurrency === 'COP') {
+        if (originalPrice) {
+            originalPrice = originalPrice * PRICING_CONFIG.exchangeRate;
+        }
         finalPrice = finalPrice * PRICING_CONFIG.exchangeRate;
         currencyLabel = 'COP';
     }
 
-    // Format Price
+    // Format Prices
     const formattedPrice = new Intl.NumberFormat('es-CO', {
         style: 'currency',
         currency: currentCurrency === 'COP' ? 'COP' : 'USD',
         minimumFractionDigits: 0,
         maximumFractionDigits: 0
     }).format(finalPrice);
+
+    // Format original price if annual
+    let originalPriceHTML = '';
+    if (originalPrice && billingCycle === 'annual') {
+        const formattedOriginalPrice = new Intl.NumberFormat('es-CO', {
+            style: 'currency',
+            currency: currentCurrency === 'COP' ? 'COP' : 'USD',
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0
+        }).format(originalPrice);
+        
+        originalPriceHTML = `
+            <div class="text-center mb-2">
+                <span class="text-muted text-decoration-line-through small">${formattedOriginalPrice} ${currencyLabel}</span>
+            </div>
+        `;
+    }
     
     return `
+        ${originalPriceHTML}
         <h4 class="text-center fw-bold mb-4 ${textColor}"> ${formattedPrice} ${currencyLabel}<small class="text-muted fw-normal">${periodLabel}</small></h4>
     `;
 }
