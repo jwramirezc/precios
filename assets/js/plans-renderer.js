@@ -10,13 +10,17 @@ let billingCycle = 'monthly'; // monthly | annual
 function toggleCurrency(isUsd) {
     currentCurrency = isUsd ? 'USD' : 'COP';
     updateLabels();
-    renderPlans('plans-container-dynamic', PLANS_CONFIG);
+    if (PLANS_CONFIG) {
+        renderPlans('plans-container-dynamic', PLANS_CONFIG);
+    }
 }
 
 function toggleBilling(isAnnual) {
     billingCycle = isAnnual ? 'annual' : 'monthly';
     updateLabels();
-    renderPlans('plans-container-dynamic', PLANS_CONFIG);
+    if (PLANS_CONFIG) {
+        renderPlans('plans-container-dynamic', PLANS_CONFIG);
+    }
 }
 
 function updateLabels() {
@@ -112,7 +116,7 @@ function renderPriceSection(plan, textColor) {
     }
     
     // Config Check
-    if (typeof PRICING_CONFIG === 'undefined') {
+    if (!PRICING_CONFIG) {
         console.error('PRICING_CONFIG not found.');
         return `<h4 class="text-center fw-bold mb-4 text-danger">Error Config</h4>`;
     }
@@ -182,10 +186,10 @@ function getBtnClass(plan) {
     return 'btn-primary';
 }
 
-// Initial Render
-document.addEventListener('DOMContentLoaded', () => {
-    // Only render if container exists
-    if(document.getElementById('plans-container-dynamic')) {
+// Initial Render - Wait for configs to load
+function initializePlansRenderer() {
+    // Only render if container exists and config is loaded
+    if(document.getElementById('plans-container-dynamic') && PLANS_CONFIG) {
         // Bind Currency Switch (Checked = USD, Unchecked = COP)
         const currencySwitch = document.getElementById('currencySwitch');
         if(currencySwitch) currencySwitch.checked = (currentCurrency === 'USD');
@@ -197,8 +201,23 @@ document.addEventListener('DOMContentLoaded', () => {
         renderPlans('plans-container-dynamic', PLANS_CONFIG);
     }
     
-    // Render 7 Reasons if container exists
-    if(typeof REASONS_DATA !== 'undefined' && document.getElementById('reasons-container')) {
+    // Render 7 Reasons if container exists and data is loaded
+    if(REASONS_DATA && document.getElementById('reasons-container')) {
+        renderSevenReasons('reasons-container', REASONS_DATA);
+    }
+}
+
+// Wait for plans config to load
+document.addEventListener('plansConfigLoaded', initializePlansRenderer);
+document.addEventListener('configLoaded', initializePlansRenderer);
+
+// Also try on DOMContentLoaded in case configs are already loaded
+document.addEventListener('DOMContentLoaded', () => {
+    // Check if configs are already loaded (fallback)
+    if (PLANS_CONFIG) {
+        initializePlansRenderer();
+    }
+    if (REASONS_DATA && document.getElementById('reasons-container')) {
         renderSevenReasons('reasons-container', REASONS_DATA);
     }
 });

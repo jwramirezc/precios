@@ -65,9 +65,19 @@ function renderCell(value) {
     return `<span class="fw-bold small text-dark">${value}</span>`;
 }
 
-// Initialize
-document.addEventListener('DOMContentLoaded', () => {
-    if (typeof COMPARISON_ITEMS !== 'undefined') {
+// Initialize - Wait for comparison config to load
+function initializeComparisonRenderer() {
+    if (COMPARISON_ITEMS) {
         renderComparisonTable('comparison-container', COMPARISON_ITEMS);
+    }
+}
+
+// Wait for comparison config to load
+document.addEventListener('comparisonConfigLoaded', initializeComparisonRenderer);
+
+// Also try on DOMContentLoaded in case config is already loaded
+document.addEventListener('DOMContentLoaded', () => {
+    if (COMPARISON_ITEMS) {
+        initializeComparisonRenderer();
     }
 });

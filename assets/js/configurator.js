@@ -4,9 +4,16 @@
  */
 
 const app = {
-    calculator: new PricingCalculator(PRICING_CONFIG),
+    calculator: null,
     
     init() {
+        // Wait for configs to be loaded
+        if (!PRICING_CONFIG || !MODULES_DATA) {
+            console.warn('Waiting for configuration to load...');
+            return;
+        }
+        
+        this.calculator = new PricingCalculator(PRICING_CONFIG);
         this.calculator.setModules(MODULES_DATA);
         console.log('Pricing App Initialized');
         this.renderModules();
@@ -93,7 +100,17 @@ window.updateStorage = function (val) {
     app.updatePriceUI();
 }
 
-// Initialize on Load
+// Initialize when configs are loaded
+function initializeConfigurator() {
+    if (PRICING_CONFIG && MODULES_DATA) {
+        app.init();
+    }
+}
+
+// Wait for config to load
+document.addEventListener('configLoaded', initializeConfigurator);
+
+// Also try on DOMContentLoaded in case configs are already loaded
 document.addEventListener('DOMContentLoaded', () => {
-    app.init();
+    initializeConfigurator();
 });

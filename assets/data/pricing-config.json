@@ -1,0 +1,10 @@
+{
+  "basePricePerUser": 10,
+  "saasMultiplier": 1.0,
+  "onPremiseMultiplier": 2.5,
+  "annualSaaSMultiplier": 0.85,
+  "storagePricePerGB": 0.5,
+  "moduleBasePrice": 50,
+  "exchangeRate": 3800,
+  "currency": "COP"
+}

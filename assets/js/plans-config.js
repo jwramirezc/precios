@@ -1,132 +1,38 @@
 /**
  * Plans Configuration
- * Edit this file to change prices, descriptions, or features on the landing page.
+ * Loads plans data from JSON file for easier maintenance.
+ * Edit assets/data/plans-config.json to change prices, descriptions, or features.
  */
 
-const PLANS_CONFIG = [
-    {
-        id: 'basic',
-        name: 'BASIC',
-        icon: 'fa-rocket', // FontAwesome class
-        description: 'Ideal para pequeños equipos que inician en la gestión digital.',
-        price: 50, // USD
-        userLimit: 10,
-        highlight: false, // "Más Popular" badge
-        features: [
-            'Módulo de Correspondencia',
-            'Módulo de Gestión Documental',
-            'Módulo de Archivo Central',
-            'Firmas Electrónicas Simples Ilimitadas',
-        ],
-        buttonText: 'Contactar Ventas',
-        buttonAction: 'contact', // contact | custom
-        style: 'standard' // standard | white | custom
-    },
-    {
-        id: 'standard',
-        name: 'STANDARD',
-        icon: 'fa-layer-group',
-        description: 'Para empresas en crecimiento con necesidades de PQRS.',
-        price: 150,
-        userLimit: 50,
-        highlight: true,
-        features: [
-            'Módulo de Correspondencia',
-            'Módulo de Gestión Documental',
-            'Módulo de Archivo Central',
-            'Módulo de Creación de Plantillas',
-            'Módulo de PQRS',
-            'Reportes Ampliados',
-            'Firmas Electrónicas Simples Ilimitadas',
-            '50 emails certificados por mes',
-            '50 firmas certificadas por mes',
-            'Inteligencia Artificial Básica (IA)',
-        ],
-        buttonText: 'Contactar Ventas',
-        buttonAction: 'contact',
-        style: 'standard'
-    },
-    {
-        id: 'professional',
-        name: 'PROFESSIONAL',
-        icon: 'fa-briefcase',
-        description: 'Solución completa certificada con ISO 9001.',
-        price: 300,
-        userLimit: 100,
-        highlight: false,
-        features: [
-            'Módulo de Correspondencia',
-            'Módulo de Gestión Documental',
-            'Módulo de Archivo Central',
-            'Módulo de Creación de Plantillas',
-            'Módulo de PQRS',
-            'Reportes Ampliados',
-            'Firmas Electrónicas Simples Ilimitadas',
-            '100 emails certificados por mes',
-            '100 firmas certificadas por mes',
-             'Inteligencia Artificial Básica (IA)',
-            'Inteligencia Artificial Avanzada (IA)',
-            'Módulo de Mesa de Servicio (Help Desk)',
-            'Módulo Sistema ISO 9001:2015',
-            'Módulo de Flujos de Trabajo',
-            'Integraciones Avanzadas (LDAP, API, ERP, CRM, etc.)',
+let PLANS_CONFIG = null;
 
-        ],
-        buttonText: 'Contactar Ventas',
-        buttonAction: 'contact',
-        style: 'standard'
-    },
-    {
-        id: 'enterprise',
-        name: 'ENTERPRISE',
-        icon: 'fa-building',
-        description: 'Infraestructura dedicada y soporte corporativo.',
-        price: 'Contactar', // Text instead of number
-        userLimit: 'Más de 100', // Text
-        highlight: false,
-        features: [
-            'Modelo SaaS Empresarial (Nube)',
-            'Selección libre de módulos según necesidad',
-            'Escalabilidad ilimitada en usuarios y operación',
-            'Soporte prioritario y acompañamiento especializado',
-            'Instancias dedicadas de la plataforma'
-        ],
-        buttonText: 'Contactar Ventas',
-        buttonAction: 'contact',
-        style: 'white' // bg-white text-dark styling
-    },
-    {
-        id: 'dev_custom',
-        name: 'PROCESOS A MEDIDA',
-        icon: 'fa-code-branch', // Icon representing development/branching
-        description: 'Desarrollo y adaptación de procesos específicos.',
-        price: 'Contactar',
-        userLimit: 'Usuarios según necesidad',
-        highlight: false,
-        features: [
-            'Diagnóstico de proceso',
-'Levantamiento integral de requisitos',
-'Documentación del proceso y Casos de Uso',
-'Diseño del proceso y arquitectura funcional',
-'Prototipo funcional y demostración ejecutiva',
-'Líder de proyecto asignado',
-'Soporte técnico y funcional por 12 meses'
-        ],
-        buttonText: 'Contactar Ventas',
-        buttonAction: 'contact',
-        style: 'standard'
-    },
-    {
-        id: 'custom',
-        name: 'CREA TU PLAN',
-        icon: 'fa-sliders-h',
-        description: 'Arma tu plan seleccionando módulos, usuarios y almacenamiento específico.',
-        price: null, // No price display
-        userLimit: null,
-        highlight: false,
-        features: [], // No standard feature list
-        buttonText: 'Configurar mi plan',
-        buttonAction: 'custom', // Triggers navigation
-        style: 'dashed' // Dashed border styling
+// Plans configuration loader
+const PlansConfigLoader = {
+    /**
+     * Load plans configuration from JSON file
+     */
+    async load() {
+        try {
+            const response = await fetch('assets/data/plans-config.json');
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            PLANS_CONFIG = await response.json();
+            // Dispatch event when plans config is loaded
+            document.dispatchEvent(new CustomEvent('plansConfigLoaded'));
+            return PLANS_CONFIG;
+        } catch (error) {
+            console.error('Error loading plans configuration:', error);
+            return null;
+        }
     }
-];
+};
+
+// Auto-load plans configuration when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        PlansConfigLoader.load();
+    });
+} else {
+    PlansConfigLoader.load();
+}

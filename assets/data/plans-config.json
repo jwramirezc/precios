@@ -1,0 +1,126 @@
+[
+  {
+    "id": "basic",
+    "name": "BASIC",
+    "icon": "fa-rocket",
+    "description": "Ideal para pequeños equipos que inician en la gestión digital.",
+    "price": 50,
+    "userLimit": 10,
+    "highlight": false,
+    "features": [
+      "Módulo de Correspondencia",
+      "Módulo de Gestión Documental",
+      "Módulo de Archivo Central",
+      "Firmas Electrónicas Simples Ilimitadas"
+    ],
+    "buttonText": "Contactar Ventas",
+    "buttonAction": "contact",
+    "style": "standard"
+  },
+  {
+    "id": "standard",
+    "name": "STANDARD",
+    "icon": "fa-layer-group",
+    "description": "Para empresas en crecimiento con necesidades de PQRS.",
+    "price": 150,
+    "userLimit": 50,
+    "highlight": true,
+    "features": [
+      "Módulo de Correspondencia",
+      "Módulo de Gestión Documental",
+      "Módulo de Archivo Central",
+      "Módulo de Creación de Plantillas",
+      "Módulo de PQRS",
+      "Reportes Ampliados",
+      "Firmas Electrónicas Simples Ilimitadas",
+      "50 emails certificados por mes",
+      "50 firmas certificadas por mes",
+      "Inteligencia Artificial Básica (IA)"
+    ],
+    "buttonText": "Contactar Ventas",
+    "buttonAction": "contact",
+    "style": "standard"
+  },
+  {
+    "id": "professional",
+    "name": "PROFESSIONAL",
+    "icon": "fa-briefcase",
+    "description": "Solución completa certificada con ISO 9001.",
+    "price": 300,
+    "userLimit": 100,
+    "highlight": false,
+    "features": [
+      "Módulo de Correspondencia",
+      "Módulo de Gestión Documental",
+      "Módulo de Archivo Central",
+      "Módulo de Creación de Plantillas",
+      "Módulo de PQRS",
+      "Reportes Ampliados",
+      "Firmas Electrónicas Simples Ilimitadas",
+      "100 emails certificados por mes",
+      "100 firmas certificadas por mes",
+      "Inteligencia Artificial Básica (IA)",
+      "Inteligencia Artificial Avanzada (IA)",
+      "Módulo de Mesa de Servicio (Help Desk)",
+      "Módulo Sistema ISO 9001:2015",
+      "Módulo de Flujos de Trabajo",
+      "Integraciones Avanzadas (LDAP, API, ERP, CRM, etc.)"
+    ],
+    "buttonText": "Contactar Ventas",
+    "buttonAction": "contact",
+    "style": "standard"
+  },
+  {
+    "id": "enterprise",
+    "name": "ENTERPRISE",
+    "icon": "fa-building",
+    "description": "Infraestructura dedicada y soporte corporativo.",
+    "price": "Contactar",
+    "userLimit": "Más de 100",
+    "highlight": false,
+    "features": [
+      "Modelo SaaS Empresarial (Nube)",
+      "Selección libre de módulos según necesidad",
+      "Escalabilidad ilimitada en usuarios y operación",
+      "Soporte prioritario y acompañamiento especializado",
+      "Instancias dedicadas de la plataforma"
+    ],
+    "buttonText": "Contactar Ventas",
+    "buttonAction": "contact",
+    "style": "white"
+  },
+  {
+    "id": "dev_custom",
+    "name": "PROCESOS A MEDIDA",
+    "icon": "fa-code-branch",
+    "description": "Desarrollo y adaptación de procesos específicos.",
+    "price": "Contactar",
+    "userLimit": "Usuarios según necesidad",
+    "highlight": false,
+    "features": [
+      "Diagnóstico de proceso",
+      "Levantamiento integral de requisitos",
+      "Documentación del proceso y Casos de Uso",
+      "Diseño del proceso y arquitectura funcional",
+      "Prototipo funcional y demostración ejecutiva",
+      "Líder de proyecto asignado",
+      "Soporte técnico y funcional por 12 meses"
+    ],
+    "buttonText": "Contactar Ventas",
+    "buttonAction": "contact",
+    "style": "standard"
+  },
+  {
+    "id": "custom",
+    "name": "CREA TU PLAN",
+    "icon": "fa-sliders-h",
+    "description": "Arma tu plan seleccionando módulos, usuarios y almacenamiento específico.",
+    "price": null,
+    "userLimit": null,
+    "highlight": false,
+    "features": [],
+    "buttonText": "Configurar mi plan",
+    "buttonAction": "custom",
+    "style": "dashed"
+  }
+]
