@@ -20,7 +20,10 @@ const COMPARISON_ITEMS = [
             { name: 'Peticiones, Quejas y Reclamos (PQR)', basic: false, standard: true, pro: true, enterprise: true },
             { name: 'Reportes y Analítica', basic: 'Básico', standard: 'Avanzado', pro: 'Avanzado', enterprise: 'Custom' },
             { name: 'Mesa de Ayuda (Help Desk)', basic: false, standard: false, pro: true, enterprise: true },
-            { name: 'Sistema ISO 9001', basic: false, standard: false, pro: true, enterprise: true }
+            { name: 'Sistema ISO 9001', basic: false, standard: false, pro: true, enterprise: true },
+            { name: 'Planes de Mejoramiento', basic: false, standard: false, pro: true, enterprise: true },
+            { name: 'Gestión de Riesgos', basic: false, standard: false, pro: true, enterprise: true },
+            { name: 'Auditorias de Calidad', basic: false, standard: false, pro: true, enterprise: true }
         ]
     },
     {
