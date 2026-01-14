@@ -39,7 +39,7 @@ const app = {
                 <div class="module-icon">${module.icon}</div>
                 <div class="module-name">${module.name}</div>
                 <div class="module-desc">${module.description}</div>
-                <a href="${module.url}" target="_blank" rel="noopener noreferrer" class="module-info-link" title="Más información sobre ${module.name}">
+                <a href="${module.url}" class="module-info-link" title="Más información sobre ${module.name}">
                     <i class="fa-solid fa-circle-info"></i> Más info
                 </a>
             `;
