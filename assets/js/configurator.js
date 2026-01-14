@@ -28,12 +28,20 @@ const app = {
         this.calculator.modules.forEach(module => {
             const card = document.createElement('div');
             card.className = `module-card ${module.selected ? 'selected' : ''}`;
-            card.onclick = () => this.toggleModuleUI(module.id);
+            card.onclick = (e) => {
+                // Don't toggle if clicking on the info link
+                if (!e.target.closest('.module-info-link')) {
+                    this.toggleModuleUI(module.id);
+                }
+            };
 
             card.innerHTML = `
                 <div class="module-icon">${module.icon}</div>
                 <div class="module-name">${module.name}</div>
                 <div class="module-desc">${module.description}</div>
+                <a href="${module.url}" target="_blank" rel="noopener noreferrer" class="module-info-link" title="Más información sobre ${module.name}">
+                    <i class="fa-solid fa-circle-info"></i> Más info
+                </a>
             `;
             modulesContainer.appendChild(card);
         });

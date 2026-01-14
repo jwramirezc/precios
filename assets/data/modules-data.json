@@ -3,72 +3,84 @@
     "id": "correspondencia",
     "name": "Correspondencia",
     "description": "Centralice la correspondencia empresarial con trazabilidad completa.",
-    "icon": "<i class=\"fa-solid fa-inbox\"></i>"
+    "icon": "<i class=\"fa-solid fa-inbox\"></i>",
+    "url": "https://www.saiasoftware.com/"
   },
   {
     "id": "gestion_documental",
     "name": "Gestión Documental",
     "description": "Sistematice sus documentos con plantillas, flujos y trazabilidad.",
-    "icon": "<i class=\"fa-solid fa-file-lines\"></i>"
+    "icon": "<i class=\"fa-solid fa-file-lines\"></i>",
+    "url": "https://www.saiasoftware.com/"
   },
   {
     "id": "archivo",
     "name": "Archivo",
     "description": "Gestione archivos históricos, central y gestión con ubicación y ciclo vital.",
-    "icon": "<i class=\"fa-solid fa-box-archive\"></i>"
+    "icon": "<i class=\"fa-solid fa-box-archive\"></i>",
+    "url": "https://www.saiasoftware.com/"
   },
   {
     "id": "pqr",
     "name": "Peticiones, Quejas y Reclamos",
     "description": "Agilice la atención al cliente con gestión sistemática de las PQR.",
-    "icon": "<i class=\"fa-solid fa-headset\"></i>"
+    "icon": "<i class=\"fa-solid fa-headset\"></i>",
+    "url": "https://www.saiasoftware.com/"
   },
   {
     "id": "help_desk",
     "name": "Mesa de Servicio (Help Desk)",
     "description": "Resuelva incidentes con métricas y base de conocimiento integrada.",
-    "icon": "<i class=\"fa-solid fa-life-ring\"></i>"
+    "icon": "<i class=\"fa-solid fa-life-ring\"></i>",
+    "url": "https://www.saiasoftware.com/"
   },
   {
     "id": "iso",
     "name": "Sistema ISO 9001:2015",
     "description": "Sistematice su SGC con documentación y seguimiento integral.",
-    "icon": "<i class=\"fa-solid fa-medal\"></i>"
+    "icon": "<i class=\"fa-solid fa-medal\"></i>",
+    "url": "https://www.saiasoftware.com/"
   },
   {
     "id": "contratos",
     "name": "Contratos",
     "description": "Simplifique procesos contractuales con plantillas y aprobaciones digitales.",
-    "icon": "<i class=\"fa-solid fa-file-contract\"></i>"
+    "icon": "<i class=\"fa-solid fa-file-contract\"></i>",
+    "url": "https://www.saiasoftware.com/"
   },
   {
     "id": "historias_laborales",
     "name": "Historias Laborales",
     "description": "Consolide documentos del personal con gestión digital integrada.",
-    "icon": "<i class=\"fa-solid fa-id-card\"></i>"
+    "icon": "<i class=\"fa-solid fa-id-card\"></i>",
+    "url": "https://www.saiasoftware.com/"
   },
   {
     "id": "cuentas_pagar",
     "name": "Cuentas x Pagar",
     "description": "Optimice pagos con gestión automatizada de documentos contables.",
-    "icon": "<i class=\"fa-solid fa-file-invoice-dollar\"></i>"
+    "icon": "<i class=\"fa-solid fa-file-invoice-dollar\"></i>",
+    "url": "https://www.saiasoftware.com/"
   },
   {
     "id": "actas",
     "name": "Actas de Reunión",
     "description": "Documente reuniones con gestión efectiva de pendientes y responsables.",
-    "icon": "<i class=\"fa-solid fa-clipboard-check\"></i>"
+    "icon": "<i class=\"fa-solid fa-clipboard-check\"></i>",
+    "url": "https://www.saiasoftware.com/"
   },
   {
     "id": "firma",
     "name": "Firma Certificada",
     "description": "Firme electrónicamente con respaldo normativo y seguridad.",
-    "icon": "<i class=\"fa-solid fa-signature\"></i>"
+    "icon": "<i class=\"fa-solid fa-signature\"></i>",
+    "url": "https://www.saiasoftware.com/"
   },
   {
     "id": "medida",
     "name": "Procesos a Medida",
     "description": "Construimos procesos a medida con parametrización especializada.",
-    "icon": "<i class=\"fa-solid fa-gears\"></i>"
+    "icon": "<i class=\"fa-solid fa-gears\"></i>",
+    "url": "https://www.saiasoftware.com/"
   }
 ]

@@ -11,6 +11,7 @@ class Module {
         this.name = data.name;
         this.description = data.description;
         this.icon = data.icon;
+        this.url = data.url || 'https://www.saiasoftware.com/';
         this.selected = false;
     }
 

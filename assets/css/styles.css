@@ -213,6 +213,29 @@ input[type="number"] {
     font-size: 0.9rem;
 }
 
+.module-info-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--primary);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-top: auto;
+    padding-top: 8px;
+    border-top: 1px solid var(--border-color);
+    transition: color 0.2s ease;
+}
+
+.module-info-link:hover {
+    color: var(--primary-hover);
+    text-decoration: underline;
+}
+
+.module-info-link i {
+    font-size: 0.9rem;
+}
+
 /* Price Display */
 .price-display {
     margin-top: var(--spacing-md);
