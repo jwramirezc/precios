@@ -88,7 +88,10 @@
 
                 <!-- Users Slider -->
                 <div class="control-group">
-                    <label>Número de Usuarios: <span id="user-count-display">10</span></label>
+                    <label>Número de Usuarios: <span id="user-count-display">10</span>
+                        <span class="help-icon" data-tooltip-id="numero_usuarios"
+                            aria-label="Ayuda sobre número de usuarios">?</span>
+                    </label>
                     <div class="range-wrap">
                         <input type="range" id="users-input" min="5" max="500" value="10" step="5"
                             oninput="updateUsers(this.value)">
@@ -97,7 +100,10 @@
 
                 <!-- Storage Slider -->
                 <div class="control-group">
-                    <label>Almacenamiento (GB): <span id="storage-count-display">100</span></label>
+                    <label>Almacenamiento (GB): <span id="storage-count-display">100</span>
+                        <span class="help-icon" data-tooltip-id="almacenamiento_gb"
+                            aria-label="Ayuda sobre almacenamiento">?</span>
+                    </label>
                     <div class="range-wrap">
                         <input type="range" id="storage-input" min="10" max="1000" value="100" step="10"
                             oninput="updateStorage(this.value)">
@@ -163,6 +169,7 @@
     <script src="assets/js/calculator.js"></script>
     <script src="assets/js/configurator.js"></script>
     <script src="assets/js/proposal-benefits.js"></script>
+    <script src="assets/js/tooltips.js"></script>
     <script src="assets/js/faq.js"></script>
     <script src="assets/js/main.js"></script>
 </body>
