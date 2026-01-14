@@ -530,6 +530,34 @@ input[type='number'] {
   border-radius: 50px;
 }
 
+/* Secondary CTA Button - More visible demo button */
+.btn-demo-secondary {
+  display: inline-block;
+  background-color: var(--primary);
+  color: white;
+  border: 2px solid var(--primary);
+  text-align: center;
+  padding: 12px 32px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-demo-secondary:hover {
+  background-color: var(--primary-hover);
+  border-color: var(--primary-hover);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-demo-secondary.rounded-pill {
+  border-radius: 50px;
+}
+
 /* Primary Button - Uses CSS color variables */
 .btn-primary-custom {
   display: inline-block;
@@ -849,4 +877,25 @@ input[type='number'] {
     padding: 0 var(--spacing-md) var(--spacing-md) var(--spacing-md);
     font-size: 0.95rem;
   }
+}
+
+/* Comparison Table Section Headers */
+.table-group-divider {
+  background-color: #f3f4f6 !important;
+  border-top: 2px solid var(--border-color);
+  border-bottom: 2px solid var(--border-color);
+}
+
+.table-group-divider td {
+  background-color: #f3f4f6 !important;
+  font-weight: 700 !important;
+  color: var(--dark) !important;
+  text-align: left !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.875rem;
+}
+
+.table-group-divider td:first-child {
+  padding-left: 1.5rem !important;
 }

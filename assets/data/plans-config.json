@@ -13,7 +13,7 @@
       "Módulo de Archivo Central",
       "Firmas Electrónicas Simples Ilimitadas"
     ],
-    "buttonText": "Contactar Ventas",
+    "buttonText": "Cotizar Plan Basic",
     "buttonAction": "contact",
     "style": "standard"
   },
@@ -37,7 +37,7 @@
       "50 firmas certificadas por mes",
       "Inteligencia Artificial Básica (IA)"
     ],
-    "buttonText": "Contactar Ventas",
+    "buttonText": "Cotizar Plan Standard",
     "buttonAction": "contact",
     "style": "standard"
   },
@@ -66,7 +66,7 @@
       "Módulo de Flujos de Trabajo",
       "Integraciones Avanzadas (LDAP, API, ERP, CRM, etc.)"
     ],
-    "buttonText": "Contactar Ventas",
+    "buttonText": "Cotizar Plan Professional",
     "buttonAction": "contact",
     "style": "standard"
   },
@@ -85,7 +85,7 @@
       "Soporte prioritario y acompañamiento especializado",
       "Instancias dedicadas de la plataforma"
     ],
-    "buttonText": "Contactar Ventas",
+    "buttonText": "Hablar con un asesor Enterprise",
     "buttonAction": "contact",
     "style": "white"
   },
@@ -109,7 +109,7 @@
       "Líder de proyecto asignado",
       "Soporte técnico y funcional por 12 meses"
     ],
-    "buttonText": "Contactar Ventas",
+    "buttonText": "Solicitar Propuesta de <br> Proceso a Medida",
     "buttonAction": "contact",
     "style": "standard"
   },
