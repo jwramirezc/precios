@@ -85,45 +85,160 @@ const app = {
     }
   },
 
+  /**
+   * Map modules to categories
+   */
+  getModuleCategory(moduleId) {
+    const categoryMap = {
+      // Gestión Documental
+      correspondencia: 'gestion_documental',
+      gestion_documental: 'gestion_documental',
+      archivo: 'gestion_documental',
+      // Atención y Servicio
+      pqr: 'atencion_servicio',
+      help_desk: 'atencion_servicio',
+      // Cumplimiento y Gobierno
+      iso: 'cumplimiento_gobierno',
+      contratos: 'cumplimiento_gobierno',
+      historias_laborales: 'cumplimiento_gobierno',
+      // Procesos y Operaciones
+      cuentas_pagar: 'procesos_operaciones',
+      actas: 'procesos_operaciones',
+      firma: 'procesos_operaciones',
+      // Personalización
+      medida: 'personalizacion',
+    };
+    return categoryMap[moduleId] || 'otros';
+  },
+
+  /**
+   * Get category display info
+   */
+  getCategoryInfo(categoryId) {
+    const categories = {
+      gestion_documental: {
+        name: 'Gestión Documental',
+        icon: '<i class="fa-solid fa-folder-open"></i>',
+      },
+      atencion_servicio: {
+        name: 'Atención y Servicio',
+        icon: '<i class="fa-solid fa-headset"></i>',
+      },
+      cumplimiento_gobierno: {
+        name: 'Cumplimiento y Gobierno',
+        icon: '<i class="fa-solid fa-shield-halved"></i>',
+      },
+      procesos_operaciones: {
+        name: 'Procesos y Operaciones',
+        icon: '<i class="fa-solid fa-gear"></i>',
+      },
+      personalizacion: {
+        name: 'Personalización',
+        icon: '<i class="fa-solid fa-wand-magic-sparkles"></i>',
+      },
+    };
+    return categories[categoryId] || { name: 'Otros', icon: '' };
+  },
+
   renderModules() {
     const modulesContainer = document.getElementById('modules-container');
     if (!modulesContainer) return;
 
-    modulesContainer.innerHTML = '';
+    // Group modules by category
+    const modulesByCategory = {};
     this.calculator.modules.forEach(module => {
-      const card = document.createElement('div');
-      card.className = `module-card ${module.selected ? 'selected' : ''}`;
-      card.onclick = e => {
-        // Don't toggle if clicking on the info link
-        if (!e.target.closest('.module-info-link')) {
-          this.toggleModuleUI(module.id);
-        }
-      };
-
-      const isCustomService = !module.calculable;
-
-      card.innerHTML = `
-                <div class="module-header">
-                    <div class="module-icon">${module.icon}</div>
-                    <div class="module-name">${module.name}</div>
-                </div>
-                <div class="module-desc">${module.description}</div>
-                <a href="${module.url}" class="module-info-link" title="Más información sobre ${module.name}">
-                    <i class="fa-solid fa-circle-info"></i> Más info
-                </a>
-            `;
-
-      if (isCustomService) {
-        card.classList.add('custom-service');
+      const category = this.getModuleCategory(module.id);
+      if (!modulesByCategory[category]) {
+        modulesByCategory[category] = [];
       }
-      modulesContainer.appendChild(card);
+      modulesByCategory[category].push(module);
     });
+
+    // Render category cards
+    modulesContainer.innerHTML = '';
+    Object.keys(modulesByCategory).forEach(categoryId => {
+      const categoryInfo = this.getCategoryInfo(categoryId);
+      const modules = modulesByCategory[categoryId];
+
+      const categoryCard = document.createElement('div');
+      categoryCard.className = 'module-category-card';
+
+      categoryCard.innerHTML = `
+        <div class="category-header">
+          <div class="category-icon">${categoryInfo.icon}</div>
+          <h3 class="category-title">${categoryInfo.name}</h3>
+        </div>
+        <div class="category-modules">
+          ${modules.map(module => this.renderModuleItem(module)).join('')}
+        </div>
+      `;
+
+      modulesContainer.appendChild(categoryCard);
+    });
+  },
+
+  /**
+   * Render individual module item within category
+   */
+  renderModuleItem(module) {
+    const isCustomService = !module.calculable;
+    const selectedClass = module.selected ? 'selected' : '';
+    const customServiceClass = isCustomService ? 'custom-service' : '';
+
+    return `
+      <div class="module-item ${selectedClass} ${customServiceClass}" 
+           data-module-id="${module.id}"
+           onclick="app.toggleModuleItem('${module.id}', event)">
+        <div class="module-item-header">
+          <div class="module-item-icon">${module.icon}</div>
+          <div class="module-item-name">${module.name}</div>
+          <a href="${module.url}" 
+             class="module-item-info-link" 
+             title="Más información sobre ${module.name}"
+             onclick="event.stopPropagation()">
+            <i class="fa-solid fa-circle-info"></i>
+          </a>
+        </div>
+        <div class="module-item-desc">${module.description}</div>
+      </div>
+    `;
+  },
+
+  /**
+   * Toggle module selection (called from inline onclick)
+   */
+  toggleModuleItem(moduleId, event) {
+    // Don't toggle if clicking on the info link
+    if (event && event.target.closest('.module-item-info-link')) {
+      return;
+    }
+    this.toggleModuleUI(moduleId);
   },
 
   toggleModuleUI(id) {
     this.calculator.toggleModule(id);
-    this.renderModules();
+    // Update only the affected module item instead of re-rendering all
+    this.updateModuleItemState(id);
     this.updatePriceUI();
+  },
+
+  /**
+   * Update individual module item state after toggle
+   */
+  updateModuleItemState(moduleId) {
+    const moduleElement = document.querySelector(
+      `[data-module-id="${moduleId}"]`
+    );
+    if (moduleElement) {
+      const module = this.calculator.modules.find(m => m.id === moduleId);
+      if (module) {
+        if (module.selected) {
+          moduleElement.classList.add('selected');
+        } else {
+          moduleElement.classList.remove('selected');
+        }
+      }
+    }
   },
 
   updatePriceUI() {
