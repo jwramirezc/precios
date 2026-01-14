@@ -201,13 +201,13 @@ input[type='number'] {
 }
 
 .module-card.custom-service {
-  border-color: var(--accent);
-  background-color: #d1fae5; /* Light Green Tint */
+  border-color: var(--border-color);
+  background-color: var(--card-bg);
 }
 
 .module-card.custom-service.selected {
   border-color: var(--accent);
-  background-color: #a7f3d0; /* Slightly darker green when selected */
+  background-color: #d1fae5; /* Light Green Tint when selected */
 }
 
 .module-card.custom-service.selected::after {
