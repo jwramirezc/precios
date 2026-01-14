@@ -1,6 +1,6 @@
 :root {
   /* Color Palette */
-  --primary: #0d85e8; /* Corporate Blue Corrected */
+  --primary: #0d85e8;
   --primary-hover: #0a6bc1; /* Darker version of #0d85e8 */
   --secondary: #0d85e8;
   --dark: #1f2937; /* Gray 800 */
@@ -257,14 +257,23 @@ input[type='number'] {
   font-size: 0.9rem;
 }
 
-.module-icon {
-  font-size: 2.5rem;
+.module-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   margin-bottom: 5px;
+}
+
+.module-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+  color: var(--primary);
 }
 
 .module-name {
   font-weight: 600;
   font-size: 1.1rem;
+  flex: 1;
 }
 
 .module-desc {
