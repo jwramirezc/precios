@@ -336,6 +336,102 @@ input[type='number'] {
   background-color: var(--primary-hover);
 }
 
+/* Demo Button - Uses CSS color variables */
+.btn-demo {
+  display: inline-block;
+  background-color: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+  text-align: center;
+  padding: 10px 24px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-demo:hover {
+  background-color: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.btn-demo.rounded-pill {
+  border-radius: 50px;
+}
+
+/* Primary Button - Uses CSS color variables */
+.btn-primary-custom {
+  display: inline-block;
+  background-color: var(--primary);
+  color: white;
+  border: 2px solid var(--primary);
+  text-align: center;
+  padding: 10px 24px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-primary-custom:hover {
+  background-color: var(--primary-hover);
+  border-color: var(--primary-hover);
+  color: white;
+}
+
+.btn-primary-custom.rounded-pill {
+  border-radius: 50px;
+}
+
+/* Outline Primary Button - Uses CSS color variables */
+.btn-outline-primary-custom {
+  display: inline-block;
+  background-color: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+  text-align: center;
+  padding: 10px 24px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-outline-primary-custom:hover {
+  background-color: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.btn-outline-primary-custom.rounded-pill {
+  border-radius: 50px;
+}
+
+/* Dark Button - Uses CSS color variables */
+.btn-dark-custom {
+  display: inline-block;
+  background-color: var(--dark);
+  color: white;
+  border: 2px solid var(--dark);
+  text-align: center;
+  padding: 10px 24px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-dark-custom:hover {
+  background-color: #111827;
+  border-color: #111827;
+  color: white;
+}
+
+.btn-dark-custom.rounded-pill {
+  border-radius: 50px;
+}
+
 /* Custom Switch Logic: Always "Active" Color */
 /* Custom Switch Logic: Always "Active" Color */
 .form-check-input {

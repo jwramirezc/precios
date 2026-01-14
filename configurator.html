@@ -25,15 +25,9 @@
 
     <div class="container py-5">
         <div class="text-center mb-4">
-            <a href="index.html" class="btn btn-outline-primary rounded-pill">
+            <a href="index.html" class="btn-demo rounded-pill">
                 <i class="fa-solid fa-arrow-left me-2"></i>Volver a Planes
             </a>
-            <div class="mt-3">
-                <a href="https://www.saiasoftware.com/#demo"
-                    class="btn btn-outline-primary rounded-pill px-4 py-2 fw-bold">
-                    Solicitar Demo
-                </a>
-            </div>
         </div>
     </div>
 
@@ -116,7 +110,13 @@
                     <span class="total-price" id="total-price">$0</span>
                 </div>
 
-                <a href="#" class="btn-cta" id="contact-cta">Solicitar Propuesta Formal</a>
+                <a href="#" class="btn-cta" id="contact-cta">
+                    Obtener Cotización Personalizada <br> en 24 Horas
+                </a>
+
+                <a href="#" data-link="requestDemo" class="btn-demo rounded-pill mt-3" style="width: 100%;">
+                    Solicitar Demo
+                </a>
             </div>
         </aside>
     </div>
@@ -129,12 +129,13 @@
                 <!-- FAQ items will be rendered here by JavaScript -->
             </div>
             <div class="faq-cta">
-                <p>¿No encuentras lo que buscas? <a href="#contact-cta">Contáctanos</a></p>
+                <p>¿No encuentras lo que buscas? <a href="#" data-link="contactUs">Contáctanos</a></p>
             </div>
         </div>
     </section>
 
     <!-- Scripts -->
+    <script src="assets/js/general-config.js"></script>
     <script src="assets/js/config.js"></script>
     <script src="assets/js/calculator.js"></script>
     <script src="assets/js/configurator.js"></script>

@@ -90,7 +90,7 @@ function renderPlans(containerId, data) {
                     
                     <!-- Button -->
                     <div class="d-grid mb-4 ${plan.style === 'dashed' ? 'mt-auto' : ''}">
-                        <button onclick="${getButtonAction(plan)}" class="btn ${getBtnClass(plan)} rounded-pill py-2 ${plan.style === 'dashed' ? 'fw-bold' : ''}">
+                        <button onclick="${getButtonAction(plan)}" class="${getBtnClass(plan)} rounded-pill py-2 ${plan.style === 'dashed' ? 'fw-bold' : ''}">
                             ${plan.buttonText} ${plan.style === 'dashed' ? '<i class="fa-solid fa-arrow-right ms-2"></i>' : ''}
                         </button>
                     </div>
@@ -202,13 +202,17 @@ function getButtonAction(plan) {
     if (plan.buttonAction === 'custom') {
         return "window.location.href='configurator.html'";
     }
-    return ""; // Add sales link later if needed
+    if (plan.buttonAction === 'contact') {
+        const contactUrl = GENERAL_CONFIG?.links?.contactSales || "https://www.saiasoftware.com/soporte-en-linea/";
+        return `window.location.href='${contactUrl}'`;
+    }
+    return "";
 }
 
 function getBtnClass(plan) {
-    if (plan.style === 'white') return 'btn-dark';
-    if (plan.style === 'dashed') return 'btn-outline-primary';
-    return 'btn-primary';
+    if (plan.style === 'white') return 'btn-dark-custom';
+    if (plan.style === 'dashed') return 'btn-outline-primary-custom';
+    return 'btn-primary-custom';
 }
 
 // Initial Render - Wait for configs to load
@@ -235,6 +239,7 @@ function initializePlansRenderer() {
 // Wait for plans config to load
 document.addEventListener('plansConfigLoaded', initializePlansRenderer);
 document.addEventListener('configLoaded', initializePlansRenderer);
+document.addEventListener('generalConfigLoaded', initializePlansRenderer);
 
 // Also try on DOMContentLoaded in case configs are already loaded
 document.addEventListener('DOMContentLoaded', () => {
