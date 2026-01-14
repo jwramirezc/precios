@@ -270,27 +270,38 @@ input[type='number'] {
   flex: 1;
 }
 
-.module-item-info-link {
-  color: var(--primary);
-  text-decoration: none;
-  font-size: 0.85rem;
-  opacity: 0.7;
-  transition: opacity 0.2s ease;
-  flex-shrink: 0;
-}
-
-.module-item-info-link:hover {
-  opacity: 1;
-  text-decoration: none;
-  color: var(--primary-hover);
-}
-
 .module-item-desc {
   color: var(--text-muted);
   font-size: 0.85rem;
   line-height: 1.4;
   margin-top: 4px;
   padding-left: 28px;
+  margin-bottom: 6px;
+}
+
+.module-item-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+  padding-top: 6px;
+  border-top: 1px solid var(--border-color);
+}
+
+.module-item-info-link {
+  color: var(--primary);
+  text-decoration: none;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  opacity: 0.7;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.module-item-info-link:hover {
+  opacity: 1;
+  text-decoration: none;
+  color: var(--primary-hover);
 }
 
 /* Responsive adjustments for category cards */

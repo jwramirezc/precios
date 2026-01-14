@@ -192,14 +192,16 @@ const app = {
         <div class="module-item-header">
           <div class="module-item-icon">${module.icon}</div>
           <div class="module-item-name">${module.name}</div>
+        </div>
+        <div class="module-item-desc">${module.description}</div>
+        <div class="module-item-footer">
           <a href="${module.url}" 
              class="module-item-info-link" 
              title="Más información sobre ${module.name}"
              onclick="event.stopPropagation()">
-            <i class="fa-solid fa-circle-info"></i>
+            <i class="fa-solid fa-circle-info"></i> Más info
           </a>
         </div>
-        <div class="module-item-desc">${module.description}</div>
       </div>
     `;
   },
