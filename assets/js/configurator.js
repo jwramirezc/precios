@@ -55,6 +55,9 @@ const app = {
       step: 10,
     };
     const storageInput = document.getElementById('storage-input');
+    const storageCountDisplay = document.getElementById(
+      'storage-count-display'
+    );
 
     if (storageInput) {
       storageInput.min = storageSlider.min;
@@ -64,6 +67,10 @@ const app = {
 
       // Update calculator with default value
       this.calculator.updateConfig('storageGB', storageSlider.default);
+    }
+
+    if (storageCountDisplay) {
+      storageCountDisplay.textContent = storageSlider.default;
     }
   },
 
@@ -268,6 +275,8 @@ window.updateUsers = function (val) {
 
 window.updateStorage = function (val) {
   app.calculator.updateConfig('storageGB', parseInt(val));
+  const storageCountDisplay = document.getElementById('storage-count-display');
+  if (storageCountDisplay) storageCountDisplay.textContent = val;
   app.updatePriceUI();
 };
 

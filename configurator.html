@@ -94,11 +94,13 @@
                     </div>
                 </div>
 
-                <!-- Storage -->
+                <!-- Storage Slider -->
                 <div class="control-group">
-                    <label>Almacenamiento (GB)</label>
-                    <input type="number" id="storage-input" value="100" min="10" step="10"
-                        onchange="updateStorage(this.value)">
+                    <label>Almacenamiento (GB): <span id="storage-count-display">100</span></label>
+                    <div class="range-wrap">
+                        <input type="range" id="storage-input" min="10" max="1000" value="100" step="10"
+                            oninput="updateStorage(this.value)">
+                    </div>
                 </div>
 
                 <!-- Currency Selector -->
