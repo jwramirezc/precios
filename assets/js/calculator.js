@@ -12,6 +12,9 @@ class Module {
         this.description = data.description;
         this.icon = data.icon;
         this.url = data.url || 'https://www.saiasoftware.com/';
+        this.calculable = data.calculable !== undefined ? data.calculable : true;
+        this.type = data.type || 'module';
+        this.price_behavior = data.price_behavior || 'standard';
         this.selected = false;
     }
 
@@ -57,7 +60,9 @@ class PricingCalculator {
     }
 
     calculateTotal() {
-        const selectedModulesCount = this.modules.filter(m => m.selected).length;
+        // Filter only calculable modules (exclude custom services)
+        const selectedCalculableModules = this.modules.filter(m => m.selected && m.calculable);
+        const selectedModulesCount = selectedCalculableModules.length;
         
         if (selectedModulesCount === 0) return 0;
 
