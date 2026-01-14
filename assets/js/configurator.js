@@ -17,6 +17,7 @@ const app = {
     this.calculator.setModules(MODULES_DATA);
     console.log('Pricing App Initialized');
     this.initializeUserSlider();
+    this.initializeStorageSlider();
     this.renderModules();
     this.updatePriceUI();
   },
@@ -43,6 +44,26 @@ const app = {
 
     if (userCountDisplay) {
       userCountDisplay.textContent = userSlider.default;
+    }
+  },
+
+  initializeStorageSlider() {
+    const storageSlider = PRICING_CONFIG.storageSlider || {
+      min: 10,
+      max: 1000,
+      default: 100,
+      step: 10,
+    };
+    const storageInput = document.getElementById('storage-input');
+
+    if (storageInput) {
+      storageInput.min = storageSlider.min;
+      storageInput.max = storageSlider.max;
+      storageInput.value = storageSlider.default;
+      storageInput.step = storageSlider.step;
+
+      // Update calculator with default value
+      this.calculator.updateConfig('storageGB', storageSlider.default);
     }
   },
 
