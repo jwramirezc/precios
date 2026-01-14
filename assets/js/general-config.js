@@ -22,7 +22,8 @@ async function loadGeneralConfig() {
             links: {
                 contactSales: "https://www.saiasoftware.com/soporte-en-linea/",
                 contactUs: "https://www.saiasoftware.com/soporte-en-linea/",
-                requestDemo: "https://www.saiasoftware.com/#demo"
+                requestDemo: "https://www.saiasoftware.com/#demo",
+                personalizedQuote: "https://www.saiasoftware.com/soporte-en-linea/"
             }
         };
         document.dispatchEvent(new CustomEvent('generalConfigLoaded'));
@@ -43,6 +44,11 @@ function updateLinksFromConfig() {
     // Update "Contáctanos" links
     document.querySelectorAll('a[data-link="contactUs"]').forEach(link => {
         link.href = GENERAL_CONFIG.links.contactUs;
+    });
+    
+    // Update "Obtener Cotización Personalizada" button
+    document.querySelectorAll('a[data-link="personalizedQuote"]').forEach(link => {
+        link.href = GENERAL_CONFIG.links.personalizedQuote;
     });
 }
 
