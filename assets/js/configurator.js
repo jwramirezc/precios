@@ -16,8 +16,34 @@ const app = {
     this.calculator = new PricingCalculator(PRICING_CONFIG);
     this.calculator.setModules(MODULES_DATA);
     console.log('Pricing App Initialized');
+    this.initializeUserSlider();
     this.renderModules();
     this.updatePriceUI();
+  },
+
+  initializeUserSlider() {
+    const userSlider = PRICING_CONFIG.userSlider || {
+      min: 5,
+      max: 500,
+      default: 10,
+      step: 5,
+    };
+    const usersInput = document.getElementById('users-input');
+    const userCountDisplay = document.getElementById('user-count-display');
+
+    if (usersInput) {
+      usersInput.min = userSlider.min;
+      usersInput.max = userSlider.max;
+      usersInput.value = userSlider.default;
+      usersInput.step = userSlider.step;
+
+      // Update calculator with default value
+      this.calculator.updateConfig('userCount', userSlider.default);
+    }
+
+    if (userCountDisplay) {
+      userCountDisplay.textContent = userSlider.default;
+    }
   },
 
   renderModules() {
