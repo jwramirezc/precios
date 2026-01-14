@@ -5,6 +5,7 @@
 let PRICING_CONFIG = null;
 let MODULES_DATA = null;
 let REASONS_DATA = null;
+let PROPOSAL_BENEFITS = null;
 
 // Configuration loader
 const ConfigLoader = {
@@ -13,15 +14,17 @@ const ConfigLoader = {
      */
     async loadAll() {
         try {
-            const [pricing, modules, reasons] = await Promise.all([
+            const [pricing, modules, reasons, proposalBenefits] = await Promise.all([
                 fetch('assets/data/pricing-config.json').then(r => r.json()),
                 fetch('assets/data/modules-data.json').then(r => r.json()),
-                fetch('assets/data/reasons-data.json').then(r => r.json())
+                fetch('assets/data/reasons-data.json').then(r => r.json()),
+                fetch('assets/data/proposal-benefits.json').then(r => r.json())
             ]);
 
             PRICING_CONFIG = this.calculateAnnualMultiplier(pricing);
             MODULES_DATA = modules;
             REASONS_DATA = reasons;
+            PROPOSAL_BENEFITS = proposalBenefits;
 
             // Dispatch event when all configs are loaded
             document.dispatchEvent(new CustomEvent('configLoaded'));
@@ -73,6 +76,20 @@ const ConfigLoader = {
         } catch (error) {
             console.error('Error loading reasons data:', error);
             return REASONS_DATA;
+        }
+    },
+
+    /**
+     * Load proposal benefits data
+     */
+    async loadProposalBenefits() {
+        try {
+            const response = await fetch('assets/data/proposal-benefits.json');
+            PROPOSAL_BENEFITS = await response.json();
+            return PROPOSAL_BENEFITS;
+        } catch (error) {
+            console.error('Error loading proposal benefits:', error);
+            return PROPOSAL_BENEFITS;
         }
     },
 
