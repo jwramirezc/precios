@@ -29,7 +29,8 @@ function updateLabels() {
     document.getElementById('label-usd').className = `fw-bold ${currentCurrency === 'USD' ? 'text-primary' : 'text-muted'}`;
 
     // Billing Labels
-    const annualBadge = '<span class="badge bg-success small rounded-pill ms-1">-15%</span>';
+    const annualDiscount = PRICING_CONFIG?.annualDiscountPercent || 15;
+    const annualBadge = `<span class="badge bg-success small rounded-pill ms-1">-${annualDiscount}%</span>`;
     document.getElementById('label-monthly').className = `fw-bold ${billingCycle === 'monthly' ? 'text-primary' : 'text-muted'}`;
     const lblAnnual = document.getElementById('label-annual');
     lblAnnual.className = `fw-bold ${billingCycle === 'annual' ? 'text-primary' : 'text-muted'}`;
@@ -226,6 +227,13 @@ function initializePlansRenderer() {
         // Bind Billing Switch (Checked = Annual, Unchecked = Monthly)
         const billingSwitch = document.getElementById('billingSwitch');
         if(billingSwitch) billingSwitch.checked = (billingCycle === 'annual');
+
+        // Update annual discount badge
+        const annualDiscount = PRICING_CONFIG?.annualDiscountPercent || 15;
+        const annualDiscountBadge = document.getElementById('annual-discount-badge');
+        if (annualDiscountBadge) {
+            annualDiscountBadge.textContent = `-${annualDiscount}%`;
+        }
 
         renderPlans('plans-container-dynamic', PLANS_CONFIG);
     }

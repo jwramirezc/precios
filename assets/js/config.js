@@ -19,7 +19,7 @@ const ConfigLoader = {
                 fetch('assets/data/reasons-data.json').then(r => r.json())
             ]);
 
-            PRICING_CONFIG = pricing;
+            PRICING_CONFIG = this.calculateAnnualMultiplier(pricing);
             MODULES_DATA = modules;
             REASONS_DATA = reasons;
 
@@ -38,7 +38,8 @@ const ConfigLoader = {
     async loadPricingConfig() {
         try {
             const response = await fetch('assets/data/pricing-config.json');
-            PRICING_CONFIG = await response.json();
+            const config = await response.json();
+            PRICING_CONFIG = this.calculateAnnualMultiplier(config);
             return PRICING_CONFIG;
         } catch (error) {
             console.error('Error loading pricing config:', error);
@@ -76,19 +77,34 @@ const ConfigLoader = {
     },
 
     /**
+     * Calculate annualSaaSMultiplier from annualDiscountPercent
+     */
+    calculateAnnualMultiplier(config) {
+        if (config.annualDiscountPercent !== undefined) {
+            config.annualSaaSMultiplier = 1 - (config.annualDiscountPercent / 100);
+        } else if (!config.annualSaaSMultiplier) {
+            // Fallback: if neither is defined, use 15% discount
+            config.annualDiscountPercent = 15;
+            config.annualSaaSMultiplier = 0.85;
+        }
+        return config;
+    },
+
+    /**
      * Fallback default values if JSON loading fails
      */
     loadDefaults() {
-        PRICING_CONFIG = {
+        const defaultConfig = {
             basePricePerUser: 10,
             saasMultiplier: 1.0,
             onPremiseMultiplier: 2.5,
-            annualSaaSMultiplier: 0.85,
+            annualDiscountPercent: 15,
             storagePricePerGB: 0.5,
             moduleBasePrice: 50,
             exchangeRate: 3800,
             currency: 'COP'
         };
+        PRICING_CONFIG = this.calculateAnnualMultiplier(defaultConfig);
     }
 };
 

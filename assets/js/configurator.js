@@ -16,10 +16,21 @@ const app = {
     this.calculator = new PricingCalculator(PRICING_CONFIG);
     this.calculator.setModules(MODULES_DATA);
     console.log('Pricing App Initialized');
+    this.updateAnnualDiscountLabel();
     this.initializeUserSlider();
     this.initializeStorageSlider();
     this.renderModules();
     this.updatePriceUI();
+  },
+
+  updateAnnualDiscountLabel() {
+    const annualDiscount = PRICING_CONFIG?.annualDiscountPercent || 15;
+    const annualDiscountLabel = document.getElementById(
+      'annual-discount-label'
+    );
+    if (annualDiscountLabel) {
+      annualDiscountLabel.textContent = `-${annualDiscount}%`;
+    }
   },
 
   initializeUserSlider() {
