@@ -4,77 +4,99 @@
     "name": "Correspondencia",
     "description": "Centralice la correspondencia empresarial con trazabilidad completa.",
     "icon": "<i class=\"fa-solid fa-inbox\"></i>",
-    "url": "https://www.saiasoftware.com/"
+    "url": "https://www.saiasoftware.com/",
+    "pricing_tier": "standard",
+    "category": "gestion_documental"
   },
   {
     "id": "gestion_documental",
     "name": "Gestión Documental",
     "description": "Sistematice sus documentos con plantillas, flujos y trazabilidad.",
     "icon": "<i class=\"fa-solid fa-file-lines\"></i>",
-    "url": "https://www.saiasoftware.com/"
+    "url": "https://www.saiasoftware.com/",
+    "pricing_tier": "standard",
+    "category": "gestion_documental"
   },
   {
     "id": "archivo",
     "name": "Archivo",
     "description": "Gestione archivos históricos, central y gestión con ubicación y ciclo vital.",
     "icon": "<i class=\"fa-solid fa-box-archive\"></i>",
-    "url": "https://www.saiasoftware.com/"
+    "url": "https://www.saiasoftware.com/",
+    "pricing_tier": "standard",
+    "category": "gestion_documental"
   },
   {
     "id": "pqr",
     "name": "Peticiones, Quejas y Reclamos",
     "description": "Agilice la atención al cliente con gestión sistemática de las PQR.",
     "icon": "<i class=\"fa-solid fa-headset\"></i>",
-    "url": "https://www.saiasoftware.com/"
+    "url": "https://www.saiasoftware.com/",
+    "pricing_tier": "standard",
+    "category": "atencion_servicio"
   },
   {
     "id": "help_desk",
     "name": "Mesa de Servicio (Help Desk)",
     "description": "Resuelva incidentes con métricas y base de conocimiento integrada.",
     "icon": "<i class=\"fa-solid fa-life-ring\"></i>",
-    "url": "https://www.saiasoftware.com/"
+    "url": "https://www.saiasoftware.com/",
+    "pricing_tier": "standard",
+    "category": "atencion_servicio"
   },
   {
     "id": "iso",
     "name": "Sistema ISO 9001:2015",
     "description": "Sistematice su SGC con documentación y seguimiento integral.",
     "icon": "<i class=\"fa-solid fa-medal\"></i>",
-    "url": "https://www.saiasoftware.com/"
+    "url": "https://www.saiasoftware.com/",
+    "pricing_tier": "advanced",
+    "category": "cumplimiento_gobierno"
   },
   {
     "id": "contratos",
     "name": "Contratos",
     "description": "Simplifique procesos contractuales con plantillas y aprobaciones digitales.",
     "icon": "<i class=\"fa-solid fa-file-contract\"></i>",
-    "url": "https://www.saiasoftware.com/"
+    "url": "https://www.saiasoftware.com/",
+    "pricing_tier": "advanced",
+    "category": "cumplimiento_gobierno"
   },
   {
     "id": "historias_laborales",
     "name": "Historias Laborales",
     "description": "Consolide documentos del personal con gestión digital integrada.",
     "icon": "<i class=\"fa-solid fa-id-card\"></i>",
-    "url": "https://www.saiasoftware.com/"
+    "url": "https://www.saiasoftware.com/",
+    "pricing_tier": "advanced",
+    "category": "cumplimiento_gobierno"
   },
   {
     "id": "cuentas_pagar",
     "name": "Cuentas x Pagar",
     "description": "Optimice pagos con gestión automatizada de documentos contables.",
     "icon": "<i class=\"fa-solid fa-file-invoice-dollar\"></i>",
-    "url": "https://www.saiasoftware.com/"
+    "url": "https://www.saiasoftware.com/",
+    "pricing_tier": "advanced",
+    "category": "procesos_operaciones"
   },
   {
     "id": "actas",
     "name": "Actas de Reunión",
     "description": "Documente reuniones con gestión efectiva de pendientes y responsables.",
     "icon": "<i class=\"fa-solid fa-clipboard-check\"></i>",
-    "url": "https://www.saiasoftware.com/"
+    "url": "https://www.saiasoftware.com/",
+    "pricing_tier": "advanced",
+    "category": "procesos_operaciones"
   },
   {
     "id": "firma",
     "name": "Firma Certificada",
     "description": "Firme electrónicamente con respaldo normativo y seguridad.",
     "icon": "<i class=\"fa-solid fa-signature\"></i>",
-    "url": "https://www.saiasoftware.com/"
+    "url": "https://www.saiasoftware.com/",
+    "pricing_tier": "standard",
+    "category": "procesos_operaciones"
   },
   {
     "id": "medida",
@@ -84,6 +106,7 @@
     "url": "https://www.saiasoftware.com/soporte-en-linea/",
     "calculable": false,
     "type": "service",
-    "price_behavior": "custom"
+    "price_behavior": "custom",
+    "category": "personalizacion"
   }
 ]

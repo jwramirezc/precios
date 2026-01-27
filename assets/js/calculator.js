@@ -15,6 +15,8 @@ class Module {
         this.calculable = data.calculable !== undefined ? data.calculable : true;
         this.type = data.type || 'module';
         this.price_behavior = data.price_behavior || 'standard';
+        this.pricing_tier = data.pricing_tier;
+        this.category = data.category;
         this.selected = false;
     }
 
@@ -27,6 +29,7 @@ class PricingCalculator {
     constructor(config) {
         this.config = config;
         this.modules = [];
+        this.pricingTiers = {}; // Key: tier name, Value: price
         this.userCount = 10; // Default
         this.licenseType = 'saas'; // 'saas' or 'on_premise'
         this.billingCycle = 'monthly'; // 'monthly' or 'annual'
@@ -36,6 +39,10 @@ class PricingCalculator {
 
     setModules(modulesData) {
         this.modules = modulesData.map(data => new Module(data));
+    }
+
+    setPricingTiers(pricingTiers) {
+        this.pricingTiers = pricingTiers || {};
     }
 
     getModuleById(id) {
@@ -62,6 +69,7 @@ class PricingCalculator {
     calculateTotal() {
         // Filter only calculable modules (exclude custom services)
         const selectedCalculableModules = this.modules.filter(m => m.selected && m.calculable);
+        
         const selectedModulesCount = selectedCalculableModules.length;
         
         if (selectedModulesCount === 0) return 0;
@@ -71,7 +79,17 @@ class PricingCalculator {
             : this.config.onPremiseMultiplier;
 
         // Calculations in Base Currency (USD)
-        const modulesCost = selectedModulesCount * this.config.moduleBasePrice;
+        // Calculate modules cost based on their pricing tier
+        const modulesCost = selectedCalculableModules.reduce((total, module) => {
+            let price = 0;
+            if (module.pricing_tier && this.pricingTiers[module.pricing_tier] !== undefined) {
+                price = this.pricingTiers[module.pricing_tier];
+            } else {
+                // Fallback to base price if no tier is defined or found
+                price = this.config.moduleBasePrice;
+            }
+            return total + price;
+        }, 0);
         // User Cost (Base * Users * LicenseMultiplier)
         const userCost = (this.config.basePricePerUser * this.userCount) * multiplier;
         const storageCost = this.storageGB * this.config.storagePricePerGB;

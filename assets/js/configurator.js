@@ -8,13 +8,14 @@ const app = {
 
   init() {
     // Wait for configs to be loaded
-    if (!PRICING_CONFIG || !MODULES_DATA) {
+    if (!PRICING_CONFIG || !MODULES_DATA || !MODULE_PRICING) {
       console.warn('Waiting for configuration to load...');
       return;
     }
 
     this.calculator = new PricingCalculator(PRICING_CONFIG);
     this.calculator.setModules(MODULES_DATA);
+    this.calculator.setPricingTiers(MODULE_PRICING);
     console.log('Pricing App Initialized');
     this.updateAnnualDiscountLabel();
     this.initializeUserSlider();
@@ -86,32 +87,6 @@ const app = {
   },
 
   /**
-   * Map modules to categories
-   */
-  getModuleCategory(moduleId) {
-    const categoryMap = {
-      // Gestión Documental
-      correspondencia: 'gestion_documental',
-      gestion_documental: 'gestion_documental',
-      archivo: 'gestion_documental',
-      // Atención y Servicio
-      pqr: 'atencion_servicio',
-      help_desk: 'atencion_servicio',
-      // Cumplimiento y Gobierno
-      iso: 'cumplimiento_gobierno',
-      contratos: 'cumplimiento_gobierno',
-      historias_laborales: 'cumplimiento_gobierno',
-      // Procesos y Operaciones
-      cuentas_pagar: 'procesos_operaciones',
-      actas: 'procesos_operaciones',
-      firma: 'procesos_operaciones',
-      // Personalización
-      medida: 'personalizacion',
-    };
-    return categoryMap[moduleId] || 'otros';
-  },
-
-  /**
    * Get category display info
    */
   getCategoryInfo(categoryId) {
@@ -147,7 +122,8 @@ const app = {
     // Group modules by category
     const modulesByCategory = {};
     this.calculator.modules.forEach(module => {
-      const category = this.getModuleCategory(module.id);
+      // Use category from JSON or fallback to 'otros'
+      const category = module.category || 'otros';
       if (!modulesByCategory[category]) {
         modulesByCategory[category] = [];
       }
@@ -156,6 +132,9 @@ const app = {
 
     // Render category cards
     modulesContainer.innerHTML = '';
+    
+    // Sort categories or define a specific order if needed, otherwise default order
+    // For now we iterate the keys found
     Object.keys(modulesByCategory).forEach(categoryId => {
       const categoryInfo = this.getCategoryInfo(categoryId);
       const modules = modulesByCategory[categoryId];
@@ -410,7 +389,7 @@ window.updateStorage = function (val) {
 
 // Initialize when configs are loaded
 function initializeConfigurator() {
-  if (PRICING_CONFIG && MODULES_DATA) {
+  if (PRICING_CONFIG && MODULES_DATA && MODULE_PRICING) {
     app.init();
   }
 }

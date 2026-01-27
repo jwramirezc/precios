@@ -6,6 +6,7 @@ let PRICING_CONFIG = null;
 let MODULES_DATA = null;
 let REASONS_DATA = null;
 let PROPOSAL_BENEFITS = null;
+let MODULE_PRICING = null;
 
 // Configuration loader
 const ConfigLoader = {
@@ -14,17 +15,19 @@ const ConfigLoader = {
      */
     async loadAll() {
         try {
-            const [pricing, modules, reasons, proposalBenefits] = await Promise.all([
+            const [pricing, modules, reasons, proposalBenefits, modulePricing] = await Promise.all([
                 fetch('assets/data/pricing-config.json').then(r => r.json()),
                 fetch('assets/data/modules-data.json').then(r => r.json()),
                 fetch('assets/data/reasons-data.json').then(r => r.json()),
-                fetch('assets/data/proposal-benefits.json').then(r => r.json())
+                fetch('assets/data/proposal-benefits.json').then(r => r.json()),
+                fetch('assets/data/module-pricing.json').then(r => r.json())
             ]);
 
             PRICING_CONFIG = this.calculateAnnualMultiplier(pricing);
             MODULES_DATA = modules;
             REASONS_DATA = reasons;
             PROPOSAL_BENEFITS = proposalBenefits;
+            MODULE_PRICING = modulePricing;
 
             // Dispatch event when all configs are loaded
             document.dispatchEvent(new CustomEvent('configLoaded'));

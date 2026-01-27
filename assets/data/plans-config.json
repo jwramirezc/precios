@@ -4,7 +4,7 @@
     "name": "BASIC",
     "icon": "fa-rocket",
     "description": "Ideal para pequeños equipos que inician en la gestión digital.",
-    "price": 150,
+    "price": 200,
     "userLimit": 10,
     "highlight": false,
     "features": [
