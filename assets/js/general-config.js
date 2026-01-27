@@ -12,20 +12,13 @@ async function loadGeneralConfig() {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         GENERAL_CONFIG = await response.json();
-        
+
         // Dispatch event when config is loaded
         document.dispatchEvent(new CustomEvent('generalConfigLoaded'));
     } catch (error) {
         console.error('Error loading general-config.json:', error);
         // Set default values if loading fails
-        GENERAL_CONFIG = {
-            links: {
-                contactSales: "https://www.saiasoftware.com/soporte-en-linea/",
-                contactUs: "https://www.saiasoftware.com/soporte-en-linea/",
-                requestDemo: "https://www.saiasoftware.com/#demo",
-                personalizedQuote: "https://www.saiasoftware.com/soporte-en-linea/"
-            }
-        };
+        GENERAL_CONFIG = null;
         document.dispatchEvent(new CustomEvent('generalConfigLoaded'));
     }
 }
@@ -35,17 +28,17 @@ async function loadGeneralConfig() {
  */
 function updateLinksFromConfig() {
     if (!GENERAL_CONFIG) return;
-    
+
     // Update "Solicitar Demo" buttons
     document.querySelectorAll('a[data-link="requestDemo"]').forEach(link => {
         link.href = GENERAL_CONFIG.links.requestDemo;
     });
-    
+
     // Update "Contáctanos" links
     document.querySelectorAll('a[data-link="contactUs"]').forEach(link => {
         link.href = GENERAL_CONFIG.links.contactUs;
     });
-    
+
     // Update "Obtener Cotización Personalizada" button
     document.querySelectorAll('a[data-link="personalizedQuote"]').forEach(link => {
         link.href = GENERAL_CONFIG.links.personalizedQuote;

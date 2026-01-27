@@ -30,10 +30,10 @@ class PricingCalculator {
         this.config = config;
         this.modules = [];
         this.pricingTiers = {}; // Key: tier name, Value: price
-        this.userCount = 10; // Default
+        this.userCount = config.userSlider?.default || 10;
         this.licenseType = 'saas'; // 'saas' or 'on_premise'
         this.billingCycle = 'monthly'; // 'monthly' or 'annual'
-        this.storageGB = 100; // Default
+        this.storageGB = config.storageSlider?.default || 100;
         this.additionalServices = 0; // Flat fee or similar
     }
 
@@ -62,20 +62,20 @@ class PricingCalculator {
         if (this.hasOwnProperty(key)) {
             this[key] = value;
         } else if (this.config.hasOwnProperty(key)) {
-             this.config[key] = value;
+            this.config[key] = value;
         }
     }
 
     calculateTotal() {
         // Filter only calculable modules (exclude custom services)
         const selectedCalculableModules = this.modules.filter(m => m.selected && m.calculable);
-        
+
         const selectedModulesCount = selectedCalculableModules.length;
-        
+
         if (selectedModulesCount === 0) return 0;
 
-        let multiplier = this.licenseType === 'saas' 
-            ? this.config.saasMultiplier 
+        let multiplier = this.licenseType === 'saas'
+            ? this.config.saasMultiplier
             : this.config.onPremiseMultiplier;
 
         // Calculations in Base Currency (USD)
@@ -115,7 +115,7 @@ class PricingCalculator {
     getFormattedTotal() {
         const total = this.calculateTotal();
         const currency = this.config.currency || 'COP';
-        
+
         // Formatter options
         const options = {
             style: 'currency',

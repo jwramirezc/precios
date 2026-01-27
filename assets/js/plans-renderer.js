@@ -1,5 +1,5 @@
 // State
-let currentCurrency = 'COP'; 
+let currentCurrency = 'COP';
 let billingCycle = 'monthly'; // monthly | annual
 
 /**
@@ -29,7 +29,7 @@ function updateLabels() {
     document.getElementById('label-usd').className = `fw-bold ${currentCurrency === 'USD' ? 'text-primary' : 'text-muted'}`;
 
     // Billing Labels
-    const annualDiscount = PRICING_CONFIG?.annualDiscountPercent || 15;
+    const annualDiscount = PRICING_CONFIG?.annualDiscountPercent;
     const annualBadge = `<span class="badge bg-success small rounded-pill ms-1">-${annualDiscount}%</span>`;
     document.getElementById('label-monthly').className = `fw-bold ${billingCycle === 'monthly' ? 'text-primary' : 'text-muted'}`;
     const lblAnnual = document.getElementById('label-annual');
@@ -49,26 +49,26 @@ function renderPlans(containerId, data) {
     data.forEach(plan => {
         const col = document.createElement('div');
         col.className = 'col';
-        
+
         // --- Card Styles & Badge ---
         let cardClass = 'card h-100 shadow-sm rounded-4 pricing-card';
         let badgeHTML = '';
         let borderStyle = 'border-0';
         let iconColor = 'text-primary';
         let textColor = ''; // Default
-        
+
         if (plan.highlight) {
             borderStyle = 'border-primary shadow position-relative overflow-hidden';
             badgeHTML = `<div class="position-absolute top-0 start-50 translate-middle-x bg-primary text-white px-3 py-1 rounded-bottom small fw-bold">Más Popular</div>`;
         }
-        
+
         if (plan.style === 'white') {
             cardClass += ' bg-white';
             iconColor = 'text-dark';
             textColor = 'text-dark';
         } else if (plan.style === 'dashed') {
             borderStyle = 'border-2 border-dashed';
-            cardClass = `card h-100 shadow-sm rounded-4 pricing-card`; 
+            cardClass = `card h-100 shadow-sm rounded-4 pricing-card`;
         }
 
         col.innerHTML = `
@@ -102,20 +102,20 @@ function renderPlans(containerId, data) {
                 </div>
             </div>
         `;
-        
+
         container.appendChild(col);
     });
 }
 
 function renderPriceSection(plan, textColor) {
     if (plan.style === 'dashed') return '';
-    
+
     if (typeof plan.price === 'string') {
-         // Case: "Contactar"
-         return `<h4 class="text-center fw-bold mb-4 ${textColor}">${plan.price}</h4>
+        // Case: "Contactar"
+        return `<h4 class="text-center fw-bold mb-4 ${textColor}">${plan.price}</h4>
                  <div class="mb-4 invisible"><label class="form-label small fw-bold">&nbsp;</label><input class="form-control invisible"></div>`;
     }
-    
+
     // Config Check
     if (!PRICING_CONFIG) {
         console.error('PRICING_CONFIG not found.');
@@ -163,14 +163,14 @@ function renderPriceSection(plan, textColor) {
             minimumFractionDigits: 0,
             maximumFractionDigits: 0
         }).format(originalPrice);
-        
+
         originalPriceHTML = `
             <div class="text-center mb-2">
                 <span class="text-muted text-decoration-line-through small">${formattedOriginalPrice} ${currencyLabel}</span>
             </div>
         `;
     }
-    
+
     return `
         ${originalPriceHTML}
         <h4 class="text-center fw-bold mb-4 ${textColor}"> ${formattedPrice} ${currencyLabel}<small class="text-muted fw-normal">${periodLabel}</small></h4>
@@ -179,22 +179,22 @@ function renderPriceSection(plan, textColor) {
 
 function renderFeatureList(plan, iconColor) {
     if (plan.style === 'dashed' || (!plan.features.length && !plan.userLimit)) return '';
-    
+
     let html = `<ul class="list-unstyled flex-grow-1 small">`;
-    
+
     // User Limit Item
     if (plan.userLimit) {
         let text = typeof plan.userLimit === 'number' ? `Hasta ${plan.userLimit} usuarios` : `${plan.userLimit}`;
-        if(typeof plan.userLimit === 'string' && plan.userLimit.includes('Más')) text = `${plan.userLimit} usuarios`; 
-        
+        if (typeof plan.userLimit === 'string' && plan.userLimit.includes('Más')) text = `${plan.userLimit} usuarios`;
+
         html += `<li class="mb-2 fw-bold"><i class="fa-solid fa-users ${iconColor} me-2"></i>${text}</li>`;
     }
-    
+
     // Other Features
     plan.features.forEach(feat => {
         html += `<li class="mb-2"><i class="fa-solid fa-check ${iconColor === 'text-dark' ? 'text-dark' : 'text-success'} me-2"></i>${feat}</li>`;
     });
-    
+
     html += `</ul>`;
     return html;
 }
@@ -204,7 +204,8 @@ function getButtonAction(plan) {
         return "window.location.href='configurator.html'";
     }
     if (plan.buttonAction === 'contact') {
-        const contactUrl = GENERAL_CONFIG?.links?.contactSales || "https://www.saiasoftware.com/soporte-en-linea/";
+        const contactUrl = GENERAL_CONFIG?.links?.contactSales;
+        if (!contactUrl) return "";
         return `window.location.href='${contactUrl}'`;
     }
     return "";
@@ -219,17 +220,17 @@ function getBtnClass(plan) {
 // Initial Render - Wait for configs to load
 function initializePlansRenderer() {
     // Only render if container exists and config is loaded
-    if(document.getElementById('plans-container-dynamic') && PLANS_CONFIG) {
+    if (document.getElementById('plans-container-dynamic') && PLANS_CONFIG) {
         // Bind Currency Switch (Checked = USD, Unchecked = COP)
         const currencySwitch = document.getElementById('currencySwitch');
-        if(currencySwitch) currencySwitch.checked = (currentCurrency === 'USD');
+        if (currencySwitch) currencySwitch.checked = (currentCurrency === 'USD');
 
         // Bind Billing Switch (Checked = Annual, Unchecked = Monthly)
         const billingSwitch = document.getElementById('billingSwitch');
-        if(billingSwitch) billingSwitch.checked = (billingCycle === 'annual');
+        if (billingSwitch) billingSwitch.checked = (billingCycle === 'annual');
 
         // Update annual discount badge
-        const annualDiscount = PRICING_CONFIG?.annualDiscountPercent || 15;
+        const annualDiscount = PRICING_CONFIG?.annualDiscountPercent;
         const annualDiscountBadge = document.getElementById('annual-discount-badge');
         if (annualDiscountBadge) {
             annualDiscountBadge.textContent = `-${annualDiscount}%`;
@@ -237,9 +238,9 @@ function initializePlansRenderer() {
 
         renderPlans('plans-container-dynamic', PLANS_CONFIG);
     }
-    
+
     // Render 7 Reasons if container exists and data is loaded
-    if(REASONS_DATA && document.getElementById('reasons-container')) {
+    if (REASONS_DATA && document.getElementById('reasons-container')) {
         renderSevenReasons('reasons-container', REASONS_DATA);
     }
 }

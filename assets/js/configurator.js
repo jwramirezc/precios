@@ -25,22 +25,22 @@ const app = {
   },
 
   updateAnnualDiscountLabel() {
-    const annualDiscount = PRICING_CONFIG?.annualDiscountPercent || 15;
+    const annualDiscount = PRICING_CONFIG?.annualDiscountPercent;
     const annualDiscountLabel = document.getElementById(
       'annual-discount-label'
     );
-    if (annualDiscountLabel) {
+    if (annualDiscountLabel && annualDiscount !== undefined) {
       annualDiscountLabel.textContent = `-${annualDiscount}%`;
     }
   },
 
   initializeUserSlider() {
-    const userSlider = PRICING_CONFIG.userSlider || {
-      min: 5,
-      max: 500,
-      default: 10,
-      step: 5,
-    };
+    const userSlider = PRICING_CONFIG.userSlider;
+    if (!userSlider) {
+      console.error('Missing userSlider configuration in pricing-config.json');
+      return;
+    }
+
     const usersInput = document.getElementById('users-input');
     const userCountDisplay = document.getElementById('user-count-display');
 
@@ -60,12 +60,12 @@ const app = {
   },
 
   initializeStorageSlider() {
-    const storageSlider = PRICING_CONFIG.storageSlider || {
-      min: 10,
-      max: 1000,
-      default: 100,
-      step: 10,
-    };
+    const storageSlider = PRICING_CONFIG.storageSlider;
+    if (!storageSlider) {
+      console.error('Missing storageSlider configuration in pricing-config.json');
+      return;
+    }
+
     const storageInput = document.getElementById('storage-input');
     const storageCountDisplay = document.getElementById(
       'storage-count-display'
@@ -132,7 +132,7 @@ const app = {
 
     // Render category cards
     modulesContainer.innerHTML = '';
-    
+
     // Sort categories or define a specific order if needed, otherwise default order
     // For now we iterate the keys found
     Object.keys(modulesByCategory).forEach(categoryId => {
@@ -347,12 +347,10 @@ window.setCurrency = function (curr) {
   app.calculator.updateConfig('currency', curr);
 
   // UI Toggle Logic
-  document.getElementById('btn-cop').className = `radio-card ${
-    curr === 'COP' ? 'active' : ''
-  }`;
-  document.getElementById('btn-usd').className = `radio-card ${
-    curr === 'USD' ? 'active' : ''
-  }`;
+  document.getElementById('btn-cop').className = `radio-card ${curr === 'COP' ? 'active' : ''
+    }`;
+  document.getElementById('btn-usd').className = `radio-card ${curr === 'USD' ? 'active' : ''
+    }`;
 
   app.updatePriceUI();
 };
@@ -361,12 +359,10 @@ window.setBilling = function (cycle) {
   app.calculator.updateConfig('billingCycle', cycle);
 
   // UI Toggle Logic
-  document.getElementById('btn-monthly').className = `radio-card ${
-    cycle === 'monthly' ? 'active' : ''
-  }`;
-  document.getElementById('btn-annual').className = `radio-card ${
-    cycle === 'annual' ? 'active' : ''
-  }`;
+  document.getElementById('btn-monthly').className = `radio-card ${cycle === 'monthly' ? 'active' : ''
+    }`;
+  document.getElementById('btn-annual').className = `radio-card ${cycle === 'annual' ? 'active' : ''
+    }`;
 
   app.updatePriceUI();
 };

@@ -10,15 +10,15 @@ function renderProposalBenefits(containerId, isConfigurator = false) {
         return;
     }
 
-    const title = PROPOSAL_BENEFITS.title || '¿Qué incluye tu propuesta formal?';
-    const items = PROPOSAL_BENEFITS.items || [];
+    const title = PROPOSAL_BENEFITS.title;
+    const items = PROPOSAL_BENEFITS.items;
 
     // Determine CSS classes based on context
-    const titleClass = isConfigurator 
-        ? 'section-title small mb-3 text-center' 
+    const titleClass = isConfigurator
+        ? 'section-title small mb-3 text-center'
         : 'fw-bold mb-3 text-center';
-    const listClass = isConfigurator 
-        ? 'list-unstyled mb-0 small' 
+    const listClass = isConfigurator
+        ? 'list-unstyled mb-0 small'
         : 'list-unstyled mb-0';
 
     const html = `

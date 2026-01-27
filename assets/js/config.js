@@ -114,17 +114,8 @@ const ConfigLoader = {
      * Fallback default values if JSON loading fails
      */
     loadDefaults() {
-        const defaultConfig = {
-            basePricePerUser: 10,
-            saasMultiplier: 1.0,
-            onPremiseMultiplier: 2.5,
-            annualDiscountPercent: 15,
-            storagePricePerGB: 0.5,
-            moduleBasePrice: 50,
-            exchangeRate: 3800,
-            currency: 'COP'
-        };
-        PRICING_CONFIG = this.calculateAnnualMultiplier(defaultConfig);
+        console.error('Critical Error: Configuration could not be loaded from JSON files. Use assets/data/*.json to configure the application.');
+        PRICING_CONFIG = null;
     }
 };
 
