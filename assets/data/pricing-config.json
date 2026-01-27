@@ -5,7 +5,7 @@
   "annualDiscountPercent": 15,
   "storagePricePerGB": 0.5,
   "moduleBasePrice": 50,
-  "exchangeRate": 3800,
+  "exchangeRate": 4000,
   "currency": "COP",
   "userSlider": {
     "min": 5,

@@ -4,7 +4,7 @@
     "name": "BASIC",
     "icon": "fa-rocket",
     "description": "Ideal para pequeños equipos que inician en la gestión digital.",
-    "price": 50,
+    "price": 150,
     "userLimit": 10,
     "highlight": false,
     "features": [
@@ -22,7 +22,7 @@
     "name": "STANDARD",
     "icon": "fa-layer-group",
     "description": "Para empresas en crecimiento con necesidades de PQRS.",
-    "price": 150,
+    "price": 750,
     "userLimit": 50,
     "highlight": true,
     "features": [
@@ -46,7 +46,7 @@
     "name": "PROFESSIONAL",
     "icon": "fa-briefcase",
     "description": "Solución completa certificada con ISO 9001.",
-    "price": 300,
+    "price": 2000,
     "userLimit": 100,
     "highlight": false,
     "features": [
