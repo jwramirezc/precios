@@ -22,14 +22,28 @@
    * Usar solo scrollHeight (altura real del contenido).
    * Evitar offsetHeight para que el tamaño del iframe no influya en el cálculo
    * y no se produzca bucle: iframe crece → body/html se estiran → reportamos más → iframe crece...
+   * En configurator el grid + sticky sidebar pueden inflar scrollHeight; usamos el final de #faq.
    */
   function getHeight() {
     var doc = document.documentElement;
     var body = document.body;
-    return Math.max(
+    var scrollHeight = Math.max(
       doc.scrollHeight,
       body ? body.scrollHeight : 0
     );
+
+    /* configurator.html: limitar a la base real del contenido para evitar espacio en blanco.
+       El grid + aside sticky a veces hace que scrollHeight sea mayor que lo visible. */
+    var configurator = document.getElementById('configurator-container');
+    var faq = document.getElementById('faq');
+    if (configurator && faq) {
+      var scrollTop = window.pageYOffset || doc.scrollTop || 0;
+      var contentBottom = Math.ceil(faq.getBoundingClientRect().bottom + scrollTop);
+      var buffer = 24;
+      return Math.min(scrollHeight, contentBottom + buffer);
+    }
+
+    return scrollHeight;
   }
 
   function sendHeight() {
