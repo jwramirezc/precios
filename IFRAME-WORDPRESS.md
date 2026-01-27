@@ -28,7 +28,7 @@ Usa un contenedor y el iframe con **sin scroll interno** y **100% de ancho**:
 
 ### JavaScript en WordPress (recibir altura y actualizar iframe)
 
-Añade este script en la página que contiene el iframe (o en el tema/plugin), una sola vez por página:
+Cada página (index.html, comparison.html, configurator.html) calcula y envía **solo la altura de su propio contenido**. Es importante **aplicar siempre la altura de cada mensaje**: cuando el iframe cambie de página (p. ej. de index a configurator), llegará un nuevo mensaje con la altura de esa página y el iframe debe actualizarse.
 
 ```javascript
 (function () {
@@ -36,8 +36,10 @@ Añade este script en la página que contiene el iframe (o en el tema/plugin), u
   if (!iframe) return;
 
   function onMessage(event) {
-    if (event.data && event.data.type === 'iframe-resize' && typeof event.data.height === 'number') {
-      iframe.style.height = event.data.height + 'px';
+    var d = event.data;
+    if (d && d.type === 'iframe-resize' && typeof d.height === 'number') {
+      iframe.style.height = d.height + 'px';
+      // d.source (ej. "index.html", "configurator.html") indica qué página envió la altura
     }
   }
 
