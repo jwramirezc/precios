@@ -910,3 +910,12 @@ input[type='number'] {
 .table-group-divider td:first-child {
   padding-left: 1.5rem !important;
 }
+
+/* --- Opcional: cuando la página se muestra dentro de un iframe (WordPress, etc.) --- */
+.inside-iframe {
+  overflow-x: hidden;
+}
+.inside-iframe body {
+  overflow-x: hidden;
+  min-height: 100%;
+}
