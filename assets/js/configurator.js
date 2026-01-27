@@ -239,9 +239,9 @@ const app = {
     // Update Label
     const isAnnual = this.calculator.billingCycle === 'annual';
     if (isAnnual) {
-      labelEl.textContent = 'Precio Desde (Anual)';
+      labelEl.textContent = 'Precio Estimado (Anual)';
     } else {
-      labelEl.textContent = 'Precio Desde (Mensual)';
+      labelEl.textContent = 'Precio Estimado (Mensual)';
     }
 
     // Get Breakdown
@@ -283,9 +283,16 @@ const app = {
                 <span>Usuarios (${this.calculator.userCount}):</span>
                 <span>${formatMoney(breakdown.userCost)}</span>
             </div>
-            <div class="d-flex justify-content-between mb-1">
-                <span>Módulos:</span>
-                <span>${formatMoney(breakdown.modulesCost)}</span>
+            <div class="mb-1">
+                <div class="d-flex justify-content-between">
+                    <span>Módulos (${this.calculator.getSelectedModules().length} seleccionados):</span>
+                    <span>${formatMoney(breakdown.modulesCost)}</span>
+                </div>
+                ${this.calculator.getSelectedModules().length > 0 ?
+          `<div class="text-muted ms-2" style="font-size: 0.85em; list-style-type: none;">
+                        Incluye: ${this.calculator.getSelectedModules().map(m => m.name).slice(0, 3).join(', ')}${this.calculator.getSelectedModules().length > 3 ? '...' : ''}
+                    </div>` : ''
+        }
             </div>
             <div class="d-flex justify-content-between mb-1">
                 <span>Almacenamiento (${this.calculator.storageGB} GB):</span>
