@@ -1,17 +1,47 @@
 /**
  * iframe-resizer.js
- * Envía la altura del documento al parent (WordPress) por postMessage para evitar doble scroll.
- * Cada página (index, comparison, configurator) calcula y envía solo la altura de su propio contenido.
- * Solo se ejecuta cuando la página está dentro de un iframe.
+ * - Coloca la página al inicio al cargar (index, comparison, configurator).
+ * - En iframe: envía altura al parent y pide que el parent también muestre el inicio.
  */
 (function () {
   'use strict';
+
+  /** Al cargar cualquier página (iframe o no), ir al inicio para no quedar "en la mitad". */
+  function scrollToTop() {
+    try {
+      if (typeof window.history !== 'undefined' && window.history.scrollRestoration) {
+        window.history.scrollRestoration = 'manual';
+      }
+      window.scrollTo(0, 0);
+      if (document.documentElement) document.documentElement.scrollTop = 0;
+      if (document.body) document.body.scrollTop = 0;
+    } catch (e) {}
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', scrollToTop);
+  } else {
+    scrollToTop();
+  }
+  window.addEventListener('load', scrollToTop);
 
   if (window.self === window.top) {
     return;
   }
 
   document.documentElement.classList.add('inside-iframe');
+
+  /** Pedir al parent (WordPress) que muestre el inicio del iframe al cargar esta página. */
+  function askParentToScrollToTop() {
+    try {
+      window.parent.postMessage({ type: 'iframe-scroll-to-top' }, '*');
+    } catch (e) {}
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', askParentToScrollToTop);
+  } else {
+    askParentToScrollToTop();
+  }
+  window.addEventListener('load', askParentToScrollToTop);
 
   var DEBOUNCE_MS = 200;
   var MESSAGE_TYPE = 'iframe-resize';

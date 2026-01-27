@@ -26,9 +26,9 @@ Usa un contenedor y el iframe con **sin scroll interno** y **100% de ancho**:
 - `width: 100%`: el iframe ocupa todo el ancho del contenedor.
 - La altura inicial (`800px` o la que quieras) se irá actualizando por JavaScript.
 
-### JavaScript en WordPress (recibir altura y actualizar iframe)
+### JavaScript en WordPress (recibir altura y posicionar al inicio)
 
-Cada página (index.html, comparison.html, configurator.html) calcula y envía **solo la altura de su propio contenido**. Es importante **aplicar siempre la altura de cada mensaje**: cuando el iframe cambie de página (p. ej. de index a configurator), llegará un nuevo mensaje con la altura de esa página y el iframe debe actualizarse.
+Cada página (index.html, comparison.html, configurator.html) calcula y envía **solo la altura de su propio contenido**. Al cargar o al navegar a otra de esas páginas, la app pide al parent que **muestre el inicio del iframe** (`iframe-scroll-to-top`) para no quedar “en la mitad”.
 
 ```javascript
 (function () {
@@ -37,9 +37,13 @@ Cada página (index.html, comparison.html, configurator.html) calcula y envía *
 
   function onMessage(event) {
     var d = event.data;
-    if (d && d.type === 'iframe-resize' && typeof d.height === 'number') {
+    if (!d) return;
+
+    if (d.type === 'iframe-resize' && typeof d.height === 'number') {
       iframe.style.height = d.height + 'px';
-      // d.source (ej. "index.html", "configurator.html") indica qué página envió la altura
+    }
+    if (d.type === 'iframe-scroll-to-top') {
+      iframe.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }
 
@@ -47,15 +51,20 @@ Cada página (index.html, comparison.html, configurator.html) calcula y envía *
 })();
 ```
 
-Para más seguridad, comprueba el origen antes de aplicar la altura:
+Para más seguridad, comprueba el origen antes de aplicar altura o scroll:
 
 ```javascript
 var ALLOWED_ORIGIN = 'https://tu-dominio.com'; // Origen donde está la app
 
 function onMessage(event) {
   if (event.origin !== ALLOWED_ORIGIN) return;
-  if (event.data && event.data.type === 'iframe-resize' && typeof event.data.height === 'number') {
-    iframe.style.height = event.data.height + 'px';
+  var d = event.data;
+  if (!d) return;
+  if (d.type === 'iframe-resize' && typeof d.height === 'number') {
+    iframe.style.height = d.height + 'px';
+  }
+  if (d.type === 'iframe-scroll-to-top') {
+    iframe.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 }
 ```
