@@ -906,5 +906,6 @@ input[type='number'] {
 }
 .inside-iframe body {
   overflow-x: hidden;
-  min-height: 100%;
+  /* No usar min-height: 100%: hace que body = altura del iframe y el script
+     reportaría esa altura de nuevo, creando espacio blanco y rebotes al hacer scroll. */
 }
