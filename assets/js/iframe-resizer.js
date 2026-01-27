@@ -54,7 +54,20 @@
   } else {
     sendHeight();
   }
-  window.addEventListener('load', sendHeight);
+  window.addEventListener('load', function () {
+    sendHeight();
+    /* En configurator los módulos se inyectan tras el fetch (configLoaded).
+       Recálculos retardados para capturar contenido que se renderiza después. */
+    setTimeout(sendHeight, 400);
+    setTimeout(sendHeight, 1000);
+  });
+
+  /* configurator.html: los módulos y el resto del contenido se dibujan después de configLoaded.
+     Recalcular en el siguiente tick para que el DOM ya esté actualizado. */
+  document.addEventListener('configLoaded', function () {
+    setTimeout(sendHeight, 0);
+    setTimeout(sendHeight, 300);
+  });
 
   /* resize: reenviar altura cuando cambie el tamaño (debounce) */
   window.addEventListener('resize', onResize);
