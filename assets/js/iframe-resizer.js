@@ -1,14 +1,14 @@
 /**
  * iframe-resizer.js
  * Envía la altura del documento al parent (WordPress) por postMessage para evitar doble scroll.
+ * Cada página (index, comparison, configurator) calcula y envía solo la altura de su propio contenido.
  * Solo se ejecuta cuando la página está dentro de un iframe.
- * Uso: cargar como último script antes de </body>.
  */
 (function () {
   'use strict';
 
   if (window.self === window.top) {
-    return; /* No estamos en un iframe: no hacer nada */
+    return;
   }
 
   document.documentElement.classList.add('inside-iframe');
@@ -18,11 +18,18 @@
   var resizeTimer = null;
   var lastSentHeight = 0;
 
+  /** Identificador de esta página para que el parent sepa qué URL envió la altura */
+  function getPageSource() {
+    return (typeof window.location !== 'undefined' && window.location.pathname)
+      ? window.location.pathname.replace(/^\//, '') || window.location.href
+      : '';
+  }
+
   /**
-   * Usar solo scrollHeight (altura real del contenido).
-   * Evitar offsetHeight para que el tamaño del iframe no influya en el cálculo
-   * y no se produzca bucle: iframe crece → body/html se estiran → reportamos más → iframe crece...
-   * En configurator el grid + sticky sidebar pueden inflar scrollHeight; usamos el final de #faq.
+   * Calcula la altura del contenido de *esta* página.
+   * - index.html: scrollHeight del documento.
+   * - configurator.html: hasta el final de #faq (evita hueco por grid + sticky).
+   * - comparison.html: hasta el final de #faq por consistencia.
    */
   function getHeight() {
     var doc = document.documentElement;
@@ -32,17 +39,23 @@
       body ? body.scrollHeight : 0
     );
 
-    /* configurator.html: limitar a la base real del contenido para evitar espacio en blanco.
-       El grid + aside sticky a veces hace que scrollHeight sea mayor que lo visible. */
-    var configurator = document.getElementById('configurator-container');
     var faq = document.getElementById('faq');
-    if (configurator && faq) {
-      var scrollTop = window.pageYOffset || doc.scrollTop || 0;
+    var scrollTop = window.pageYOffset || doc.scrollTop || 0;
+    var buffer = 24;
+
+    /* configurator.html: limitar al final real del contenido */
+    if (document.getElementById('configurator-container') && faq) {
       var contentBottom = Math.ceil(faq.getBoundingClientRect().bottom + scrollTop);
-      var buffer = 24;
       return Math.min(scrollHeight, contentBottom + buffer);
     }
 
+    /* comparison.html: igual, usar final de #faq por si hay desfase */
+    if (document.getElementById('comparison-container') && faq) {
+      var bottom = Math.ceil(faq.getBoundingClientRect().bottom + scrollTop);
+      return Math.min(scrollHeight, bottom + buffer);
+    }
+
+    /* index.html y resto: altura total del documento */
     return scrollHeight;
   }
 
@@ -51,10 +64,12 @@
     if (height === lastSentHeight) return;
     lastSentHeight = height;
     try {
-      window.parent.postMessage({ type: MESSAGE_TYPE, height: height }, '*');
-    } catch (e) {
-      /* postMessage fallido (ej. cross-origin): ignorar sin romper la página */
-    }
+      window.parent.postMessage({
+        type: MESSAGE_TYPE,
+        height: height,
+        source: getPageSource()
+      }, '*');
+    } catch (e) {}
   }
 
   function onResize() {
@@ -62,37 +77,32 @@
     resizeTimer = setTimeout(sendHeight, DEBOUNCE_MS);
   }
 
-  /* load: enviar altura al cargar la página */
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', sendHeight);
-  } else {
+  /** Varios envíos en el tiempo para que cada HTML reporte su propia altura tras contenido dinámico */
+  function scheduleRecalcForThisPage() {
     sendHeight();
-  }
-  window.addEventListener('load', function () {
-    sendHeight();
-    /* En configurator los módulos se inyectan tras el fetch (configLoaded).
-       Recálculos retardados para capturar contenido que se renderiza después. */
+    setTimeout(sendHeight, 100);
     setTimeout(sendHeight, 400);
-    setTimeout(sendHeight, 1000);
-  });
+    setTimeout(sendHeight, 800);
+    setTimeout(sendHeight, 1200);
+  }
 
-  /* configurator.html: los módulos y el resto del contenido se dibujan después de configLoaded.
-     Recalcular en el siguiente tick para que el DOM ya esté actualizado. */
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', scheduleRecalcForThisPage);
+  } else {
+    scheduleRecalcForThisPage();
+  }
+  window.addEventListener('load', scheduleRecalcForThisPage);
+
+  /* configurator: los módulos se pintan después de configLoaded */
   document.addEventListener('configLoaded', function () {
     setTimeout(sendHeight, 0);
     setTimeout(sendHeight, 300);
   });
 
-  /* resize: reenviar altura cuando cambie el tamaño (debounce) */
   window.addEventListener('resize', onResize);
 
-  /* Recalcular cuando se añadan/quiten nodos (contenido dinámico). Sin attributes
-     para evitar que cambios de estilo al redimensionar generen bucles. */
   if (typeof MutationObserver !== 'undefined' && document.body) {
     var observer = new MutationObserver(onResize);
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true
-    });
+    observer.observe(document.body, { childList: true, subtree: true });
   }
 })();
