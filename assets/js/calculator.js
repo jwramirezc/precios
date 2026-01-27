@@ -31,10 +31,14 @@ class PricingCalculator {
         this.modules = [];
         this.pricingTiers = {}; // Key: tier name, Value: price
         this.userCount = config.userSlider?.default || 10;
-        this.licenseType = 'saas'; // 'saas' or 'on_premise'
+        this.licenseType = 'saas'; // Always 'saas'
         this.billingCycle = 'monthly'; // 'monthly' or 'annual'
         this.storageGB = config.storageSlider?.default || 100;
-        this.additionalServices = 0; // Flat fee or similar
+
+        // Enterprise Flags (can be toggled via updateConfig)
+        this.isEnterprise = false;
+        this.isDedicated = false;
+        this.isCompliance = false;
     }
 
     setModules(modulesData) {
@@ -59,64 +63,137 @@ class PricingCalculator {
     }
 
     updateConfig(key, value) {
+        // Handle enterprise flags directly
+        if (['isEnterprise', 'isDedicated', 'isCompliance'].includes(key)) {
+            this[key] = !!value;
+            return;
+        }
+
         if (this.hasOwnProperty(key)) {
             this[key] = value;
         } else if (this.config.hasOwnProperty(key)) {
+            // Caution: modifying shared config might affect other components, 
+            // but here it's arguably local state management if keys match.
             this.config[key] = value;
         }
     }
 
-    calculateTotal() {
-        // Filter only calculable modules (exclude custom services)
+    /**
+     * Calculate cost for users using progressive tiers
+     */
+    calculateUserCost() {
+        let remainingUsers = this.userCount;
+        let totalUserCost = 0;
+        const tiers = this.config.usersPricing || [];
+
+        // Sort tiers just in case
+        const sortedTiers = [...tiers].sort((a, b) => a.upTo - b.upTo);
+
+        let previousLimit = 0;
+
+        for (const tier of sortedTiers) {
+            if (remainingUsers <= 0) break;
+
+            const tierSpan = tier.upTo - previousLimit;
+            const usersInThisTier = Math.min(remainingUsers, tierSpan);
+
+            totalUserCost += usersInThisTier * tier.pricePerUser;
+
+            remainingUsers -= usersInThisTier;
+            previousLimit = tier.upTo;
+        }
+
+        // Handle overflow if users exceed max defined tier (fallback to lowest price)
+        if (remainingUsers > 0 && sortedTiers.length > 0) {
+            const lastTierPrice = sortedTiers[sortedTiers.length - 1].pricePerUser;
+            totalUserCost += remainingUsers * lastTierPrice;
+        }
+
+        return totalUserCost;
+    }
+
+    calculateModulesCost() {
         const selectedCalculableModules = this.modules.filter(m => m.selected && m.calculable);
-
-        const selectedModulesCount = selectedCalculableModules.length;
-
-        if (selectedModulesCount === 0) return 0;
-
-        let multiplier = this.licenseType === 'saas'
-            ? this.config.saasMultiplier
-            : this.config.onPremiseMultiplier;
-
-        // Calculations in Base Currency (USD)
-        // Calculate modules cost based on their pricing tier
-        const modulesCost = selectedCalculableModules.reduce((total, module) => {
+        return selectedCalculableModules.reduce((total, module) => {
             let price = 0;
+            // Look up price by pricing_tier key in the pricingTiers object (module-pricing.json)
             if (module.pricing_tier && this.pricingTiers[module.pricing_tier] !== undefined) {
                 price = this.pricingTiers[module.pricing_tier];
             } else {
-                // Fallback to base price if no tier is defined or found
-                price = this.config.moduleBasePrice;
+                console.warn(`Price not found for tier: ${module.pricing_tier} in module ${module.name}`);
             }
             return total + price;
         }, 0);
-        // User Cost (Base * Users * LicenseMultiplier)
-        const userCost = (this.config.basePricePerUser * this.userCount) * multiplier;
-        const storageCost = this.storageGB * this.config.storagePricePerGB;
+    }
 
-        let totalUSD = modulesCost + userCost + storageCost + this.additionalServices;
+    calculateStorageCost() {
+        const pricePerGB = this.config.storagePricing?.pricePerGB || 0;
+        const includedGB = this.config.storagePricing?.includedGB || 0;
+        const billableGB = Math.max(0, this.storageGB - includedGB);
+        return billableGB * pricePerGB;
+    }
 
-        // Apply Annual Discount if SaaS and Annual
-        if (this.licenseType === 'saas' && this.billingCycle === 'annual') {
-            // Apply discount to the monthly total
-            totalUSD *= this.config.annualSaaSMultiplier;
-            // Then multiply by 12 for the full year
-            totalUSD *= 12;
+    getSzaasMultiplier() {
+        let multiplier = 1.0;
+        const multipliers = this.config.saasMultipliers || {};
+
+        if (this.isEnterprise) multiplier *= (multipliers.enterprise || 1.3);
+        if (this.isDedicated) multiplier *= (multipliers.dedicatedInstance || 1.5);
+        if (this.isCompliance) multiplier *= (multipliers.compliance || 1.2);
+
+        return multiplier;
+    }
+
+    /**
+     * Returns a detailed breakdown of costs in USD (Monthly)
+     */
+    calculateBreakdown() {
+        const userCost = this.calculateUserCost();
+        const modulesCost = this.calculateModulesCost();
+        const storageCost = this.calculateStorageCost();
+        const subtotal = userCost + modulesCost + storageCost;
+
+        const multiplier = this.getSzaasMultiplier();
+        const totalMonthlyUSD = subtotal * multiplier;
+
+        return {
+            userCost,
+            modulesCost,
+            storageCost,
+            subtotal,
+            multiplier,
+            totalMonthlyUSD
+        };
+    }
+
+    calculateTotal() {
+        const breakdown = this.calculateBreakdown();
+        let total = breakdown.totalMonthlyUSD;
+
+        // Apply Annual Discount if applicable
+        if (this.billingCycle === 'annual') {
+            const discountPercent = this.config.annualDiscountPercent || 0;
+            const discountMultiplier = 1 - (discountPercent / 100);
+
+            // Apply annual discount to the monthly rate
+            total *= discountMultiplier;
+
+            // Total Annual Price
+            total *= 12;
         }
 
-        // Convert if Currency is COP
+        // Convert currency
         if (this.config.currency === 'COP') {
-            return totalUSD * this.config.exchangeRate;
+            total *= (this.config.exchangeRate || 4000);
         }
 
-        return totalUSD;
+        return total;
     }
 
     getFormattedTotal() {
         const total = this.calculateTotal();
         const currency = this.config.currency || 'COP';
 
-        // Formatter options
         const options = {
             style: 'currency',
             currency: currency === 'COP' ? 'COP' : 'USD',

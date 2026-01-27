@@ -1,5 +1,5 @@
 {
-  "standard": 20,
-  "advanced": 35,
-  "premium": 50
+  "core": 150,
+  "advanced": 750,
+  "enterprise": 5000
 }

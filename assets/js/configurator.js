@@ -224,7 +224,6 @@ const app = {
 
   updatePriceUI() {
     const totalPriceEl = document.getElementById('total-price');
-    const userCountDisplay = document.getElementById('user-count-display');
     const labelEl = document.getElementById('price-label');
     const originalPriceContainer = document.getElementById(
       'original-price-container'
@@ -238,44 +237,88 @@ const app = {
     if (!totalPriceEl) return;
 
     // Update Label
-    const isAnnual =
-      this.calculator.licenseType === 'saas' &&
-      this.calculator.billingCycle === 'annual';
+    const isAnnual = this.calculator.billingCycle === 'annual';
     if (isAnnual) {
-      labelEl.textContent = 'Precio Estimado Anual';
+      labelEl.textContent = 'Precio Desde (Anual)';
     } else {
-      labelEl.textContent = 'Precio Estimado Mensual';
+      labelEl.textContent = 'Precio Desde (Mensual)';
     }
+
+    // Get Breakdown
+    const breakdown = this.calculator.calculateBreakdown();
+    const currency = this.calculator.config.currency || 'COP';
+    const exchangeRate = this.calculator.config.exchangeRate || 4000;
+    const isCOP = currency === 'COP';
+
+    // Helper format function
+    const formatMoney = (amountUSD) => {
+      let val = amountUSD;
+      if (isCOP) val *= exchangeRate;
+      const opts = { style: 'currency', currency: isCOP ? 'COP' : 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 };
+      if (!isCOP) { opts.minimumFractionDigits = 2; opts.maximumFractionDigits = 2; }
+      return new Intl.NumberFormat('es-CO', opts).format(val);
+    };
+
+    // Render Breakdown (Optional: insert into DOM if container exists, otherwise just log or simple display)
+    // Assuming we want to show it in the UI, let's look for a container or create one.
+    // Ideally user would have asked to create a breakdown container, but I will append it before total if possible
+    // or just rely on total. The user prompt asked to "Mostrar breakdown".
+
+    // Let's create a breakdown HTML string and inject it into a new container if it doesn't exist
+    let breakdownContainer = document.getElementById('price-breakdown');
+    if (!breakdownContainer) {
+      // Find where to insert it. Usually before total price.
+      const totalContainer = totalPriceEl.parentElement;
+      breakdownContainer = document.createElement('div');
+      breakdownContainer.id = 'price-breakdown';
+      breakdownContainer.className = 'mb-3 small text-muted';
+      if (totalContainer && totalContainer.parentElement) {
+        totalContainer.parentElement.insertBefore(breakdownContainer, totalContainer);
+      }
+    }
+
+    if (breakdownContainer) {
+      breakdownContainer.innerHTML = `
+            <div class="d-flex justify-content-between mb-1">
+                <span>Usuarios (${this.calculator.userCount}):</span>
+                <span>${formatMoney(breakdown.userCost)}</span>
+            </div>
+            <div class="d-flex justify-content-between mb-1">
+                <span>Módulos:</span>
+                <span>${formatMoney(breakdown.modulesCost)}</span>
+            </div>
+            <div class="d-flex justify-content-between mb-1">
+                <span>Almacenamiento (${this.calculator.storageGB} GB):</span>
+                <span>
+                    ${breakdown.storageCost === 0 ? '<span class="badge bg-success text-white">Incluido</span>' : formatMoney(breakdown.storageCost)}
+                </span>
+            </div>
+            ${breakdown.multiplier > 1.0 ?
+          `<div class="d-flex justify-content-between mb-1 text-warning">
+                    <span>Multiplicador Enterprise:</span>
+                    <span>x${breakdown.multiplier.toFixed(1)}</span>
+                 </div>` : ''
+        }
+            <div class="border-bottom my-2"></div>
+        `;
+    }
+
 
     // Calculate and show original price if annual
     if (isAnnual && originalPriceContainer && originalPriceEl) {
       // Calculate original price (without discount)
-      const originalTotal = this.calculateOriginalAnnualPrice();
-      const currency = this.calculator.config.currency || 'COP';
+      // Original Annual = Monthly * 12
+      // The breakdown calculates monthly USD. 
+      // Annual WITHOUT discount is just breakdown.totalMonthlyUSD * 12
 
-      const options = {
-        style: 'currency',
-        currency: currency === 'COP' ? 'COP' : 'USD',
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0,
-      };
-
-      if (currency === 'USD') {
-        options.minimumFractionDigits = 2;
-        options.maximumFractionDigits = 2;
-      }
-
-      const formattedOriginalPrice = new Intl.NumberFormat(
-        'es-CO',
-        options
-      ).format(originalTotal);
-      originalPriceEl.textContent = formattedOriginalPrice;
+      const originalTotalUSD = breakdown.totalMonthlyUSD * 12;
+      originalPriceEl.textContent = formatMoney(originalTotalUSD);
       originalPriceContainer.style.display = 'block';
     } else if (originalPriceContainer) {
       originalPriceContainer.style.display = 'none';
     }
 
-    // Update Custom Services Summary
+    // Update Custom Services Summary (Keep existing logic)
     const selectedCustomServices = this.calculator.modules.filter(
       m => m.selected && !m.calculable
     );
@@ -298,7 +341,7 @@ const app = {
       customServicesSummary.style.display = 'none';
     }
 
-    // Update Price
+    // Update Total Price
     totalPriceEl.textContent = this.calculator.getFormattedTotal();
   },
 

@@ -5,16 +5,16 @@
     "description": "Centralice la correspondencia empresarial con trazabilidad completa.",
     "icon": "<i class=\"fa-solid fa-inbox\"></i>",
     "url": "https://www.saiasoftware.com/",
-    "pricing_tier": "standard",
+    "pricing_tier": "core",
     "category": "gestion_documental"
   },
   {
     "id": "gestion_documental",
-    "name": "Gestión Documental",
+    "name": "Gestión Documental + Workflows",
     "description": "Sistematice sus documentos con plantillas, flujos y trazabilidad.",
     "icon": "<i class=\"fa-solid fa-file-lines\"></i>",
     "url": "https://www.saiasoftware.com/",
-    "pricing_tier": "standard",
+    "pricing_tier": "advanced",
     "category": "gestion_documental"
   },
   {
@@ -23,7 +23,7 @@
     "description": "Gestione archivos históricos, central y gestión con ubicación y ciclo vital.",
     "icon": "<i class=\"fa-solid fa-box-archive\"></i>",
     "url": "https://www.saiasoftware.com/",
-    "pricing_tier": "standard",
+    "pricing_tier": "core",
     "category": "gestion_documental"
   },
   {
@@ -32,7 +32,7 @@
     "description": "Agilice la atención al cliente con gestión sistemática de las PQR.",
     "icon": "<i class=\"fa-solid fa-headset\"></i>",
     "url": "https://www.saiasoftware.com/",
-    "pricing_tier": "standard",
+    "pricing_tier": "advanced",
     "category": "atencion_servicio"
   },
   {
@@ -41,7 +41,7 @@
     "description": "Resuelva incidentes con métricas y base de conocimiento integrada.",
     "icon": "<i class=\"fa-solid fa-life-ring\"></i>",
     "url": "https://www.saiasoftware.com/",
-    "pricing_tier": "standard",
+    "pricing_tier": "advanced",
     "category": "atencion_servicio"
   },
   {
@@ -50,7 +50,7 @@
     "description": "Sistematice su SGC con documentación y seguimiento integral.",
     "icon": "<i class=\"fa-solid fa-medal\"></i>",
     "url": "https://www.saiasoftware.com/",
-    "pricing_tier": "advanced",
+    "pricing_tier": "enterprise",
     "category": "cumplimiento_gobierno"
   },
   {
@@ -86,7 +86,7 @@
     "description": "Documente reuniones con gestión efectiva de pendientes y responsables.",
     "icon": "<i class=\"fa-solid fa-clipboard-check\"></i>",
     "url": "https://www.saiasoftware.com/",
-    "pricing_tier": "advanced",
+    "pricing_tier": "core",
     "category": "procesos_operaciones"
   },
   {
@@ -95,7 +95,7 @@
     "description": "Firme electrónicamente con respaldo normativo y seguridad.",
     "icon": "<i class=\"fa-solid fa-signature\"></i>",
     "url": "https://www.saiasoftware.com/",
-    "pricing_tier": "standard",
+    "pricing_tier": "core",
     "category": "procesos_operaciones"
   },
   {
