@@ -9,7 +9,11 @@
   ],
   "storagePricing": {
     "includedGB": 100,
-    "pricePerGB": 5
+    "tiers": [
+      { "upTo": 500, "pricePerGB": 4 },
+      { "upTo": 2000, "pricePerGB": 3 },
+      { "upTo": 999999, "pricePerGB": 2 }
+    ]
   },
   "saasMultipliers": {
     "enterprise": 1.3,
@@ -25,7 +29,7 @@
   "userSlider": {
     "min": 5,
     "max": 500,
-    "default": 0,
+    "default": 5,
     "step": 5
   },
   "storageSlider": {

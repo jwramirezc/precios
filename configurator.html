@@ -93,8 +93,8 @@
                 <!-- Users Slider -->
                 <div class="control-group">
                     <label>Número de Usuarios: <span id="user-count-display">10</span>
-                        <span class="help-icon" data-tooltip-id="numero_usuarios"
-                            aria-label="Ayuda sobre número de usuarios">?</span>
+                        <i class="fa-solid fa-circle-info text-primary ms-1" style="cursor: pointer;"
+                            data-tooltip-id="numero_usuarios" aria-label="Ayuda sobre número de usuarios"></i>
                     </label>
                     <div class="range-wrap">
                         <input type="range" id="users-input" min="5" max="500" value="10" step="5"
@@ -105,12 +105,16 @@
                 <!-- Storage Slider -->
                 <div class="control-group">
                     <label>Almacenamiento (GB): <span id="storage-count-display">100</span>
-                        <span class="help-icon" data-tooltip-id="almacenamiento_gb"
-                            aria-label="Ayuda sobre almacenamiento">?</span>
+                        <i class="fa-solid fa-circle-info text-primary ms-1" style="cursor: pointer;"
+                            data-tooltip-id="almacenamiento_gb" aria-label="Ayuda sobre almacenamiento"></i>
                     </label>
                     <div class="range-wrap">
                         <input type="range" id="storage-input" min="10" max="1000" value="100" step="10"
                             oninput="updateStorage(this.value)">
+                    </div>
+                    <div class="d-flex justify-content-between mt-1 text-muted" style="font-size: 0.75rem;">
+                        <span>Incluye 100 GB sin costo</span>
+                        <span>Descuentos por volumen</span>
                     </div>
                 </div>
 
@@ -131,11 +135,33 @@
 
                 <!-- Total -->
                 <div class="price-display">
-                    <span class="price-label" id="price-label">Precio Estimado Mensual</span>
+                    <span class="price-label" id="price-label">Precio Estimado (Mensual)</span>
                     <div id="original-price-container" style="display: none;" class="mb-2">
                         <span class="text-muted text-decoration-line-through small" id="original-price">$0</span>
                     </div>
                     <span class="total-price" id="total-price">$0</span>
+
+                    <div class="pricing-breakdown">
+                        <h6 class="fw-bold text-muted small mt-4 mb-2">DISTRIBUCIÓN DEL PRECIO ESTIMADO</h6>
+                        <div class="breakdown-bars">
+                            <div class="bar users" id="barUsers" style="width: 0%">
+                                <span>Usuarios</span>
+                                <span id="usersPercent">0%</span>
+                            </div>
+                            <div class="bar modules" id="barModules" style="width: 0%">
+                                <span>Módulos</span>
+                                <span id="modulesPercent">0%</span>
+                            </div>
+                            <div class="bar storage" id="barStorage" style="width: 0%">
+                                <span>Almacenamiento</span>
+                                <span id="storagePercent">0%</span>
+                            </div>
+                        </div>
+                        <p class="breakdown-note text-muted small mt-2">
+                            Este desglose muestra cómo se distribuye el precio estimado.
+                            La cotización formal puede incluir descuentos por volumen y optimizaciones técnicas.
+                        </p>
+                    </div>
                 </div>
 
                 <a href="#" class="btn-cta" id="contact-cta" data-link="personalizedQuote">

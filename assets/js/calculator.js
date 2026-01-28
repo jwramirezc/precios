@@ -127,10 +127,67 @@ class PricingCalculator {
     }
 
     calculateStorageCost() {
-        const pricePerGB = this.config.storagePricing?.pricePerGB || 0;
+        // Get config values
         const includedGB = this.config.storagePricing?.includedGB || 0;
-        const billableGB = Math.max(0, this.storageGB - includedGB);
-        return billableGB * pricePerGB;
+        const tiers = this.config.storagePricing?.tiers || [];
+
+        // Calculate billable GB
+        let remainingGB = Math.max(0, this.storageGB - includedGB);
+
+        // If no tiers defined, fallback to old linear logic if pricePerGB exists (backward compatibility)
+        if (!tiers.length) {
+            const pricePerGB = this.config.storagePricing?.pricePerGB || 0;
+            return remainingGB * pricePerGB;
+        }
+
+        let totalStorageCost = 0;
+        // Sort tiers just in case
+        const sortedTiers = [...tiers].sort((a, b) => a.upTo - b.upTo);
+
+        // Logic for progressive storage calculation
+        // Note: storage tiers are USUALLY defined relative to the *billable* amount in this request context?
+        // OR relative to absolute? 
+        // Request says: "0-100 GB: gratis", "101-500 GB: $4". 
+        // This implies the tier "upTo: 500" covers the range from 0 (billable) to 400 (billable) effectively?
+        // NO, wait. The request says "tiers: [{upTo: 500}]". 
+        // If I have 600 total GB: 100 included. 500 billable.
+        // If the tiers are applied to "billableGB":
+        // Tier 1 (upTo 500) covers first 500 billable GB.
+        // Tier 2 covers next etc.
+        //
+        // Let's assume tiers apply to the BILLABLE amount.
+        // Tiers: upTo 500, upTo 2000.
+        // If I have 600GB total. 100 Included. Billable = 500.
+        // Billable 500 fits entirely in first tier (upTo 500). cost = 500 * 4 = 2000.
+        //
+        // If I have 2100GB total. 100 Included. Billable = 2000.
+        // First 500 billable @ 4 = 2000.
+        // Next 1500 billable (upTo 2000 tier coverage) @ 3 = 4500.
+        // Total = 6500.
+        //
+        // This matches the "Progressive" model requested.
+
+        let previousLimit = 0;
+
+        for (const tier of sortedTiers) {
+            if (remainingGB <= 0) break;
+
+            const tierSpan = tier.upTo - previousLimit;
+            const gbInThisTier = Math.min(remainingGB, tierSpan);
+
+            totalStorageCost += gbInThisTier * tier.pricePerGB;
+
+            remainingGB -= gbInThisTier;
+            previousLimit = tier.upTo;
+        }
+
+        // Handle overflow if GBs exceed max defined tier (fallback to lowest price)
+        if (remainingGB > 0 && sortedTiers.length > 0) {
+            const lastTierPrice = sortedTiers[sortedTiers.length - 1].pricePerGB;
+            totalStorageCost += remainingGB * lastTierPrice;
+        }
+
+        return totalStorageCost;
     }
 
     getSzaasMultiplier() {
