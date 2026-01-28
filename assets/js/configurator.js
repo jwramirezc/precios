@@ -353,36 +353,6 @@ const app = {
 
     // Update Total Price
     totalPriceEl.textContent = this.calculator.getFormattedTotal();
-
-    // Update Breakdown Chart
-    const totalForBars = breakdown.userCost + breakdown.modulesCost + breakdown.storageCost;
-    let usersPercent = 0, modulesPercent = 0, storagePercent = 0;
-
-    if (totalForBars > 0) {
-      usersPercent = (breakdown.userCost / totalForBars) * 100;
-      modulesPercent = (breakdown.modulesCost / totalForBars) * 100;
-      storagePercent = (breakdown.storageCost / totalForBars) * 100;
-    }
-
-    const barUsers = document.getElementById("barUsers");
-    const barModules = document.getElementById("barModules");
-    const barStorage = document.getElementById("barStorage");
-
-    if (barUsers) {
-      barUsers.style.width = Math.max(usersPercent, 5) + "%"; // Minimum visual width
-      document.getElementById("usersPercent").innerText = usersPercent.toFixed(1) + "%";
-      // Hide bar if 0 to maintain clean look or keep at 0%? User requested "style SaaS", so cleaning up 0% might be better.
-      // But user provided snippet implies just update width. I'll stick to updating width.
-      // Adding a small min-width (logic above) ensures label is readable.
-    }
-    if (barModules) {
-      barModules.style.width = Math.max(modulesPercent, 5) + "%";
-      document.getElementById("modulesPercent").innerText = modulesPercent.toFixed(1) + "%";
-    }
-    if (barStorage) {
-      barStorage.style.width = Math.max(storagePercent, 5) + "%";
-      document.getElementById("storagePercent").innerText = storagePercent.toFixed(1) + "%";
-    }
   },
 
   calculateOriginalAnnualPrice() {

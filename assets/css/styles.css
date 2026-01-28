@@ -921,37 +921,7 @@ input[type='number'] {
      reportaría esa altura de nuevo, creando espacio blanco y rebotes al hacer scroll. */
 }
 
-/* Breakdown Bars */
-.pricing-breakdown {
-  margin-top: 24px;
-  font-size: 14px;
-}
 
-.breakdown-bars {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.bar {
-  height: 32px;
-  border-radius: 6px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 10px;
-  color: white;
-  font-weight: 600;
-  font-size: 12px;
-  transition: width 0.5s ease;
-  min-width: fit-content;
-  overflow: hidden; 
-  white-space: nowrap;
-}
-
-.bar.users { background: #0D85E7; }
-.bar.modules { background: #1E293B; }
-.bar.storage { background: #64748B; }
 
 .microcopy-price-user {
   font-size: 12px;
