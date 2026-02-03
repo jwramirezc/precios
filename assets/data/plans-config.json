@@ -117,12 +117,17 @@
     "id": "custom",
     "name": "CREA TU PLAN",
     "icon": "fa-sliders-h",
-    "description": "Arma tu plan seleccionando módulos, usuarios y almacenamiento específico.",
+    "description": "Diseña una arquitectura personalizada de SAIA según el tamaño de tu organización, los módulos requeridos y el volumen de información que gestionas.",
     "price": null,
     "userLimit": null,
     "highlight": false,
-    "features": [],
-    "buttonText": "Configurar mi plan",
+    "features": [
+      "Módulos funcionales (Correspondencia, Gestión Documental, PQRS, ISO, Help Desk, etc.)",
+      "Número de usuarios concurrentes",
+      "Capacidad de almacenamiento (GB/TB)",
+      "Obtén una estimación de inversión mensual, una recomendación técnica del modelo óptimo y una cotización formal en 24 horas."
+    ],
+    "buttonText": "Configurar tu Plan",
     "buttonAction": "custom",
     "style": "dashed"
   }

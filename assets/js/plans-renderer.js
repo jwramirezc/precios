@@ -178,9 +178,10 @@ function renderPriceSection(plan, textColor) {
 }
 
 function renderFeatureList(plan, iconColor) {
-    if (plan.style === 'dashed' || (!plan.features.length && !plan.userLimit)) return '';
+    if (!plan.features.length && !plan.userLimit) return '';
 
-    let html = `<ul class="list-unstyled flex-grow-1 small">`;
+    const listAlignClass = plan.style === 'dashed' ? ' text-start' : '';
+    let html = `<ul class="list-unstyled flex-grow-1 small${listAlignClass}">`;
 
     // User Limit Item
     if (plan.userLimit) {
