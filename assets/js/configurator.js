@@ -236,6 +236,37 @@ const app = {
 
     if (!totalPriceEl) return;
 
+    // --- LOGIC FIX: Check for empty selection ---
+    const selectedModules = this.calculator.getSelectedModules();
+    const breakdownContainer = document.getElementById('price-breakdown');
+
+    // If no modules selected, hide everything and show 0
+    if (selectedModules.length === 0) {
+      // Hide breakdown if exists
+      if (breakdownContainer) breakdownContainer.innerHTML = '';
+
+      // Hide original price
+      if (originalPriceContainer) originalPriceContainer.style.display = 'none';
+
+      // Hide custom services
+      if (customServicesSummary) customServicesSummary.style.display = 'none';
+
+      // Set total to 0 formatted
+      const currency = this.calculator.config.currency || 'COP';
+      // Create a temp 0 format
+      const zeroFormatted = new Intl.NumberFormat('es-CO', {
+        style: 'currency',
+        currency: currency === 'COP' ? 'COP' : 'USD',
+        minimumFractionDigits: 0,
+        maximumFractionDigits: currency === 'COP' ? 0 : 2
+      }).format(0);
+
+      totalPriceEl.textContent = zeroFormatted;
+
+      return; // Stop execution here
+    }
+    // --------------------------------------------
+
     // Update Label
     const isAnnual = this.calculator.billingCycle === 'annual';
     if (isAnnual) {
@@ -265,20 +296,21 @@ const app = {
     // or just rely on total. The user prompt asked to "Mostrar breakdown".
 
     // Let's create a breakdown HTML string and inject it into a new container if it doesn't exist
-    let breakdownContainer = document.getElementById('price-breakdown');
-    if (!breakdownContainer) {
+    // Check definition above (already defined: breakdownContainer)
+    let containerToUse = breakdownContainer;
+    if (!containerToUse) {
       // Find where to insert it. Usually before total price.
       const totalContainer = totalPriceEl.parentElement;
-      breakdownContainer = document.createElement('div');
-      breakdownContainer.id = 'price-breakdown';
-      breakdownContainer.className = 'mb-3 small text-muted';
+      containerToUse = document.createElement('div');
+      containerToUse.id = 'price-breakdown';
+      containerToUse.className = 'mb-3 small text-muted';
       if (totalContainer && totalContainer.parentElement) {
-        totalContainer.parentElement.insertBefore(breakdownContainer, totalContainer);
+        totalContainer.parentElement.insertBefore(containerToUse, totalContainer);
       }
     }
 
-    if (breakdownContainer) {
-      breakdownContainer.innerHTML = `
+    if (containerToUse) {
+      containerToUse.innerHTML = `
             <div class="d-flex justify-content-between mb-0">
                 <span>Usuarios (${this.calculator.userCount}):</span>
                 <span>${formatMoney(breakdown.userCost)}</span>
