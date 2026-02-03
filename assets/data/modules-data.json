@@ -10,11 +10,11 @@
   },
   {
     "id": "gestion_documental",
-    "name": "Gestión Documental + Workflows",
-    "description": "Sistematice sus documentos con plantillas, flujos y trazabilidad.",
+    "name": "Gestión Documental",
+    "description": "Gestiones sus documentos en buzones y expedientes.",
     "icon": "<i class=\"fa-solid fa-file-lines\"></i>",
     "url": "https://www.saiasoftware.com/",
-    "pricing_tier": "advanced",
+    "pricing_tier": "core",
     "category": "gestion_documental"
   },
   {
@@ -24,6 +24,24 @@
     "icon": "<i class=\"fa-solid fa-box-archive\"></i>",
     "url": "https://www.saiasoftware.com/",
     "pricing_tier": "core",
+    "category": "gestion_documental"
+  },
+  {
+    "id": "gestion_plantillas",
+    "name": "Creación de Plantillas",
+    "description": "Sistematice sus documentos con plantillas preestablecidas.",
+    "icon": "<i class=\"fa-solid fa-file-lines\"></i>",
+    "url": "https://www.saiasoftware.com/",
+    "pricing_tier": "advanced",
+    "category": "gestion_documental"
+  },
+  {
+    "id": "gestion_flujos",
+    "name": "Automatización de Flujos",
+    "description": "Automatice aprobaciones y controle cada paso del proceso documental.",
+    "icon": "<i class=\"fa-solid fa-diagram-project\"></i>",
+    "url": "https://www.saiasoftware.com/",
+    "pricing_tier": "advanced",
     "category": "gestion_documental"
   },
   {

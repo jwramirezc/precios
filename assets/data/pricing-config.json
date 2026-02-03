@@ -2,17 +2,18 @@
   "currency": "COP",
   "exchangeRate": 4000,
   "usersPricing": [
-    { "upTo": 50, "pricePerUser": 25 },
-    { "upTo": 200, "pricePerUser": 18 },
-    { "upTo": 1000, "pricePerUser": 12 },
-    { "upTo": 999999, "pricePerUser": 8 }
+    { "upTo": 10, "pricePerUser": 7.5 },
+    { "upTo": 50, "pricePerUser": 6.25 },
+    { "upTo": 200, "pricePerUser": 5 },
+    { "upTo": 1000, "pricePerUser": 13.75 },
+    { "upTo": 999999, "pricePerUser": 2.5 }
   ],
   "storagePricing": {
     "includedGB": 100,
     "tiers": [
-      { "upTo": 500, "pricePerGB": 4 },
-      { "upTo": 2000, "pricePerGB": 3 },
-      { "upTo": 999999, "pricePerGB": 2 }
+      { "upTo": 500, "pricePerGB": 0.625 },
+      { "upTo": 2000, "pricePerGB": 0.45 },
+      { "upTo": 999999, "pricePerGB": 0.3 }
     ]
   },
   "saasMultipliers": {
@@ -21,7 +22,7 @@
     "compliance": 1.2
   },
   "additionalFees": {
-    "setupFee": 5000,
+    "setupFee": 1000,
     "onboardingFee": 2000,
     "slaPremiumFee": 1000
   },
