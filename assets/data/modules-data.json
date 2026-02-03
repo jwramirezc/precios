@@ -1,7 +1,7 @@
 [
   {
     "id": "correspondencia",
-    "name": "Correspondencia",
+    "name": "Módulo de Correspondencia",
     "description": "Centralice la correspondencia empresarial con trazabilidad completa.",
     "icon": "<i class=\"fa-solid fa-inbox\"></i>",
     "url": "https://www.saiasoftware.com/",
@@ -10,7 +10,7 @@
   },
   {
     "id": "gestion_documental",
-    "name": "Gestión Documental",
+    "name": "Módulo de Gestión Documental",
     "description": "Gestiones sus documentos en buzones y expedientes.",
     "icon": "<i class=\"fa-solid fa-file-lines\"></i>",
     "url": "https://www.saiasoftware.com/",
@@ -19,7 +19,7 @@
   },
   {
     "id": "archivo",
-    "name": "Archivo",
+    "name": "Módulo de Archivo Central",
     "description": "Gestione archivos históricos, central y gestión con ubicación y ciclo vital.",
     "icon": "<i class=\"fa-solid fa-box-archive\"></i>",
     "url": "https://www.saiasoftware.com/",
@@ -28,7 +28,7 @@
   },
   {
     "id": "gestion_plantillas",
-    "name": "Creación de Plantillas",
+    "name": "Módulo de Creación de Plantillas",
     "description": "Sistematice sus documentos con plantillas preestablecidas.",
     "icon": "<i class=\"fa-solid fa-file-lines\"></i>",
     "url": "https://www.saiasoftware.com/",
@@ -37,7 +37,7 @@
   },
   {
     "id": "gestion_flujos",
-    "name": "Automatización de Flujos",
+    "name": "Módulo de Flujos de Trabajo",
     "description": "Automatice aprobaciones y controle cada paso del proceso documental.",
     "icon": "<i class=\"fa-solid fa-diagram-project\"></i>",
     "url": "https://www.saiasoftware.com/",
@@ -46,7 +46,7 @@
   },
   {
     "id": "pqr",
-    "name": "Peticiones, Quejas y Reclamos",
+    "name": "Módulo de PQRS",
     "description": "Agilice la atención al cliente con gestión sistemática de las PQR.",
     "icon": "<i class=\"fa-solid fa-headset\"></i>",
     "url": "https://www.saiasoftware.com/",
@@ -55,7 +55,7 @@
   },
   {
     "id": "help_desk",
-    "name": "Mesa de Servicio (Help Desk)",
+    "name": "Módulo de Mesa de Servicio (Help Desk)",
     "description": "Resuelva incidentes con métricas y base de conocimiento integrada.",
     "icon": "<i class=\"fa-solid fa-life-ring\"></i>",
     "url": "https://www.saiasoftware.com/",
@@ -64,7 +64,7 @@
   },
   {
     "id": "iso",
-    "name": "Sistema ISO 9001:2015",
+    "name": "Módulo Sistema ISO 9001:2015",
     "description": "Sistematice su SGC con documentación y seguimiento integral.",
     "icon": "<i class=\"fa-solid fa-medal\"></i>",
     "url": "https://www.saiasoftware.com/",
@@ -73,7 +73,7 @@
   },
   {
     "id": "contratos",
-    "name": "Contratos",
+    "name": "Módulo de Contratos",
     "description": "Simplifique procesos contractuales con plantillas y aprobaciones digitales.",
     "icon": "<i class=\"fa-solid fa-file-contract\"></i>",
     "url": "https://www.saiasoftware.com/",
@@ -82,7 +82,7 @@
   },
   {
     "id": "historias_laborales",
-    "name": "Historias Laborales",
+    "name": "Módulo de Historias Laborales",
     "description": "Consolide documentos del personal con gestión digital integrada.",
     "icon": "<i class=\"fa-solid fa-id-card\"></i>",
     "url": "https://www.saiasoftware.com/",
@@ -91,7 +91,7 @@
   },
   {
     "id": "cuentas_pagar",
-    "name": "Cuentas x Pagar",
+    "name": "Módulo de Cuentas por Pagar",
     "description": "Optimice pagos con gestión automatizada de documentos contables.",
     "icon": "<i class=\"fa-solid fa-file-invoice-dollar\"></i>",
     "url": "https://www.saiasoftware.com/",
@@ -100,7 +100,7 @@
   },
   {
     "id": "actas",
-    "name": "Actas de Reunión",
+    "name": "Módulo de Actas de Reunión",
     "description": "Documente reuniones con gestión efectiva de pendientes y responsables.",
     "icon": "<i class=\"fa-solid fa-clipboard-check\"></i>",
     "url": "https://www.saiasoftware.com/",
@@ -109,7 +109,7 @@
   },
   {
     "id": "firma",
-    "name": "Firma Certificada",
+    "name": "Módulo de Firma Certificada",
     "description": "Firme electrónicamente con respaldo normativo y seguridad.",
     "icon": "<i class=\"fa-solid fa-signature\"></i>",
     "url": "https://www.saiasoftware.com/",
