@@ -3,7 +3,7 @@
  * Plugin Name: SAIA Pricing Configurator
  * Plugin URI: https://www.saiasoftware.com
  * Description: Configurador de precios interactivo para SAIA Software con módulos, planes y comparación de características. Totalmente responsive y optimizado para WordPress.
- * Version: 1.0.6
+ * Version: 1.0.7
  * Author: SAIA Software
  * Author URI: https://www.saiasoftware.com
  * License: GPL-2.0+
@@ -20,7 +20,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Definir constantes del plugin
-define('SAIA_CONFIGURATOR_VERSION', '1.0.6');
+define('SAIA_CONFIGURATOR_VERSION', '1.0.7');
 define('SAIA_CONFIGURATOR_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('SAIA_CONFIGURATOR_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('SAIA_CONFIGURATOR_PLUGIN_BASENAME', plugin_basename(__FILE__));
