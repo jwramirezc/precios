@@ -46,11 +46,14 @@ All content is loaded from JSON configuration files in [assets/data/](assets/dat
 - `modules-data.json` - Module definitions (name, description, icon, pricing tier)
 - `plans-config.json` - Predefined plan definitions
 - `comparison-config.json` - Feature comparison table data
-- `general-config.json` - External links (demo requests, contact forms)
+- `general-config.json` - External links (demo requests, contact forms, default module URL)
 - `faq.json` - FAQ questions and answers
 - `tooltips-config.json` - Tooltip text for help icons
 - `proposal-benefits.json` - Benefits displayed in proposal sections
 - `module-pricing.json` - Pricing tiers for modules
+- `categories-config.json` - Module category definitions (names, icons, display order)
+- `configurator-texts.json` - All UI text strings for the configurator page
+- `reasons-data.json` - Reasons/benefits displayed at the top of index.html
 
 ### JavaScript Architecture
 
@@ -136,7 +139,10 @@ document.addEventListener('configLoaded', () => {
 │       ├── faq.json             # FAQ content
 │       ├── tooltips-config.json # Tooltip texts
 │       ├── proposal-benefits.json # Benefit items
-│       └── module-pricing.json  # Module pricing tiers
+│       ├── module-pricing.json  # Module pricing tiers
+│       ├── categories-config.json # Module categories
+│       ├── configurator-texts.json # Configurator UI texts
+│       └── reasons-data.json    # Reasons/benefits section
 └── .github/
     └── workflows/
         └── deploy-ftp.yml        # FTP deployment workflow
