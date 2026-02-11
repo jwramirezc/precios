@@ -240,6 +240,12 @@ function renderFeatureList(plan, iconColor) {
 
 function getButtonAction(plan) {
   if (plan.buttonAction === 'custom') {
+    // Check if we're in WordPress (saiaData is available)
+    if (typeof saiaData !== 'undefined') {
+      // In WordPress, try to find configurator page URL dynamically
+      // For now, use a simple redirect that can be intercepted
+      return "redirectToConfigurator()";
+    }
     return "window.location.href='configurator.html'";
   }
   if (plan.buttonAction === 'contact') {
@@ -248,6 +254,18 @@ function getButtonAction(plan) {
     return `window.location.href='${contactUrl}'`;
   }
   return '';
+}
+
+// WordPress-compatible redirect function
+function redirectToConfigurator() {
+  // Try to find the link on the page first
+  const configuratorLink = document.querySelector('a[href*="configurator"]');
+  if (configuratorLink) {
+    window.location.href = configuratorLink.href;
+  } else {
+    // Fallback: try common WordPress slug
+    window.location.href = window.location.origin + '/configurador/';
+  }
 }
 
 function getBtnClass(plan) {

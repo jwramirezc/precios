@@ -42,22 +42,31 @@ if (!defined('ABSPATH')) {
                     <?php esc_html_e('Selecciona el plan ideal para escalar tu operación', 'saia-configurator'); ?>
                 </p>
 
-                <!-- CTA Secondary -->
-                <div class="d-flex justify-content-center align-items-center gap-3 mt-4 flex-wrap">
+                <!-- CTA Secondary - Solicitar Demo -->
+                <div class="mt-4 mb-5">
+                    <a href="#" data-link="requestDemo" class="btn-demo-secondary rounded-pill px-5 py-3 fw-bold">
+                        <?php esc_html_e('Solicitar Demo', 'saia-configurator'); ?>
+                    </a>
+                </div>
+
+                <!-- Controls -->
+                <div class="d-flex flex-wrap justify-content-center align-items-center mt-4 gap-4">
                     <!-- Currency Toggle -->
-                    <div class="d-flex align-items-center gap-2">
+                    <div class="d-flex align-items-center gap-3">
                         <span id="label-cop" class="fw-bold text-primary">COP</span>
-                        <div class="form-check form-switch">
+                        <div class="form-check form-switch fs-4 mb-0">
                             <input class="form-check-input" type="checkbox" role="switch" id="currencySwitch"
                                 onchange="toggleCurrency(this.checked)">
                         </div>
                         <span id="label-usd" class="fw-bold text-muted">USD</span>
                     </div>
 
+                    <div class="vr d-none d-md-block"></div>
+
                     <!-- Billing Toggle -->
-                    <div class="d-flex align-items-center gap-2">
+                    <div class="d-flex align-items-center gap-3">
                         <span id="label-monthly" class="fw-bold text-primary"><?php esc_html_e('Mensual', 'saia-configurator'); ?></span>
-                        <div class="form-check form-switch">
+                        <div class="form-check form-switch fs-4 mb-0">
                             <input class="form-check-input" type="checkbox" role="switch" id="billingSwitch"
                                 onchange="toggleBilling(this.checked)">
                         </div>
@@ -74,38 +83,78 @@ if (!defined('ABSPATH')) {
                 <!-- Plans will be rendered here by JS -->
             </div>
 
-            <!-- Botones de navegación -->
+            <!-- Comparison Link -->
             <div class="text-center mt-5">
+                <p class="text-muted mb-3">
+                    <?php esc_html_e('¿Necesitas ver qué incluye cada plan en detalle?', 'saia-configurator'); ?>
+                </p>
                 <?php
-                // Buscar páginas con los shortcodes
-                $configurador_page = get_posts(array(
-                    'post_type' => 'page',
-                    'posts_per_page' => 1,
-                    's' => '[saia_configurator]'
-                ));
-                $comparacion_page = get_posts(array(
-                    'post_type' => 'page',
-                    'posts_per_page' => 1,
-                    's' => '[saia_comparison]'
-                ));
-
-                if (!empty($configurador_page)) :
-                    $configurador_url = get_permalink($configurador_page[0]->ID);
+                // Buscar página de comparación de manera más robusta
+                $all_pages = get_pages(array('post_status' => 'publish'));
+                $comparacion_url = '';
+                foreach ($all_pages as $page) {
+                    if (has_shortcode($page->post_content, 'saia_comparison')) {
+                        $comparacion_url = get_permalink($page->ID);
+                        break;
+                    }
+                }
+                if (!empty($comparacion_url)) :
                 ?>
-                <a href="<?php echo esc_url($configurador_url); ?>" class="btn btn-primary btn-lg me-3">
-                    <i class="fa-solid fa-sliders me-2"></i>
-                    <?php esc_html_e('Crear Plan Personalizado', 'saia-configurator'); ?>
+                <a href="<?php echo esc_url($comparacion_url); ?>" class="btn-outline-primary-custom rounded-pill px-4">
+                    <?php esc_html_e('Ver Comparativo Completo', 'saia-configurator'); ?>
+                    <i class="fa-solid fa-table-list ms-2"></i>
+                </a>
+                <?php else: ?>
+                <!-- Fallback button if page not found (for debugging) -->
+                <a href="#" class="btn-outline-primary-custom rounded-pill px-4" onclick="alert('Por favor, crea una página con el shortcode [saia_comparison]'); return false;">
+                    <?php esc_html_e('Ver Comparativo Completo', 'saia-configurator'); ?>
+                    <i class="fa-solid fa-table-list ms-2"></i>
                 </a>
                 <?php endif; ?>
+            </div>
+        </div>
+    </section>
 
-                <?php if (!empty($comparacion_page)) :
-                    $comparacion_url = get_permalink($comparacion_page[0]->ID);
+    <!-- FAQ Section -->
+    <section id="faq" class="pricing-faq">
+        <div class="container">
+            <h2 class="faq-title"><?php esc_html_e('Preguntas Frecuentes', 'saia-configurator'); ?></h2>
+            <div id="faq-container" class="faq-accordion">
+                <!-- FAQ items will be rendered here by JavaScript -->
+            </div>
+
+            <!-- Final CTA Section -->
+            <div class="text-center py-4 my-4">
+                <p class="lead mb-3" style="color: var(--dark);">
+                    <?php esc_html_e('¿Listo para optimizar tu operación? Configura tu plan y recibe tu propuesta en minutos.', 'saia-configurator'); ?>
+                </p>
+                <?php
+                // Buscar página de configurador de manera más robusta
+                $all_pages_config = get_pages(array('post_status' => 'publish'));
+                $configurador_url = '';
+                foreach ($all_pages_config as $page) {
+                    if (has_shortcode($page->post_content, 'saia_configurator')) {
+                        $configurador_url = get_permalink($page->ID);
+                        break;
+                    }
+                }
+                if (!empty($configurador_url)) :
                 ?>
-                <a href="<?php echo esc_url($comparacion_url); ?>" class="btn btn-outline-primary btn-lg">
-                    <i class="fa-solid fa-table me-2"></i>
-                    <?php esc_html_e('Comparar Planes', 'saia-configurator'); ?>
+                <a href="<?php echo esc_url($configurador_url); ?>" class="btn-outline-primary-custom rounded-pill px-4 py-2">
+                    <?php esc_html_e('Configurar mi plan ahora', 'saia-configurator'); ?>
+                </a>
+                <?php else: ?>
+                <!-- Fallback button if page not found (for debugging) -->
+                <a href="#" class="btn-outline-primary-custom rounded-pill px-4 py-2" onclick="alert('Por favor, crea una página con el shortcode [saia_configurator]'); return false;">
+                    <?php esc_html_e('Configurar mi plan ahora', 'saia-configurator'); ?>
                 </a>
                 <?php endif; ?>
+            </div>
+
+            <div class="faq-cta">
+                <p><?php esc_html_e('¿No encuentras lo que buscas?', 'saia-configurator'); ?>
+                    <a href="#" data-link="contactUs"><?php esc_html_e('Contáctanos', 'saia-configurator'); ?></a>
+                </p>
             </div>
         </div>
     </section>
