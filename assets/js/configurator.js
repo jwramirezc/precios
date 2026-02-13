@@ -504,8 +504,9 @@ window.updateStorage = function (val) {
   app.updatePriceUI();
 };
 
-// Initialize when configs are loaded
+// Initialize when configs are loaded (only on configurator page)
 function initializeConfigurator() {
+  if (!document.getElementById('configurator-container')) return;
   if (PRICING_CONFIG && MODULES_DATA && MODULE_PRICING) {
     app.init();
   }
