@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planes y Precios - Sistema de Gestión de Documentos SAIA</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body>
+
+    <!-- <header>
+        <h1>SAIA SOFTWARE</h1>
+        <p>Soluciones escalables de procesos para tu empresa</p>
+    </header> -->
+
+    <!-- 7 Reasons Section (Loaded from config.js) -->
+    <div class="container py-4">
+        <div id="reasons-container" class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 justify-content-center">
+            <!-- Dynamic Content -->
+        </div>
+        <hr class="my-5 opacity-10">
+    </div>
+
+    <!-- Value Proposition -->
+    <div class="container py-4">
+        <div class="text-center">
+            <p class="lead fw-bold" style="color: var(--primary); font-size: 1.5rem; line-height: 1.6;">
+                Gestiona tu organización con precisión, trazabilidad total y cero papel desde el primer día.
+            </p>
+        </div>
+    </div>
+
+    <!-- Plans & Pricing Section -->
+    <section id="plans-section" class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-4 fw-bold" style="color: var(--primary);">Planes y Precios</h2>
+                <p class="lead text-muted">Selecciona el plan ideal para escalar tu operación</p>
+
+                <!-- CTA Secondary -->
+                <div class="mt-4 mb-5">
+                    <a href="#" data-link="requestDemo" class="btn-demo-secondary rounded-pill px-5 py-3 fw-bold">
+                        Solicitar Demo
+                    </a>
+                </div>
+
+                <!-- Controls -->
+                <div class="d-flex flex-wrap justify-content-center align-items-center mt-4 gap-4">
+
+                    <!-- Currency Toggle -->
+                    <div class="d-flex align-items-center gap-3">
+                        <span class="fw-bold text-primary" id="label-cop">COP</span>
+                        <div class="form-check form-switch fs-4 mb-0">
+                            <input class="form-check-input" type="checkbox" role="switch" id="currencySwitch"
+                                onchange="toggleCurrency(this.checked)">
+                        </div>
+                        <span class="fw-bold text-muted" id="label-usd">USD</span>
+                    </div>
+
+                    <div class="vr d-none d-md-block"></div>
+
+                    <!-- Billing Toggle -->
+                    <div class="d-flex align-items-center gap-3">
+                        <span class="fw-bold text-primary" id="label-monthly">Mensual</span>
+                        <div class="form-check form-switch fs-4 mb-0">
+                            <input class="form-check-input" type="checkbox" role="switch" id="billingSwitch"
+                                onchange="toggleBilling(this.checked)">
+                        </div>
+                        <span class="fw-bold text-muted" id="label-annual">Anual <span
+                                class="badge bg-success small rounded-pill ms-1"
+                                id="annual-discount-badge">-15%</span></span>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Dynamic Plans Container -->
+            <div id="plans-container-dynamic" class="row row-cols-1 row-cols-lg-3 g-4 justify-content-center">
+                <!-- Plans will be injected here by assets/js/plans-renderer.js -->
+            </div>
+
+
+
+            <!-- Comparison Link -->
+            <div class="text-center mt-5">
+                <p class="text-muted mb-3">¿Necesitas ver qué incluye cada plan en detalle?</p>
+                <a href="comparison.html" class="btn-outline-primary-custom rounded-pill px-4">
+                    Ver Comparativo Completo <i class="fa-solid fa-table-list ms-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="pricing-faq">
+        <div class="container">
+            <h2 class="faq-title">Preguntas Frecuentes</h2>
+            <div id="faq-container" class="faq-accordion">
+                <!-- FAQ items will be rendered here by JavaScript -->
+            </div>
+
+            <!-- Final CTA Section -->
+            <div class="text-center py-4 my-4">
+                <p class="lead mb-3" style="color: var(--dark);">
+                    ¿Listo para optimizar tu operación? Configura tu plan y recibe tu propuesta en minutos.
+                </p>
+                <a href="configurator.html" class="btn-outline-primary-custom rounded-pill px-4 py-2">
+                    Configurar mi plan ahora
+                </a>
+            </div>
+
+            <div class="faq-cta">
+                <p>¿No encuentras lo que buscas? <a href="#" data-link="contactUs">Contáctanos</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scripts -->
+    <script src="assets/js/general-config.js"></script>
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/plans-config.js"></script>
+    <script src="assets/js/plans-renderer.js"></script>
+    <script src="assets/js/proposal-benefits.js"></script>
+    <script src="assets/js/faq.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/iframe-resizer.js"></script>
+</body>
+
+</html>

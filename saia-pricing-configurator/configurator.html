@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurador a Medida - Sistema de Gestión</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body>
+
+    <!-- <header id="configurator-header">
+        <h1>Cotizador de Servicios</h1>
+        <p>Arma tu plan a la medida seleccionando los módulos que necesitas</p>
+    </header> -->
+
+    <div class="container py-5">
+        <div class="text-center mb-4">
+            <a href="index.html" class="btn-demo rounded-pill">
+                <i class="fa-solid fa-arrow-left me-2"></i>Volver a Planes
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <div class="container py-4">
+        <div class="text-center mb-5">
+            <h2 class="display-6 fw-bold mb-3" style="color: var(--primary);">
+                Configura tu plataforma SAIA en menos de 30 segundos y recibe una cotización exacta para tu
+                organización.
+            </h2>
+
+            <p class="lead text-muted">
+                Selecciona los módulos, usuarios y recursos que necesitas, y obtén una propuesta personalizada sin
+                compromiso.
+            </p>
+            <p class="small text-muted mt-3 mb-0">
+                Tu configuración se basa en una plataforma segura, certificada y respaldada en tecnología AWS con
+                cumplimiento normativo ISO y respaldo automático diario.
+            </p>
+        </div>
+    </div>
+
+    <div class="container" id="configurator-container">
+        <!-- Main Content: Modules -->
+        <main>
+            <div id="modules-container" class="modules-grid">
+                <!-- Modules will be injected here by JS -->
+            </div>
+        </main>
+
+        <!-- Sidebar: Configuration & Price -->
+        <aside>
+            <div class="configurator-panel">
+                <h2 class="section-title">Configuración</h2>
+
+                <!-- SaaS Info Card -->
+                <div class="alert alert-light border shadow-sm mb-4" role="alert">
+                    <ul class="list-unstyled mb-0 small">
+                        <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i>Modelo SaaS 100% en la nube
+                        </li>
+                        <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i>Acceso 24/7 desde cualquier
+                            lugar</li>
+                        <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i>Actualizaciones automáticas
+                            incluidas</li>
+                        <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i>Respaldo y protección de la
+                            información</li>
+                        <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i>Escalable según usuarios y
+                            módulos</li>
+                        <li><i class="fa-solid fa-check text-success me-2"></i>Soporte técnico especializado</li>
+                    </ul>
+                </div>
+
+                <!-- Billing Frequency (SaaS Only) -->
+                <div class="control-group" id="billing-frequency-group">
+                    <label>Frecuencia de Pago</label>
+                    <div class="license-options">
+                        <div class="radio-card active" id="btn-monthly" onclick="setBilling('monthly')">Mensual</div>
+                        <div class="radio-card" id="btn-annual" onclick="setBilling('annual')">Anual (<span
+                                id="annual-discount-label">-15%</span>)</div>
+                    </div>
+                </div>
+
+                <!-- Users Slider -->
+                <div class="control-group">
+                    <label>Número de Usuarios: <span id="user-count-display">10</span>
+                        <i class="fa-solid fa-circle-info text-primary ms-1" style="cursor: pointer;"
+                            data-tooltip-id="numero_usuarios" aria-label="Ayuda sobre número de usuarios"></i>
+                    </label>
+                    <div class="range-wrap">
+                        <input type="range" id="users-input" min="5" max="500" value="10" step="5"
+                            oninput="updateUsers(this.value)">
+                    </div>
+                </div>
+
+                <!-- Storage Slider -->
+                <div class="control-group">
+                    <label>Almacenamiento (GB): <span id="storage-count-display">100</span>
+                        <i class="fa-solid fa-circle-info text-primary ms-1" style="cursor: pointer;"
+                            data-tooltip-id="almacenamiento_gb" aria-label="Ayuda sobre almacenamiento"></i>
+                    </label>
+                    <div class="range-wrap">
+                        <input type="range" id="storage-input" min="10" max="1000" value="100" step="10"
+                            oninput="updateStorage(this.value)">
+                    </div>
+                    <div class="d-flex justify-content-between mt-1 text-muted" style="font-size: 0.75rem;">
+                        <span>Incluye 100 GB sin costo</span>
+                        <span>Descuentos por volumen</span>
+                    </div>
+                </div>
+
+                <!-- Currency Selector -->
+                <div class="control-group">
+                    <label>Moneda</label>
+                    <div class="license-options">
+                        <div class="radio-card active" id="btn-cop" onclick="setCurrency('COP')">COP (Pesos)</div>
+                        <div class="radio-card" id="btn-usd" onclick="setCurrency('USD')">USD (Dólares)</div>
+                    </div>
+                </div>
+
+                <!-- Custom Services Summary -->
+                <div id="custom-services-summary" class="custom-services-summary" style="display: none;">
+                    <h3 class="section-title small mb-2">Servicio Adicional</h3>
+                    <div id="custom-services-list"></div>
+                </div>
+
+                <!-- Total -->
+                <div class="price-display">
+                    <span class="price-label" id="price-label">Precio Estimado (Mensual)</span>
+                    <div id="original-price-container" style="display: none;" class="mb-2">
+                        <span class="text-muted text-decoration-line-through small" id="original-price">$0</span>
+                    </div>
+                    <span class="total-price" id="total-price">$0</span>
+
+                </div>
+
+                <a href="#" class="btn-cta" id="contact-cta" data-link="personalizedQuote">
+                    Obtener Cotización Formal Exacta <br> en 24 Horas
+                </a>
+
+                <a href="#" data-link="requestDemo" class="btn-demo rounded-pill mt-3" style="width: 100%;">
+                    Solicitar Demo
+                </a>
+
+                <!-- What's Included Section -->
+                <div id="proposal-benefits-container-configurator">
+                    <!-- Benefits will be rendered here by proposal-benefits.js -->
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="pricing-faq">
+        <div class="container">
+            <h2 class="faq-title">Preguntas Frecuentes</h2>
+            <div id="faq-container" class="faq-accordion">
+                <!-- FAQ items will be rendered here by JavaScript -->
+            </div>
+
+            <!-- Final CTA Section -->
+            <div class="text-center py-4 my-4">
+                <p class="lead mb-3" style="color: var(--dark);">
+                    ¿Listo para optimizar tu operación? Configura tu plan y recibe tu propuesta en minutos.
+                </p>
+                <a href="configurator.html" class="btn-outline-primary-custom rounded-pill px-4 py-2">
+                    Configurar mi plan ahora
+                </a>
+            </div>
+
+            <div class="faq-cta">
+                <p>¿No encuentras lo que buscas? <a href="#" data-link="contactUs">Contáctanos</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scripts -->
+    <script src="assets/js/general-config.js"></script>
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/calculator.js"></script>
+    <script src="assets/js/configurator.js"></script>
+    <script src="assets/js/proposal-benefits.js"></script>
+    <script src="assets/js/tooltips.js"></script>
+    <script src="assets/js/faq.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/iframe-resizer.js"></script>
+</body>
+
+</html>

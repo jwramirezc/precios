@@ -1,0 +1,2293 @@
+:root {
+  /* Color Palette */
+  --primary: #0d85e8;
+  --primary-hover: #0a6bc1; /* Darker version of #0d85e8 */
+  --secondary: #0d85e8;
+  --dark: #1f2937; /* Gray 800 */
+  --light: #ffffff;
+  --accent: #10b981; /* Green 500 - Emerald */
+  --text-main: #111827;
+  --text-muted: #6b7280;
+  --card-bg: #ffffff;
+  --border-color: #e5e7eb;
+
+  /* Bootstrap Overrides/Compat */
+  --bs-primary: #0d85e8;
+  --bs-body-bg: var(--light);
+
+  /* Spacing & Radius */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* WordPress Theme Compatibility - Reset scoped to plugin containers only */
+.saia-configurator-wrapper,
+.saia-plans-wrapper,
+.saia-comparison-wrapper {
+  font-family: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif !important;
+  line-height: 1.6 !important;
+  box-sizing: border-box !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.saia-configurator-wrapper *,
+.saia-plans-wrapper *,
+.saia-comparison-wrapper * {
+  box-sizing: border-box !important;
+  margin: 0;
+  padding: 0;
+}
+
+/* WordPress/Avada - Bottom spacing from parent containers is handled by main.js */
+
+/* Reasons Container - WordPress Compatibility */
+.saia-plans-wrapper #reasons-container h6 {
+  font-weight: 700 !important;
+  margin-bottom: 0.25rem !important;
+  font-size: 1rem !important;
+  color: var(--text-main) !important;
+  line-height: 1.4 !important;
+}
+
+.saia-plans-wrapper #reasons-container small {
+  font-size: 0.875rem !important;
+  color: var(--text-muted) !important;
+  line-height: 1.5 !important;
+}
+
+/* Plans Section - WordPress Compatibility */
+.saia-plans-wrapper {
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+  box-sizing: border-box !important;
+}
+
+.saia-plans-wrapper #plans-section {
+  background-color: #f8f9fa !important;
+  padding: 3rem 0 !important;
+  overflow-x: hidden !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.saia-plans-wrapper #plans-section .container {
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Ensure Bootstrap grid works in WordPress */
+.saia-plans-wrapper .row {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  margin-left: -0.75rem !important;
+  margin-right: -0.75rem !important;
+  width: calc(100% + 1.5rem) !important;
+  max-width: calc(100% + 1.5rem) !important;
+  box-sizing: border-box !important;
+}
+
+.saia-plans-wrapper .row > * {
+  flex-shrink: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  padding-left: 0.75rem !important;
+  padding-right: 0.75rem !important;
+  box-sizing: border-box !important;
+  min-width: 0 !important;
+}
+
+/* Responsive grid columns */
+.saia-plans-wrapper .row-cols-1 > * {
+  width: 100% !important;
+}
+
+@media (min-width: 768px) {
+  .saia-plans-wrapper .row-cols-md-2 > * {
+    width: 50% !important;
+  }
+}
+
+@media (min-width: 992px) {
+  .saia-plans-wrapper .row-cols-lg-3 > * {
+    width: 33.333333% !important;
+  }
+
+  .saia-plans-wrapper .row-cols-lg-4 > * {
+    width: 25% !important;
+  }
+}
+
+/* Ensure buttons display correctly */
+.saia-plans-wrapper .btn-outline-primary-custom,
+.saia-plans-wrapper .btn-primary-custom,
+.saia-plans-wrapper .btn-demo-secondary {
+  display: inline-block !important;
+  text-decoration: none !important;
+  cursor: pointer !important;
+}
+
+/* Ensure gap utility works */
+.saia-plans-wrapper .g-4 {
+  --bs-gutter-x: 1.5rem !important;
+  --bs-gutter-y: 1.5rem !important;
+}
+
+.saia-plans-wrapper .g-4 > * {
+  margin-top: var(--bs-gutter-y) !important;
+}
+
+/* FAQ Section - WordPress Compatibility */
+.saia-plans-wrapper .pricing-faq {
+  margin-top: 2rem !important;
+  margin-bottom: 0 !important;
+  padding: 2rem 0 1rem 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+  box-sizing: border-box !important;
+}
+
+.saia-plans-wrapper .pricing-faq .container {
+  max-width: 900px !important;
+  margin: 0 auto !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+}
+
+.saia-plans-wrapper .faq-title {
+  font-size: 2rem !important;
+  font-weight: 700 !important;
+  color: var(--dark) !important;
+  text-align: center !important;
+  margin-bottom: 2rem !important;
+  word-wrap: break-word !important;
+}
+
+.saia-plans-wrapper .faq-accordion {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.5rem !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* FAQ Items - Responsive */
+.saia-plans-wrapper .faq-item {
+  background: var(--card-bg) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--radius-md) !important;
+  box-shadow: var(--shadow-sm) !important;
+  overflow: hidden !important;
+  transition: all 0.3s ease !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.saia-plans-wrapper .faq-header {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 1rem !important;
+  cursor: pointer !important;
+  background: transparent !important;
+  border: none !important;
+  width: 100% !important;
+  text-align: left !important;
+  font-family: inherit !important;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  color: var(--text-main) !important;
+  transition: background-color 0.2s ease !important;
+  box-sizing: border-box !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+}
+
+.saia-plans-wrapper .faq-content {
+  padding: 0 1rem 1rem 1rem !important;
+  color: var(--text-muted) !important;
+  line-height: 1.6 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+}
+
+.saia-plans-wrapper .faq-cta {
+  margin-top: 2rem !important;
+  text-align: center !important;
+  width: 100% !important;
+}
+
+.saia-plans-wrapper .faq-cta p {
+  color: var(--text-muted) !important;
+  margin-bottom: 0 !important;
+}
+
+.saia-plans-wrapper .faq-cta a {
+  color: var(--primary) !important;
+  text-decoration: none !important;
+  font-weight: 600 !important;
+}
+
+/* FAQ Responsive - Mobile */
+@media (max-width: 767px) {
+  .saia-plans-wrapper .pricing-faq {
+    padding: 1.5rem 0 !important;
+  }
+
+  .saia-plans-wrapper .pricing-faq .container {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+
+  .saia-plans-wrapper .faq-title {
+    font-size: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  .saia-plans-wrapper .faq-header {
+    font-size: 1rem !important;
+    padding: 0.875rem !important;
+  }
+
+  .saia-plans-wrapper .faq-content {
+    font-size: 0.9rem !important;
+    padding: 0 0.875rem 0.875rem 0.875rem !important;
+  }
+
+  .saia-plans-wrapper .faq-accordion {
+    gap: 0.375rem !important;
+  }
+}
+
+/* FAQ Responsive - Tablet */
+@media (min-width: 768px) and (max-width: 991px) {
+  .saia-plans-wrapper .faq-title {
+    font-size: 1.75rem !important;
+  }
+
+  .saia-plans-wrapper .faq-header {
+    font-size: 1.05rem !important;
+  }
+}
+
+/* Final CTA within FAQ - Responsive */
+.saia-plans-wrapper .pricing-faq .lead {
+  font-size: 1.25rem !important;
+  line-height: 1.5 !important;
+  word-wrap: break-word !important;
+}
+
+@media (max-width: 767px) {
+  .saia-plans-wrapper .pricing-faq .lead {
+    font-size: 1rem !important;
+  }
+
+  .saia-plans-wrapper .btn-outline-primary-custom {
+    font-size: 0.9rem !important;
+    padding: 0.75rem 1.5rem !important;
+  }
+}
+
+/* Pricing Cards - Ensure they work responsively in WordPress */
+.saia-plans-wrapper .pricing-card {
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.saia-plans-wrapper .card {
+  border: 1px solid rgba(0, 0, 0, 0.125) !important;
+  border-radius: 1rem !important;
+  margin-bottom: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+
+.saia-plans-wrapper .card-body {
+  padding: 1.5rem !important;
+  flex: 1 1 auto !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  overflow-wrap: break-word !important;
+  word-wrap: break-word !important;
+}
+
+/* Prevent cards and columns from overflowing */
+.saia-plans-wrapper .col {
+  min-width: 0 !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  padding-left: 0.75rem !important;
+  padding-right: 0.75rem !important;
+}
+
+/* Ensure all card content fits */
+.saia-plans-wrapper .card-title,
+.saia-plans-wrapper .card-text {
+  max-width: 100% !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+}
+
+/* Responsive utilities - WordPress compatibility */
+@media (max-width: 767px) {
+  .saia-plans-wrapper .row-cols-md-2 > *,
+  .saia-plans-wrapper .row-cols-lg-3 > *,
+  .saia-plans-wrapper .row-cols-lg-4 > * {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .saia-plans-wrapper .faq-title {
+    font-size: 1.5rem !important;
+  }
+
+  .saia-plans-wrapper .d-none.d-md-block {
+    display: none !important;
+  }
+
+  /* Reduce padding on mobile */
+  .saia-plans-wrapper .card-body {
+    padding: 1rem !important;
+  }
+
+  .saia-plans-wrapper .container {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .saia-plans-wrapper .row-cols-lg-3 > * {
+    width: 50% !important;
+    max-width: 50% !important;
+  }
+}
+
+/* body, header styles removed - they leak into WordPress themes.
+   Font and colors are already set on wrapper elements (lines 41-47). */
+
+/* Header - scoped to avoid affecting WordPress themes */
+.saia-plans-wrapper > header,
+.saia-configurator-wrapper > header,
+.saia-comparison-wrapper > header {
+  background: linear-gradient(135deg, var(--primary) 0%, #3b82f6 100%);
+  color: white;
+  padding: var(--spacing-lg) 0;
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.saia-plans-wrapper > header h1,
+.saia-configurator-wrapper > header h1,
+.saia-comparison-wrapper > header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: var(--spacing-xs);
+}
+
+.saia-plans-wrapper > header p,
+.saia-configurator-wrapper > header p,
+.saia-comparison-wrapper > header p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+/* Main Container - Configurator Specific */
+.saia-configurator-wrapper #configurator-container {
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  padding: 0 var(--spacing-sm) !important;
+  display: grid !important;
+  grid-template-columns: 1fr 350px !important;
+  gap: var(--spacing-lg) !important;
+  box-sizing: border-box !important;
+  overflow-x: hidden !important;
+  width: 100% !important;
+}
+
+/* Force grid children to behave correctly (prevent WordPress theme override) */
+.saia-configurator-wrapper #configurator-container > main {
+  grid-column: 1 !important;
+  min-width: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: block !important;
+  float: none !important;
+  position: relative !important;
+}
+
+.saia-configurator-wrapper #configurator-container > aside {
+  grid-column: 2 !important;
+  min-width: 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: block !important;
+  float: none !important;
+  position: relative !important;
+}
+
+/* Ensure Bootstrap Container isn't messed up globally */
+.saia-configurator-wrapper .container,
+.saia-plans-wrapper .container,
+.saia-comparison-wrapper .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  box-sizing: border-box;
+}
+
+/* Tablet breakpoint - 2 column layout becomes 1 column */
+@media (max-width: 991px) {
+  .saia-configurator-wrapper #configurator-container {
+    grid-template-columns: 1fr !important;
+    padding: 0 1rem !important;
+    gap: 1.5rem !important;
+  }
+
+  .saia-configurator-wrapper #configurator-container > main,
+  .saia-configurator-wrapper #configurator-container > aside {
+    grid-column: 1 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* On tablet/mobile, panel comes after modules */
+  .saia-configurator-wrapper #configurator-container > aside {
+    order: 2 !important;
+  }
+
+  .saia-configurator-wrapper #configurator-container > main {
+    order: 1 !important;
+  }
+}
+
+/* Mobile breakpoint - further optimizations */
+@media (max-width: 767px) {
+  .saia-configurator-wrapper #configurator-container {
+    padding: 0 0.5rem !important;
+    gap: 1rem !important;
+  }
+}
+
+/* ============================================
+   CONFIGURATOR RESPONSIVE - COMPREHENSIVE
+   ============================================ */
+
+/* Configurator Wrapper - Base Responsive */
+.saia-configurator-wrapper {
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.saia-configurator-wrapper .container {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Configurator Panel - Responsive */
+.saia-configurator-wrapper .configurator-panel {
+  background: var(--card-bg) !important;
+  padding: 1.5rem !important;
+  border-radius: var(--radius-md) !important;
+  box-shadow: var(--shadow-md) !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Control Groups - Responsive */
+.saia-configurator-wrapper .control-group {
+  margin-bottom: 1.5rem !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.saia-configurator-wrapper .control-group label {
+  display: block !important;
+  font-weight: 500 !important;
+  margin-bottom: 0.5rem !important;
+  color: var(--text-main) !important;
+  word-wrap: break-word !important;
+  font-size: 1rem !important;
+}
+
+/* Range Sliders - Responsive */
+.saia-configurator-wrapper .range-wrap {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.saia-configurator-wrapper input[type='range'] {
+  width: 100% !important;
+  accent-color: var(--primary) !important;
+  flex: 1 !important;
+}
+
+/* Radio Cards (Currency/Billing) - Responsive */
+.saia-configurator-wrapper .license-options {
+  display: flex !important;
+  gap: 10px !important;
+  width: 100% !important;
+  flex-wrap: wrap !important;
+}
+
+.saia-configurator-wrapper .radio-card {
+  flex: 1 !important;
+  min-width: calc(50% - 5px) !important;
+  border: 2px solid var(--border-color) !important;
+  border-radius: var(--radius-md) !important;
+  padding: 10px !important;
+  text-align: center !important;
+  cursor: pointer !important;
+  transition: all 0.2s !important;
+  box-sizing: border-box !important;
+  font-size: 0.9rem !important;
+}
+
+.saia-configurator-wrapper .radio-card.active {
+  border-color: var(--primary) !important;
+  background-color: #eef2ff !important;
+  color: var(--primary) !important;
+  font-weight: 600 !important;
+}
+
+/* Modules Grid - Responsive */
+.saia-configurator-wrapper .modules-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
+  gap: 1rem !important;
+  margin-bottom: 2rem !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* Module Category Cards - Responsive */
+.saia-configurator-wrapper .module-category-card {
+  background: var(--card-bg) !important;
+  border-radius: var(--radius-md) !important;
+  padding: 1.5rem !important;
+  border: 1px solid var(--border-color) !important;
+  box-shadow: var(--shadow-sm) !important;
+  margin-bottom: 1.5rem !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+
+.saia-configurator-wrapper .category-header {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  margin-bottom: 1.5rem !important;
+  padding-bottom: 1rem !important;
+  border-bottom: 2px solid var(--border-color) !important;
+  word-wrap: break-word !important;
+}
+
+.saia-configurator-wrapper .category-title {
+  font-size: 1.1rem !important;
+  font-weight: 700 !important;
+  color: var(--text-main) !important;
+  word-wrap: break-word !important;
+}
+
+/* Module Items within Category - Responsive */
+.saia-configurator-wrapper .category-modules {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)) !important;
+  gap: 0.75rem !important;
+}
+
+.saia-configurator-wrapper .module-item {
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  word-wrap: break-word !important;
+  overflow: hidden !important;
+}
+
+/* Price Display - Responsive */
+.saia-configurator-wrapper .price-display {
+  margin-top: 2rem !important;
+  padding-top: 2rem !important;
+  border-top: 2px solid var(--border-color) !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.saia-configurator-wrapper .price-label {
+  display: block !important;
+  font-size: 0.9rem !important;
+  color: var(--text-muted) !important;
+  margin-bottom: 0.5rem !important;
+  word-wrap: break-word !important;
+}
+
+.saia-configurator-wrapper .total-price {
+  display: block !important;
+  font-size: 2rem !important;
+  font-weight: 700 !important;
+  color: var(--primary) !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+}
+
+/* CTA Buttons - Responsive */
+.saia-configurator-wrapper .btn-cta {
+  display: block !important;
+  width: 100% !important;
+  padding: 1rem !important;
+  background-color: var(--primary) !important;
+  color: white !important;
+  text-align: center !important;
+  border-radius: var(--radius-md) !important;
+  text-decoration: none !important;
+  font-weight: 600 !important;
+  margin-top: 1rem !important;
+  box-sizing: border-box !important;
+  word-wrap: break-word !important;
+  font-size: 1rem !important;
+}
+
+.saia-configurator-wrapper .configurator-panel .btn-demo {
+  display: block !important;
+  width: 100% !important;
+  padding: 0.875rem !important;
+  text-align: center !important;
+  box-sizing: border-box !important;
+  font-size: 0.9rem !important;
+}
+
+/* Custom Services Summary - Responsive */
+.saia-configurator-wrapper .custom-services-summary {
+  margin-top: 1.5rem !important;
+  padding: 1rem !important;
+  background: #fff3cd !important;
+  border-radius: var(--radius-md) !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+/* ============================================
+   CONFIGURATOR MOBILE RESPONSIVE (<768px)
+   ============================================ */
+
+@media (max-width: 767px) {
+  /* Wrapper and containers */
+  .saia-configurator-wrapper .container {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+
+  /* Main header */
+  .saia-configurator-wrapper .display-6 {
+    font-size: 1.5rem !important;
+  }
+
+  .saia-configurator-wrapper .lead {
+    font-size: 1rem !important;
+  }
+
+  .saia-configurator-wrapper .small {
+    font-size: 0.85rem !important;
+  }
+
+  /* Configurator panel */
+  .saia-configurator-wrapper .configurator-panel {
+    padding: 1rem !important;
+    position: static !important;
+  }
+
+  /* Control groups */
+  .saia-configurator-wrapper .control-group {
+    margin-bottom: 1.25rem !important;
+  }
+
+  .saia-configurator-wrapper .control-group label {
+    font-size: 0.9rem !important;
+  }
+
+  /* Radio cards */
+  .saia-configurator-wrapper .radio-card {
+    padding: 0.75rem 0.5rem !important;
+    font-size: 0.85rem !important;
+  }
+
+  /* Modules grid */
+  .saia-configurator-wrapper .modules-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem !important;
+  }
+
+  /* Module category cards */
+  .saia-configurator-wrapper .module-category-card {
+    padding: 1rem !important;
+    margin-bottom: 1rem !important;
+  }
+
+  .saia-configurator-wrapper .category-modules {
+    grid-template-columns: 1fr !important;
+    gap: 0.5rem !important;
+  }
+
+  .saia-configurator-wrapper .category-title {
+    font-size: 1rem !important;
+  }
+
+  /* Price display */
+  .saia-configurator-wrapper .total-price {
+    font-size: 1.75rem !important;
+  }
+
+  /* Buttons */
+  .saia-configurator-wrapper .btn-cta {
+    padding: 0.875rem !important;
+    font-size: 0.9rem !important;
+  }
+
+  .saia-configurator-wrapper .configurator-panel .btn-demo {
+    padding: 0.75rem !important;
+    font-size: 0.85rem !important;
+  }
+}
+
+/* ============================================
+   CONFIGURATOR WIDE SCREENS (>992px)
+   ============================================ */
+
+@media (min-width: 992px) {
+  /* On wide screens, ensure proper 2-column layout */
+  .saia-configurator-wrapper #configurator-container {
+    grid-template-columns: 1fr 350px !important;
+  }
+
+  .saia-configurator-wrapper .modules-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
+  }
+
+  .saia-configurator-wrapper .category-modules {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)) !important;
+  }
+}
+
+/* ============================================
+   CONFIGURATOR FAQ - WORDPRESS COMPATIBILITY
+   ============================================ */
+
+.saia-configurator-wrapper .pricing-faq {
+  margin-top: 2rem !important;
+  margin-bottom: 0 !important;
+  padding: 2rem 0 1rem 0 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+  box-sizing: border-box !important;
+}
+
+.saia-configurator-wrapper .pricing-faq .container {
+  max-width: 900px !important;
+  margin: 0 auto !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  padding-left: 1rem !important;
+  padding-right: 1rem !important;
+}
+
+.saia-configurator-wrapper .faq-title {
+  font-size: 2rem !important;
+  font-weight: 700 !important;
+  color: var(--dark) !important;
+  text-align: center !important;
+  margin-bottom: 2rem !important;
+  word-wrap: break-word !important;
+}
+
+.saia-configurator-wrapper .faq-accordion {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.5rem !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.saia-configurator-wrapper .faq-item {
+  background: var(--card-bg) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--radius-md) !important;
+  box-shadow: var(--shadow-sm) !important;
+  overflow: hidden !important;
+  transition: all 0.3s ease !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.saia-configurator-wrapper .faq-header {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 1rem !important;
+  cursor: pointer !important;
+  background: transparent !important;
+  border: none !important;
+  width: 100% !important;
+  text-align: left !important;
+  font-family: inherit !important;
+  font-size: 1.1rem !important;
+  font-weight: 600 !important;
+  color: var(--text-main) !important;
+  transition: background-color 0.2s ease !important;
+  box-sizing: border-box !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+}
+
+.saia-configurator-wrapper .faq-content {
+  padding: 0 1rem 1rem 1rem !important;
+  color: var(--text-muted) !important;
+  line-height: 1.6 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+}
+
+.saia-configurator-wrapper .faq-cta {
+  margin-top: 2rem !important;
+  margin-bottom: 0 !important;
+  text-align: center !important;
+  width: 100% !important;
+}
+
+.saia-configurator-wrapper .faq-cta p {
+  color: var(--text-muted) !important;
+  margin-bottom: 0 !important;
+}
+
+.saia-configurator-wrapper .faq-cta a {
+  color: var(--primary) !important;
+  text-decoration: none !important;
+  font-weight: 600 !important;
+}
+
+/* Configurator FAQ Responsive - Mobile */
+@media (max-width: 767px) {
+  .saia-configurator-wrapper .pricing-faq {
+    padding: 1.5rem 0 0.5rem 0 !important;
+  }
+
+  .saia-configurator-wrapper .pricing-faq .container {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+
+  .saia-configurator-wrapper .faq-title {
+    font-size: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+  }
+
+  .saia-configurator-wrapper .faq-header {
+    font-size: 1rem !important;
+    padding: 0.875rem !important;
+  }
+
+  .saia-configurator-wrapper .faq-content {
+    font-size: 0.9rem !important;
+    padding: 0 0.875rem 0.875rem 0.875rem !important;
+  }
+
+  .saia-configurator-wrapper .faq-accordion {
+    gap: 0.375rem !important;
+  }
+}
+
+/* Configurator FAQ Responsive - Tablet */
+@media (min-width: 768px) and (max-width: 991px) {
+  .saia-configurator-wrapper .faq-title {
+    font-size: 1.75rem !important;
+  }
+
+  .saia-configurator-wrapper .faq-header {
+    font-size: 1.05rem !important;
+  }
+}
+
+/* Final CTA within FAQ - Configurator Responsive */
+.saia-configurator-wrapper .pricing-faq .lead {
+  font-size: 1.25rem !important;
+  line-height: 1.5 !important;
+  word-wrap: break-word !important;
+}
+
+@media (max-width: 767px) {
+  .saia-configurator-wrapper .pricing-faq .lead {
+    font-size: 1rem !important;
+  }
+
+  .saia-configurator-wrapper .pricing-faq .btn-outline-primary-custom {
+    font-size: 0.9rem !important;
+    padding: 0.75rem 1.5rem !important;
+  }
+}
+
+/* Sections */
+.section-title {
+  font-size: 1.5rem;
+  margin-bottom: var(--spacing-md);
+  color: var(--dark);
+  font-weight: 600;
+}
+
+/* Configurator Panel */
+.configurator-panel {
+  background: var(--card-bg);
+  padding: var(--spacing-md);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  position: sticky;
+  top: 20px;
+  height: fit-content;
+}
+
+.control-group {
+  margin-bottom: var(--spacing-md);
+}
+
+.control-group label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: var(--spacing-xs);
+  color: var(--text-main);
+}
+
+.range-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.saia-configurator-wrapper input[type='range'],
+.saia-plans-wrapper input[type='range'] {
+  width: 100%;
+  accent-color: var(--primary);
+}
+
+.saia-configurator-wrapper input[type='number'],
+.saia-plans-wrapper input[type='number'] {
+  width: 80px;
+  padding: 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.license-options {
+  display: flex;
+  gap: 10px;
+}
+
+.radio-card {
+  flex: 1;
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 10px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.radio-card.active {
+  border-color: var(--primary);
+  background-color: #eef2ff;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* Modules Grid */
+.saia-configurator-wrapper .modules-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)) !important;
+  gap: var(--spacing-md) !important;
+  margin-bottom: var(--spacing-lg) !important;
+  box-sizing: border-box !important;
+}
+
+/* Category Cards */
+.module-category-card {
+  background: var(--card-bg);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+.category-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: var(--spacing-md);
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 2px solid var(--border-color);
+}
+
+.category-icon {
+  font-size: 1.5rem;
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+.category-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--dark);
+  margin: 0;
+  flex: 1;
+}
+
+.category-modules {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: var(--spacing-sm);
+}
+
+/* Module Items within Categories */
+.module-item {
+  background: var(--light);
+  border-radius: 8px;
+  padding: 10px 12px;
+  border: 1px solid var(--border-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.module-item:hover {
+  border-color: var(--primary);
+  background-color: #f0f7ff;
+  transform: translateX(2px);
+}
+
+.module-item.selected {
+  border-color: var(--secondary);
+  background-color: #f0f7ff;
+}
+
+.module-item.selected::before {
+  content: '✓';
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  color: var(--secondary);
+  font-weight: 900;
+  font-size: 1rem;
+}
+
+.module-item.custom-service {
+  border-color: var(--border-color);
+  background-color: var(--light);
+}
+
+.module-item.custom-service.selected {
+  border-color: var(--accent);
+  background-color: #d1fae5;
+}
+
+.module-item.custom-service.selected::before {
+  color: var(--accent);
+}
+
+.module-item-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.module-item-icon {
+  font-size: 1.2rem;
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+.module-item-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--dark);
+  flex: 1;
+}
+
+.module-item-desc {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  line-height: 1.4;
+  margin-top: 4px;
+  padding-left: 28px;
+  margin-bottom: 6px;
+}
+
+.module-item-footer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+  padding-top: 6px;
+  border-top: 1px solid var(--border-color);
+}
+
+.module-item-info-link {
+  color: var(--primary);
+  text-decoration: none;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  opacity: 0.7;
+  transition:
+    opacity 0.2s ease,
+    color 0.2s ease;
+}
+
+.module-item-info-link:hover {
+  opacity: 1;
+  text-decoration: none;
+  color: var(--primary-hover);
+}
+
+/* ============================================
+   WORDPRESS SPECIFIC - MODULE ITEMS
+   Higher specificity for WordPress compatibility
+   ============================================ */
+
+.saia-configurator-wrapper .module-item {
+  background: var(--light) !important;
+  border-radius: 8px !important;
+  padding: 10px 12px !important;
+  border: 1px solid var(--border-color) !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  position: relative !important;
+  display: block !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.saia-configurator-wrapper .module-item:hover {
+  border-color: var(--primary) !important;
+  background-color: #f0f7ff !important;
+  transform: translateX(2px) !important;
+}
+
+.saia-configurator-wrapper .module-item.selected {
+  border-color: var(--secondary) !important;
+  background-color: #f0f7ff !important;
+}
+
+.saia-configurator-wrapper .module-item.selected::before {
+  content: '✓' !important;
+  position: absolute !important;
+  top: 8px !important;
+  right: 10px !important;
+  color: var(--secondary) !important;
+  font-weight: 900 !important;
+  font-size: 1rem !important;
+}
+
+.saia-configurator-wrapper .module-item.custom-service {
+  border-color: var(--border-color) !important;
+  background-color: var(--light) !important;
+}
+
+.saia-configurator-wrapper .module-item.custom-service.selected {
+  border-color: var(--accent) !important;
+  background-color: #d1fae5 !important;
+}
+
+.saia-configurator-wrapper .module-item.custom-service.selected::before {
+  color: var(--accent) !important;
+}
+
+.saia-configurator-wrapper .module-item-header {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin-bottom: 4px !important;
+  word-wrap: break-word !important;
+}
+
+.saia-configurator-wrapper .module-item-icon {
+  font-size: 1.2rem !important;
+  color: var(--primary) !important;
+  flex-shrink: 0 !important;
+}
+
+.saia-configurator-wrapper .module-item-name {
+  font-weight: 600 !important;
+  font-size: 0.95rem !important;
+  color: var(--dark) !important;
+  flex: 1 !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+}
+
+.saia-configurator-wrapper .module-item-desc {
+  color: var(--text-muted) !important;
+  font-size: 0.85rem !important;
+  line-height: 1.4 !important;
+  margin-top: 4px !important;
+  padding-left: 28px !important;
+  margin-bottom: 6px !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+}
+
+.saia-configurator-wrapper .module-item-footer {
+  display: flex !important;
+  justify-content: flex-end !important;
+  margin-top: 8px !important;
+  padding-top: 6px !important;
+  border-top: 1px solid var(--border-color) !important;
+}
+
+.saia-configurator-wrapper .module-item-info-link {
+  color: var(--primary) !important;
+  text-decoration: none !important;
+  font-size: 0.85rem !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  opacity: 0.7 !important;
+  transition: opacity 0.2s ease, color 0.2s ease !important;
+}
+
+.saia-configurator-wrapper .module-item-info-link:hover {
+  opacity: 1 !important;
+  text-decoration: none !important;
+  color: var(--primary-hover) !important;
+}
+
+/* Mobile responsive for module items */
+@media (max-width: 767px) {
+  .saia-configurator-wrapper .module-item {
+    padding: 0.75rem !important;
+  }
+
+  .saia-configurator-wrapper .module-item-name {
+    font-size: 0.9rem !important;
+  }
+
+  .saia-configurator-wrapper .module-item-desc {
+    font-size: 0.8rem !important;
+    padding-left: 24px !important;
+  }
+
+  .saia-configurator-wrapper .module-item-footer {
+    margin-top: 6px !important;
+    padding-top: 4px !important;
+  }
+}
+
+/* Responsive adjustments for category cards */
+@media (max-width: 768px) {
+  .modules-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .category-modules {
+    grid-template-columns: 1fr;
+  }
+
+  .module-item-desc {
+    padding-left: 0;
+    margin-top: 6px;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1200px) {
+  .category-modules {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.module-card {
+  background: var(--card-bg);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.module-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.module-card.selected {
+  border-color: var(--secondary);
+  background-color: #f0f7ff; /* Light Blue Tint */
+}
+
+.module-card.selected::after {
+  content: '✓';
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  color: var(--secondary);
+  font-weight: 900;
+  font-size: 1.2rem;
+}
+
+.module-card.custom-service {
+  border-color: var(--border-color);
+  background-color: var(--card-bg);
+}
+
+.module-card.custom-service.selected {
+  border-color: var(--accent);
+  background-color: #d1fae5; /* Light Green Tint when selected */
+}
+
+.module-card.custom-service.selected::after {
+  content: '✓';
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  color: var(--accent);
+  font-weight: 900;
+  font-size: 1.2rem;
+  z-index: 5;
+}
+
+.custom-service-badge {
+  display: inline-block;
+  background-color: var(--accent);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-top: 8px;
+  text-align: center;
+  width: auto;
+  max-width: calc(100% - 120px);
+  margin-right: auto;
+}
+
+.custom-services-summary {
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-md);
+  background-color: #d1fae5;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.custom-services-summary .section-title {
+  font-size: 1rem;
+  color: var(--dark);
+  margin-bottom: var(--spacing-xs);
+}
+
+.custom-service-item {
+  padding: var(--spacing-xs) 0;
+  color: var(--text-main);
+  font-size: 0.9rem;
+}
+
+.module-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 5px;
+}
+
+.module-icon {
+  font-size: 2rem;
+  flex-shrink: 0;
+  color: var(--primary);
+}
+
+.module-name {
+  font-weight: 600;
+  font-size: 1.1rem;
+  flex: 1;
+}
+
+.module-desc {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.module-info-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--primary);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  position: absolute;
+  bottom: 10px;
+  right: 15px;
+  transition: color 0.2s ease;
+  z-index: 10;
+}
+
+.module-info-link:hover {
+  color: var(--primary-hover);
+  text-decoration: none;
+}
+
+.module-info-link i {
+  font-size: 0.9rem;
+}
+
+/* Price Display */
+.price-display {
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--border-color);
+  text-align: center;
+}
+
+.total-price {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--dark);
+  display: block;
+}
+
+.price-label {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.btn-cta {
+  display: block;
+  width: 100%;
+  background-color: var(--primary);
+  color: white;
+  text-align: center;
+  padding: 12px;
+  border-radius: var(--radius-md);
+  margin-top: var(--spacing-md);
+  font-weight: 600;
+  text-decoration: none;
+  transition: background-color 0.2s;
+}
+
+.btn-cta:hover {
+  background-color: var(--primary-hover);
+}
+
+/* Demo Button - Uses CSS color variables */
+.btn-demo {
+  display: inline-block;
+  background-color: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+  text-align: center;
+  padding: 10px 24px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-demo:hover {
+  background-color: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.btn-demo.rounded-pill {
+  border-radius: 50px;
+}
+
+/* Secondary CTA Button - More visible demo button */
+.btn-demo-secondary {
+  display: inline-block;
+  background-color: var(--primary);
+  color: white;
+  border: 2px solid var(--primary);
+  text-align: center;
+  padding: 12px 32px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-demo-secondary:hover {
+  background-color: var(--primary-hover);
+  border-color: var(--primary-hover);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-demo-secondary.rounded-pill {
+  border-radius: 50px;
+}
+
+/* Primary Button - Uses CSS color variables */
+.btn-primary-custom {
+  display: inline-block;
+  background-color: var(--primary);
+  color: white;
+  border: 2px solid var(--primary);
+  text-align: center;
+  padding: 10px 24px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-primary-custom:hover {
+  background-color: var(--primary-hover);
+  border-color: var(--primary-hover);
+  color: white;
+}
+
+.btn-primary-custom.rounded-pill {
+  border-radius: 50px;
+}
+
+/* Outline Primary Button - Uses CSS color variables */
+.btn-outline-primary-custom {
+  display: inline-block;
+  background-color: transparent;
+  color: var(--primary);
+  border: 2px solid var(--primary);
+  text-align: center;
+  padding: 10px 24px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-outline-primary-custom:hover {
+  background-color: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.btn-outline-primary-custom.rounded-pill {
+  border-radius: 50px;
+}
+
+/* Dark Button - Uses CSS color variables */
+.btn-dark-custom {
+  display: inline-block;
+  background-color: var(--dark);
+  color: white;
+  border: 2px solid var(--dark);
+  text-align: center;
+  padding: 10px 24px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-dark-custom:hover {
+  background-color: #111827;
+  border-color: #111827;
+  color: white;
+}
+
+.btn-dark-custom.rounded-pill {
+  border-radius: 50px;
+}
+
+/* Tooltips System */
+.help-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  margin-left: 6px;
+  border-radius: 50%;
+  background-color: var(--primary);
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  vertical-align: middle;
+  line-height: 1;
+}
+
+.help-icon:hover {
+  background-color: var(--primary-hover);
+  transform: scale(1.1);
+}
+
+.tooltip {
+  position: absolute;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 0.2s ease,
+    visibility 0.2s ease;
+  max-width: 280px;
+}
+
+.tooltip.tooltip-visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.tooltip-content {
+  background-color: var(--dark);
+  color: white;
+  padding: 12px 16px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.tooltip-title {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: white;
+}
+
+.tooltip-text {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.875rem;
+}
+
+.tooltip-arrow {
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid var(--dark);
+}
+
+/* Custom Switch Logic: Always "Active" Color - Scoped to plugin */
+.saia-plans-wrapper .form-check-input,
+.saia-configurator-wrapper .form-check-input {
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+  cursor: pointer;
+  /* Force White Knob (SVG data for white circle) */
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e") !important;
+}
+
+.saia-plans-wrapper .form-check-input:focus,
+.saia-configurator-wrapper .form-check-input:focus {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 0.25rem rgba(13, 133, 232, 0.25) !important;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e") !important;
+}
+
+.saia-plans-wrapper .form-check-input:checked,
+.saia-configurator-wrapper .form-check-input:checked {
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e") !important;
+}
+
+/* FAQ Section Styles */
+.pricing-faq {
+  margin-top: var(--spacing-lg);
+  margin-bottom: 0;
+  padding: var(--spacing-lg) 0;
+  padding-bottom: var(--spacing-md);
+}
+
+.pricing-faq .container {
+  max-width: 900px;
+}
+
+.faq-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--dark);
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.faq-accordion {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.faq-item {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.faq-item:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.faq-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-md);
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  width: 100%;
+  text-align: left;
+  font-family: inherit;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text-main);
+  transition: background-color 0.2s ease;
+}
+
+.faq-header:hover {
+  background-color: var(--light);
+}
+
+.faq-header:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: -2px;
+}
+
+.faq-header[aria-expanded='true'] {
+  color: var(--primary);
+}
+
+.faq-question {
+  flex: 1;
+  margin-right: var(--spacing-sm);
+}
+
+.faq-icon {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  transition: transform 0.3s ease;
+}
+
+.faq-item.active .faq-icon {
+  transform: rotate(180deg);
+}
+
+.faq-icon i {
+  font-size: 1rem;
+}
+
+.faq-content {
+  max-height: 0;
+  overflow: hidden;
+  transition:
+    max-height 0.3s ease,
+    opacity 0.3s ease;
+  opacity: 0;
+}
+
+.faq-item.active .faq-content {
+  max-height: 1000px;
+  opacity: 1;
+}
+
+.faq-answer {
+  padding: 0 var(--spacing-md) var(--spacing-md) var(--spacing-md);
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.faq-cta {
+  text-align: center;
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--border-color);
+}
+
+.faq-cta p {
+  color: var(--text-muted);
+  font-size: 1rem;
+  margin: 0;
+}
+
+.faq-cta a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.faq-cta a:hover {
+  color: var(--primary-hover);
+  text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .faq-title {
+    font-size: 1.75rem;
+  }
+
+  .faq-header {
+    font-size: 1rem;
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+
+  .faq-answer {
+    padding: 0 var(--spacing-md) var(--spacing-md) var(--spacing-md);
+    font-size: 0.95rem;
+  }
+}
+
+/* Value Proposition - Responsive */
+.saia-value-proposition {
+  font-size: 1.5rem;
+  line-height: 1.6;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .saia-value-proposition {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    padding: 0 0.5rem;
+  }
+}
+
+/* Comparison Table Section Headers - Scoped to plugin */
+.saia-comparison-wrapper .table-group-divider {
+  background-color: #f3f4f6 !important;
+  border-top: 2px solid var(--border-color);
+  border-bottom: 2px solid var(--border-color);
+}
+
+.saia-comparison-wrapper .table-group-divider td {
+  background-color: #f3f4f6 !important;
+  font-weight: 700 !important;
+  color: var(--dark) !important;
+  text-align: left !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.875rem;
+}
+
+.saia-comparison-wrapper .table-group-divider td:first-child {
+  padding-left: 1.5rem !important;
+}
+
+/* --- Opcional: cuando la página se muestra dentro de un iframe (WordPress, etc.) --- */
+.inside-iframe {
+  overflow-x: hidden;
+}
+.inside-iframe body {
+  overflow-x: hidden;
+  /* No usar min-height: 100%: hace que body = altura del iframe y el script
+     reportaría esa altura de nuevo, creando espacio blanco y rebotes al hacer scroll. */
+}
+
+
+
+.microcopy-price-user {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 4px;
+}
+
+/* ============================================
+   COMPARISON PAGE - RESPONSIVE (WORDPRESS)
+   ============================================ */
+
+/* Wrapper - Base Responsive */
+.saia-comparison-wrapper {
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.saia-comparison-wrapper .container {
+  width: 100% !important;
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  padding-left: 15px !important;
+  padding-right: 15px !important;
+  box-sizing: border-box !important;
+}
+
+/* Header Section - Responsive */
+.saia-comparison-wrapper .py-5 {
+  padding-top: 3rem !important;
+  padding-bottom: 3rem !important;
+}
+
+.saia-comparison-wrapper .bg-light {
+  background-color: #f8f9fa !important;
+}
+
+.saia-comparison-wrapper .display-4 {
+  font-size: 2.5rem !important;
+  font-weight: 700 !important;
+  margin-bottom: 1rem !important;
+  word-wrap: break-word !important;
+}
+
+.saia-comparison-wrapper .lead {
+  font-size: 1.25rem !important;
+  font-weight: 300 !important;
+  word-wrap: break-word !important;
+}
+
+/* Table Container - Responsive */
+.saia-comparison-wrapper #comparison-table-container {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: hidden !important;
+  box-sizing: border-box !important;
+}
+
+.saia-comparison-wrapper .table-responsive {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  box-sizing: border-box !important;
+  margin-bottom: 1rem !important;
+}
+
+/* Table - Base Styles */
+.saia-comparison-wrapper .table {
+  width: 100% !important;
+  margin-bottom: 0 !important;
+  color: var(--text-main) !important;
+  border-collapse: collapse !important;
+  box-sizing: border-box !important;
+}
+
+.saia-comparison-wrapper .table thead {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 10 !important;
+  background-color: #f8f9fa !important;
+}
+
+.saia-comparison-wrapper .table th {
+  padding: 1rem !important;
+  font-weight: 600 !important;
+  text-align: center !important;
+  vertical-align: middle !important;
+  border-bottom: 2px solid #dee2e6 !important;
+  white-space: nowrap !important;
+  box-sizing: border-box !important;
+}
+
+.saia-comparison-wrapper .table th:first-child {
+  text-align: left !important;
+  min-width: 200px !important;
+}
+
+.saia-comparison-wrapper .table td {
+  padding: 0.75rem !important;
+  vertical-align: middle !important;
+  border-bottom: 1px solid #dee2e6 !important;
+  box-sizing: border-box !important;
+}
+
+.saia-comparison-wrapper .table tbody tr:hover {
+  background-color: rgba(0, 0, 0, 0.02) !important;
+}
+
+/* Category Headers */
+.saia-comparison-wrapper .table-group-divider {
+  border-top: 2px solid #dee2e6 !important;
+}
+
+.saia-comparison-wrapper .bg-primary-subtle {
+  background-color: #eef2ff !important;
+}
+
+/* Icons in cells */
+.saia-comparison-wrapper .table .fa-check {
+  color: #10b981 !important;
+  font-size: 1.25rem !important;
+}
+
+.saia-comparison-wrapper .table .fa-xmark {
+  color: #9ca3af !important;
+  opacity: 0.3 !important;
+  font-size: 1.25rem !important;
+}
+
+/* Navigation Buttons */
+.saia-comparison-wrapper .btn {
+  padding: 0.75rem 1.5rem !important;
+  border-radius: 50rem !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+  display: inline-block !important;
+  box-sizing: border-box !important;
+  transition: all 0.2s ease !important;
+}
+
+.saia-comparison-wrapper .btn-outline-secondary {
+  color: #6c757d !important;
+  border: 2px solid #6c757d !important;
+  background-color: transparent !important;
+}
+
+.saia-comparison-wrapper .btn-outline-secondary:hover {
+  color: white !important;
+  background-color: #6c757d !important;
+}
+
+.saia-comparison-wrapper .btn-primary {
+  color: white !important;
+  background-color: var(--primary) !important;
+  border: 2px solid var(--primary) !important;
+}
+
+.saia-comparison-wrapper .btn-primary:hover {
+  background-color: var(--primary-hover) !important;
+  border-color: var(--primary-hover) !important;
+}
+
+/* ============================================
+   COMPARISON - TABLET RESPONSIVE (768-991px)
+   ============================================ */
+
+@media (max-width: 991px) {
+  .saia-comparison-wrapper .container {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  .saia-comparison-wrapper .display-4 {
+    font-size: 2rem !important;
+  }
+
+  .saia-comparison-wrapper .lead {
+    font-size: 1.1rem !important;
+  }
+
+  /* Table - reduce column widths */
+  .saia-comparison-wrapper .table th,
+  .saia-comparison-wrapper .table td {
+    padding: 0.625rem !important;
+    font-size: 0.9rem !important;
+  }
+
+  .saia-comparison-wrapper .table th:first-child {
+    min-width: 180px !important;
+  }
+
+  .saia-comparison-wrapper .table th:not(:first-child) {
+    min-width: 100px !important;
+  }
+}
+
+/* ============================================
+   COMPARISON - MOBILE RESPONSIVE (<768px)
+   ============================================ */
+
+@media (max-width: 767px) {
+  /* Container */
+  .saia-comparison-wrapper .container {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+
+  /* Header */
+  .saia-comparison-wrapper .py-5 {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+
+  .saia-comparison-wrapper .mb-4 {
+    margin-bottom: 1.5rem !important;
+  }
+
+  .saia-comparison-wrapper .display-4 {
+    font-size: 1.75rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .saia-comparison-wrapper .lead {
+    font-size: 1rem !important;
+  }
+
+  /* Table - further reduce for mobile */
+  .saia-comparison-wrapper .table th,
+  .saia-comparison-wrapper .table td {
+    padding: 0.5rem !important;
+    font-size: 0.85rem !important;
+  }
+
+  .saia-comparison-wrapper .table th:first-child {
+    min-width: 150px !important;
+    font-size: 0.85rem !important;
+  }
+
+  .saia-comparison-wrapper .table th:not(:first-child) {
+    min-width: 80px !important;
+    font-size: 0.8rem !important;
+  }
+
+  .saia-comparison-wrapper .table td:first-child {
+    font-size: 0.85rem !important;
+  }
+
+  /* Icons - smaller on mobile */
+  .saia-comparison-wrapper .table .fa-check,
+  .saia-comparison-wrapper .table .fa-xmark {
+    font-size: 1rem !important;
+  }
+
+  /* Category headers */
+  .saia-comparison-wrapper .table-group-divider td {
+    padding: 0.625rem 0.5rem !important;
+    font-size: 0.75rem !important;
+  }
+
+  /* Buttons - stack on mobile */
+  .saia-comparison-wrapper .text-center.mt-5 {
+    margin-top: 2rem !important;
+  }
+
+  .saia-comparison-wrapper .btn {
+    display: block !important;
+    width: 100% !important;
+    margin-bottom: 0.75rem !important;
+    padding: 0.625rem 1rem !important;
+    font-size: 0.9rem !important;
+  }
+
+  .saia-comparison-wrapper .btn.me-3 {
+    margin-right: 0 !important;
+    margin-bottom: 0.75rem !important;
+  }
+
+  /* Table scroll hint */
+  .saia-comparison-wrapper .table-responsive::after {
+    content: '← Desliza para ver más →';
+    display: block;
+    text-align: center;
+    font-size: 0.75rem;
+    color: #6b7280;
+    padding: 0.5rem;
+    margin-top: -0.5rem;
+  }
+}
+
+/* ============================================
+   COMPARISON - EXTRA SMALL MOBILE (<576px)
+   ============================================ */
+
+@media (max-width: 575px) {
+  .saia-comparison-wrapper .display-4 {
+    font-size: 1.5rem !important;
+  }
+
+  .saia-comparison-wrapper .lead {
+    font-size: 0.95rem !important;
+  }
+
+  .saia-comparison-wrapper .table th:first-child {
+    min-width: 120px !important;
+    font-size: 0.8rem !important;
+  }
+
+  .saia-comparison-wrapper .table th:not(:first-child) {
+    min-width: 70px !important;
+    font-size: 0.75rem !important;
+  }
+
+  .saia-comparison-wrapper .table td {
+    font-size: 0.8rem !important;
+  }
+
+  .saia-comparison-wrapper .table td:first-child {
+    font-size: 0.8rem !important;
+  }
+}
