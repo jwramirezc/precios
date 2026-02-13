@@ -739,8 +739,8 @@ input[type='number'] {
 /* FAQ Section Styles */
 .pricing-faq {
   margin-top: var(--spacing-lg);
-  margin-bottom: var(--spacing-lg);
-  padding: var(--spacing-lg) 0;
+  margin-bottom: 0;
+  padding: var(--spacing-lg) 0 var(--spacing-sm) 0;
 }
 
 .pricing-faq .container {

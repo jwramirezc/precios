@@ -192,6 +192,20 @@
     <script src="assets/js/faq.js"></script>
     <script src="assets/js/main.js"></script>
     <script src="assets/js/iframe-resizer.js"></script>
+<script>
+setTimeout(function(){
+  var r = {};
+  r.bodyH = document.body.scrollHeight;
+  r.docH = document.documentElement.scrollHeight;
+  var faq = document.getElementById("faq");
+  if(faq){var b=faq.getBoundingClientRect();r.faqT=Math.round(b.top+window.pageYOffset);r.faqB=Math.round(b.bottom+window.pageYOffset);r.faqH=Math.round(b.height);}
+  var cta=document.querySelector(".faq-cta");
+  if(cta)r.ctaB=Math.round(cta.getBoundingClientRect().bottom+window.pageYOffset);
+  r.wsBot=r.bodyH-(r.ctaB||0);
+  r.docVsBody=r.docH-r.bodyH;
+  document.title="M:"+JSON.stringify(r);
+},5000);
+</script>
 </body>
 
 </html>
