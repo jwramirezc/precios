@@ -240,7 +240,8 @@ function renderFeatureList(plan, iconColor) {
 
 function getButtonAction(plan) {
   if (plan.buttonAction === 'custom') {
-    return "window.location.href='configurator.html'";
+    const configuradorUrl = typeof getPageUrl === 'function' ? getPageUrl('configurador') : 'configurator.html';
+    return `window.location.href='${configuradorUrl}'`;
   }
   if (plan.buttonAction === 'contact') {
     const contactUrl = GENERAL_CONFIG?.links?.contactSales;

@@ -89,6 +89,12 @@ header p {
   #configurator-container {
     grid-template-columns: 1fr;
   }
+  #configurator-container > .saia-main {
+    order: 1;
+  }
+  #configurator-container > .saia-aside {
+    order: 2;
+  }
 }
 
 /* Sections */

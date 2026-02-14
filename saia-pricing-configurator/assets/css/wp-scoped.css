@@ -131,20 +131,24 @@
     display: block !important;
     min-width: 0 !important;
     width: auto !important;
+    max-width: 100% !important;
     float: none !important;
     flex: unset !important;
     margin: 0 !important;
     padding: 0 !important;
+    order: 1 !important;
 }
 
 #saia-app-root #configurator-container > .saia-aside {
     display: block !important;
     min-width: 0 !important;
     width: auto !important;
+    max-width: 100% !important;
     float: none !important;
     flex: unset !important;
     margin: 0 !important;
     padding: 0 !important;
+    order: 2 !important;
 }
 
 #saia-app-root .configurator-panel {
@@ -321,9 +325,20 @@
     #saia-app-root #configurator-container {
         grid-template-columns: 1fr !important;
     }
+    #saia-app-root #configurator-container > .saia-main {
+        order: 1 !important;
+    }
+    #saia-app-root #configurator-container > .saia-aside {
+        order: 2 !important;
+    }
 
     #saia-app-root .modules-grid {
         grid-template-columns: 1fr !important;
+    }
+
+    #saia-app-root .configurator-panel {
+        position: relative !important;
+        top: auto !important;
     }
 }
 

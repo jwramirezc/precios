@@ -5,5 +5,10 @@
     "requestDemo": "https://www.saiasoftware.com/#demo",
     "personalizedQuote": "https://www.saiasoftware.com/registro/",
     "defaultModuleUrl": "https://www.saiasoftware.com/"
+  },
+  "pageUrls": {
+    "planes": "index.html",
+    "configurador": "configurator.html",
+    "comparacion": "comparison.html"
   }
 }
