@@ -1,18 +1,9 @@
 // config.js
 // Loads configuration data from JSON files for easier maintenance
-
-/**
- * Get base URL for data files
- * Works both standalone and in WordPress
- * @returns {string} Base URL for JSON data files
- */
-function getDataUrl() {
-    // If WordPress localized script data is available, use it
-    if (typeof saiaData !== 'undefined' && saiaData.dataUrl) {
-        return saiaData.dataUrl;
-    }
-    // Fallback for standalone usage
-    return 'assets/data/';
+// NOTE: getDataUrl() is defined globally by saia-wp-bridge.js (loaded first).
+// If running standalone without the bridge, fall back to 'assets/data/'.
+if (typeof getDataUrl !== 'function') {
+    window.getDataUrl = function () { return 'assets/data/'; };
 }
 
 // Global variables to store loaded data

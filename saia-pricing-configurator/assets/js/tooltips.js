@@ -59,7 +59,11 @@ function initializeTooltips() {
 
         // Create tooltip element
         const tooltip = createTooltipElement(tooltipId, tooltipData);
-        document.body.appendChild(tooltip);
+        // Append to scoped container in WP, or document.body standalone
+        var tooltipContainer = typeof getSaiaTooltipContainer === 'function'
+            ? getSaiaTooltipContainer()
+            : document.body;
+        tooltipContainer.appendChild(tooltip);
 
         // Setup event listeners
         setupTooltipEvents(element, tooltip, tooltipId);

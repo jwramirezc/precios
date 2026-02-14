@@ -3,7 +3,7 @@
  * Plugin Name: SAIA Pricing Configurator
  * Plugin URI: https://www.saiasoftware.com
  * Description: Carga las paginas HTML existentes (index, configurador, comparacion) como shortcodes WordPress sin alterar su contenido.
- * Version: 2.0.0
+ * Version: 3.0.0
  * Author: SAIA Software
  * Author URI: https://www.saiasoftware.com
  * License: GPL-2.0+
@@ -18,14 +18,18 @@
  *   ├── configurator.html               (copia del HTML original)
  *   ├── comparison.html                 (copia del HTML original)
  *   └── assets/
- *       ├── css/styles.css
- *       ├── js/   (versiones con getDataUrl)
- *       └── data/ (JSON de configuracion)
+ *       ├── css/
+ *       │   ├── styles.css              (estilos originales, sin modificar)
+ *       │   └── wp-scoped.css           (resets y overrides scoped a #saia-app-root)
+ *       ├── js/
+ *       │   ├── saia-wp-bridge.js       (define getDataUrl() global, se carga primero)
+ *       │   └── ...                     (JS del proyecto con getDataUrl())
+ *       └── data/                       (JSON de configuracion)
  *
  * Shortcodes:
- *   [mi_index]        → index.html
- *   [mi_configurator] → configurator.html
- *   [mi_comparison]   → comparison.html
+ *   [saia_planes]       → index.html
+ *   [saia_configurator] → configurator.html
+ *   [saia_comparison]   → comparison.html
  */
 
 if (!defined('ABSPATH')) {
@@ -34,16 +38,17 @@ if (!defined('ABSPATH')) {
 
 define('SAIA_DIR', plugin_dir_path(__FILE__));
 define('SAIA_URL', plugin_dir_url(__FILE__));
-define('SAIA_VER', '2.0.0');
+define('SAIA_VER', '3.0.0');
 
 final class SAIA_Loader {
 
     /**
      * Mapa de shortcodes → archivos HTML y scripts necesarios.
      * El orden de scripts respeta las dependencias de cada pagina.
+     * Nota: 'saia-wp-bridge' se agrega automaticamente como primera dependencia.
      */
     private static $pages = [
-        'mi_index' => [
+        'saia_planes' => [
             'file'    => 'index.html',
             'scripts' => [
                 'general-config',
@@ -56,7 +61,7 @@ final class SAIA_Loader {
                 'iframe-resizer',
             ],
         ],
-        'mi_configurator' => [
+        'saia_configurator' => [
             'file'    => 'configurator.html',
             'scripts' => [
                 'general-config',
@@ -70,7 +75,7 @@ final class SAIA_Loader {
                 'iframe-resizer',
             ],
         ],
-        'mi_comparison' => [
+        'saia_comparison' => [
             'file'    => 'comparison.html',
             'scripts' => [
                 'general-config',
@@ -132,68 +137,74 @@ final class SAIA_Loader {
     }
 
     /* ------------------------------------------------------------------ */
-    /*  Enqueue de CSS (se ejecuta en wp_enqueue_scripts → wp_head)       */
+    /*  Enqueue de CSS                                                    */
+    /*                                                                    */
+    /*  Bootstrap, Font Awesome y styles.css se cargan dentro de          */
+    /*  @layer(saia) → menor prioridad que los estilos del tema WP.      */
+    /*                                                                    */
+    /*  wp-scoped.css se carga SIN layer → maxima prioridad, pero solo   */
+    /*  aplica dentro de #saia-app-root.                                 */
     /* ------------------------------------------------------------------ */
 
     public function enqueue_styles() {
-        // Google Fonts - Outfit
-        wp_enqueue_style(
-            'saia-gfonts',
-            'https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap',
-            [],
-            null
-        );
+        $css_url = esc_url(SAIA_URL . 'assets/css/styles.css?ver=' . SAIA_VER);
 
-        // Font Awesome 6.4
-        wp_enqueue_style(
-            'saia-fa',
-            'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
-            [],
-            '6.4.0'
-        );
+        // 1. Inline @imports dentro de @layer(saia) — baja prioridad, no afectan al tema
+        wp_register_style('saia-layered', false);
+        wp_enqueue_style('saia-layered');
+        wp_add_inline_style('saia-layered', implode("\n", [
+            '@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap") layer(saia);',
+            '@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css") layer(saia);',
+            '@import url("https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css") layer(saia);',
+            '@import url("' . $css_url . '") layer(saia);',
+        ]));
 
-        // Bootstrap 5.3
+        // 2. wp-scoped.css — sin layer, scoped a #saia-app-root
         wp_enqueue_style(
-            'saia-bs',
-            'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css',
-            [],
-            '5.3.0'
-        );
-
-        // Estilos propios
-        wp_enqueue_style(
-            'saia-app',
-            SAIA_URL . 'assets/css/styles.css',
-            ['saia-bs'],
+            'saia-scoped',
+            SAIA_URL . 'assets/css/wp-scoped.css',
+            ['saia-layered'],
             SAIA_VER
         );
     }
 
     /* ------------------------------------------------------------------ */
-    /*  Enqueue de JS (footer) — llamado desde el shortcode               */
+    /*  Enqueue de JS (footer)                                            */
+    /*                                                                    */
+    /*  saia-wp-bridge.js se carga PRIMERO y recibe saiaData via          */
+    /*  wp_localize_script. El resto de scripts se encadenan en orden.    */
     /* ------------------------------------------------------------------ */
 
     private function enqueue_scripts($tag) {
-        $scripts = self::$pages[$tag]['scripts'];
-
-        $prev = null;
-        foreach ($scripts as $handle) {
-            $deps = $prev !== null ? ['saia-' . $prev] : [];
-            wp_enqueue_script(
-                'saia-' . $handle,
-                SAIA_URL . 'assets/js/' . $handle . '.js',
-                $deps,
-                SAIA_VER,
-                true
-            );
-            $prev = $handle;
-        }
+        // 1. Bridge — siempre primero
+        wp_enqueue_script(
+            'saia-wp-bridge',
+            SAIA_URL . 'assets/js/saia-wp-bridge.js',
+            [],
+            SAIA_VER,
+            true
+        );
 
         // Pasar URL del plugin al JS para resolver rutas de fetch()
-        wp_localize_script('saia-config', 'saiaData', [
+        wp_localize_script('saia-wp-bridge', 'saiaData', [
             'pluginUrl' => SAIA_URL,
             'dataUrl'   => SAIA_URL . 'assets/data/',
         ]);
+
+        // 2. Scripts de la pagina — encadenados en orden
+        $scripts = self::$pages[$tag]['scripts'];
+        $prev = 'saia-wp-bridge';
+
+        foreach ($scripts as $handle) {
+            wp_enqueue_script(
+                'saia-' . $handle,
+                SAIA_URL . 'assets/js/' . $handle . '.js',
+                [$prev],
+                SAIA_VER,
+                true
+            );
+            $prev = 'saia-' . $handle;
+        }
     }
 
     /* ------------------------------------------------------------------ */
@@ -222,7 +233,11 @@ final class SAIA_Loader {
         $html = file_get_contents($file);
         $body = $this->extract_body($html);
 
-        return '<div id="app-root">' . $body . '</div>';
+        // Envolver en #saia-app-root con contenedor de tooltips
+        return '<div id="saia-app-root">'
+            . $body
+            . '<div class="saia-tooltip-container"></div>'
+            . '</div>';
     }
 
     /* ------------------------------------------------------------------ */

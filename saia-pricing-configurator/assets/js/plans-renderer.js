@@ -240,10 +240,11 @@ function renderFeatureList(plan, iconColor) {
 
 function getButtonAction(plan) {
   if (plan.buttonAction === 'custom') {
-    return "window.location.href='https://www.saiasoftware.com/configurador/'";
+    return "window.location.href='configurator.html'";
   }
   if (plan.buttonAction === 'contact') {
-    const contactUrl = GENERAL_CONFIG?.links?.contactSales || 'https://www.saiasoftware.com/registro/';
+    const contactUrl = GENERAL_CONFIG?.links?.contactSales;
+    if (!contactUrl) return '';
     return `window.location.href='${contactUrl}'`;
   }
   return '';
