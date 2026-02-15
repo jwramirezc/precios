@@ -30,7 +30,7 @@ This is a static site with no build step. To develop:
 
 The project deploys automatically to cPanel via FTP when pushing to the `main` branch. The GitHub Actions workflow is configured in [.github/workflows/deploy-ftp.yml](.github/workflows/deploy-ftp.yml).
 
-Manual deployment requires FTP credentials stored in GitHub Secrets:
+The site deploys to the `/configurator/` directory on the server. FTP credentials are stored in GitHub Secrets:
 - `FTP_SERVER`
 - `FTP_USERNAME`
 - `FTP_PASSWORD`
