@@ -50,7 +50,7 @@
     "description": "Agilice la atención al cliente con gestión sistemática de las PQR.",
     "icon": "<i class=\"fa-solid fa-headset\"></i>",
     "url": "https://www.saiasoftware.com/",
-    "pricing_tier": "advanced",
+    "pricing_tier": "core",
     "category": "atencion_servicio"
   },
   {
