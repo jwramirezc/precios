@@ -6,6 +6,7 @@
     "icon": "<i class=\"fa-solid fa-inbox\"></i>",
     "url": "https://www.saiasoftware.com/",
     "pricing_tier": "core",
+    "visible": true,
     "category": "gestion_documental"
   },
   {
@@ -15,6 +16,7 @@
     "icon": "<i class=\"fa-solid fa-file-lines\"></i>",
     "url": "https://www.saiasoftware.com/",
     "pricing_tier": "core",
+    "visible": true,
     "category": "gestion_documental"
   },
   {
@@ -24,6 +26,7 @@
     "icon": "<i class=\"fa-solid fa-box-archive\"></i>",
     "url": "https://www.saiasoftware.com/",
     "pricing_tier": "core",
+    "visible": true,
     "category": "gestion_documental"
   },
   {
@@ -33,6 +36,7 @@
     "icon": "<i class=\"fa-solid fa-file-lines\"></i>",
     "url": "https://www.saiasoftware.com/",
     "pricing_tier": "advanced",
+    "visible": true,
     "category": "gestion_documental"
   },
   {
@@ -42,6 +46,7 @@
     "icon": "<i class=\"fa-solid fa-diagram-project\"></i>",
     "url": "https://www.saiasoftware.com/",
     "pricing_tier": "advanced",
+    "visible": true,
     "category": "gestion_documental"
   },
   {
@@ -51,6 +56,7 @@
     "icon": "<i class=\"fa-solid fa-headset\"></i>",
     "url": "https://www.saiasoftware.com/",
     "pricing_tier": "advanced",
+    "visible": true,
     "category": "atencion_servicio"
   },
   {
@@ -60,6 +66,7 @@
     "icon": "<i class=\"fa-solid fa-life-ring\"></i>",
     "url": "https://www.saiasoftware.com/",
     "pricing_tier": "advanced",
+    "visible": true,
     "category": "atencion_servicio"
   },
   {
@@ -69,6 +76,7 @@
     "icon": "<i class=\"fa-solid fa-medal\"></i>",
     "url": "https://www.saiasoftware.com/",
     "pricing_tier": "enterprise",
+    "visible": true,
     "category": "cumplimiento_gobierno"
   },
   {
@@ -78,6 +86,7 @@
     "icon": "<i class=\"fa-solid fa-file-contract\"></i>",
     "url": "https://www.saiasoftware.com/",
     "pricing_tier": "advanced",
+    "visible": true,
     "category": "cumplimiento_gobierno"
   },
   {
@@ -87,6 +96,7 @@
     "icon": "<i class=\"fa-solid fa-id-card\"></i>",
     "url": "https://www.saiasoftware.com/",
     "pricing_tier": "advanced",
+    "visible": true,
     "category": "cumplimiento_gobierno"
   },
   {
@@ -96,6 +106,7 @@
     "icon": "<i class=\"fa-solid fa-file-invoice-dollar\"></i>",
     "url": "https://www.saiasoftware.com/",
     "pricing_tier": "advanced",
+    "visible": true,
     "category": "procesos_operaciones"
   },
   {
@@ -105,6 +116,7 @@
     "icon": "<i class=\"fa-solid fa-clipboard-check\"></i>",
     "url": "https://www.saiasoftware.com/",
     "pricing_tier": "core",
+    "visible": true,
     "category": "procesos_operaciones"
   },
   {
@@ -114,6 +126,7 @@
     "icon": "<i class=\"fa-solid fa-signature\"></i>",
     "url": "https://www.saiasoftware.com/",
     "pricing_tier": "core",
+    "visible": true,
     "category": "procesos_operaciones"
   },
   {
@@ -125,6 +138,7 @@
     "calculable": false,
     "type": "service",
     "price_behavior": "custom",
+    "visible": true,
     "category": "personalizacion"
   }
 ]

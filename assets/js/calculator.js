@@ -14,6 +14,7 @@ class Module {
         // Use URL from data, or fallback to general config, or final fallback
         this.url = data.url || (GENERAL_CONFIG?.links?.defaultModuleUrl) || 'https://www.saiasoftware.com/';
         this.calculable = data.calculable !== undefined ? data.calculable : true;
+        this.visible = data.visible !== undefined ? data.visible : true;
         this.type = data.type || 'module';
         this.price_behavior = data.price_behavior || 'standard';
         this.pricing_tier = data.pricing_tier;
@@ -56,7 +57,7 @@ class PricingCalculator {
 
     toggleModule(id) {
         const module = this.getModuleById(id);
-        if (module) {
+        if (module && module.visible) {
             module.toggle();
             return true;
         }
@@ -114,7 +115,9 @@ class PricingCalculator {
     }
 
     calculateModulesCost() {
-        const selectedCalculableModules = this.modules.filter(m => m.selected && m.calculable);
+        const selectedCalculableModules = this.modules.filter(
+            m => m.selected && m.calculable && m.visible
+        );
         return selectedCalculableModules.reduce((total, module) => {
             let price = 0;
             // Look up price by pricing_tier key in the pricingTiers object (module-pricing.json)
@@ -268,6 +271,6 @@ class PricingCalculator {
     }
 
     getSelectedModules() {
-        return this.modules.filter(m => m.selected);
+        return this.modules.filter(m => m.selected && m.visible);
     }
 }

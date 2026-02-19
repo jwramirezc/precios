@@ -152,6 +152,7 @@ const app = {
     // Group modules by category
     const modulesByCategory = {};
     this.calculator.modules.forEach(module => {
+      if (!module.visible) return;
       // Use category from JSON or fallback to 'otros'
       const category = module.category || 'otros';
       if (!modulesByCategory[category]) {
@@ -168,6 +169,7 @@ const app = {
     Object.keys(modulesByCategory).forEach(categoryId => {
       const categoryInfo = this.getCategoryInfo(categoryId);
       const modules = modulesByCategory[categoryId];
+      if (!modules.length) return;
 
       const categoryCard = document.createElement('div');
       categoryCard.className = 'module-category-card';
