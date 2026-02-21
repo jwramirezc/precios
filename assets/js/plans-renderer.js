@@ -111,13 +111,11 @@ function renderPlans(containerId, data) {
                     
                     ${renderPriceSection(plan, textColor)}
                     
-                    <!-- Button -->
-                    <div class="d-grid mb-4 ${
+                    <!-- Buttons -->
+                    <div class="d-grid gap-2 mb-4 ${
                       plan.style === 'dashed' ? 'mt-auto' : ''
                     }">
-                        <button onclick="${getButtonAction(
-                          plan
-                        )}" class="${getBtnClass(plan)} rounded-pill py-2 ${
+                        <button onclick="${getButtonAction(plan)}" class="${getBtnClass(plan)} rounded-pill py-2 ${
       plan.style === 'dashed' ? 'fw-bold' : ''
     }">
                             ${plan.buttonText} ${
@@ -126,6 +124,10 @@ function renderPlans(containerId, data) {
         : ''
     }
                         </button>
+                        ${plan.style !== 'dashed' ? `
+                        <button onclick="${getConfiguratorUrl()}" class="btn-outline-primary-custom rounded-pill py-2">
+                            <i class="fa-solid fa-sliders-h me-2"></i>Personalizar este modelo
+                        </button>` : ''}
                     </div>
 
                     <!-- Features -->
@@ -236,6 +238,11 @@ function renderFeatureList(plan, iconColor) {
 
   html += `</ul>`;
   return html;
+}
+
+function getConfiguratorUrl() {
+  const url = typeof getPageUrl === 'function' ? getPageUrl('configurador') : 'configurator.html';
+  return `window.location.href='${url}'`;
 }
 
 function getButtonAction(plan) {

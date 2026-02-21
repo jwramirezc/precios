@@ -14,7 +14,7 @@
       "Firmas Electrónicas Simples Ilimitadas",
       "100 GB de almacenamiento incluidos"
     ],
-    "buttonText": "Contactar con Ventas",
+    "buttonText": "Solicitar este modelo",
     "buttonAction": "contact",
     "style": "standard"
   },
@@ -39,7 +39,7 @@
       "Inteligencia Artificial Básica (IA)",
       "200 GB de almacenamiento incluidos"
     ],
-    "buttonText": "Contactar con Ventas",
+    "buttonText": "Solicitar este modelo",
     "buttonAction": "contact",
     "style": "standard"
   },
@@ -68,7 +68,7 @@
       "Integraciones Avanzadas (LDAP, API, ERP, CRM)",
       "500 GB de almacenamiento incluidos"
     ],
-    "buttonText": "Contactar con Ventas",
+    "buttonText": "Solicitar este modelo",
     "buttonAction": "contact",
     "style": "standard"
   },
@@ -87,7 +87,7 @@
       "Soporte prioritario y asesor especializado asignado",
       "Instancias dedicadas de la plataforma"
     ],
-    "buttonText": "Hablar con un asesor",
+    "buttonText": "Solicitar este modelo",
     "buttonAction": "contact",
     "style": "white"
   },
