@@ -23,7 +23,14 @@ const app = {
     this.initializeStorageSlider();
     this.renderModules();
     this.renderPresets();
-    this.updatePriceUI();
+
+    // Auto-load preset from URL param (?preset=basic|standard|professional)
+    const urlPreset = new URLSearchParams(window.location.search).get('preset');
+    if (urlPreset) {
+      this.loadPreset(urlPreset);
+    } else {
+      this.updatePriceUI();
+    }
   },
 
   loadConfiguratorTexts() {

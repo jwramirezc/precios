@@ -125,7 +125,7 @@ function renderPlans(containerId, data) {
     }
                         </button>
                         ${plan.style !== 'dashed' ? `
-                        <button onclick="${getConfiguratorUrl()}" class="btn-outline-primary-custom rounded-pill py-2">
+                        <button onclick="${getConfiguratorUrl(plan.id)}" class="btn-outline-primary-custom rounded-pill py-2">
                             <i class="fa-solid fa-sliders-h me-2"></i>Personalizar este modelo
                         </button>` : ''}
                     </div>
@@ -240,8 +240,9 @@ function renderFeatureList(plan, iconColor) {
   return html;
 }
 
-function getConfiguratorUrl() {
-  const url = typeof getPageUrl === 'function' ? getPageUrl('configurador') : 'configurator.html';
+function getConfiguratorUrl(planId) {
+  const base = typeof getPageUrl === 'function' ? getPageUrl('configurador') : 'configurator.html';
+  const url = planId ? `${base}?preset=${planId}` : base;
   return `window.location.href='${url}'`;
 }
 
