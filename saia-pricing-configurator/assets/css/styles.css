@@ -1,11 +1,14 @@
 :root {
   /* Color Palette */
   --primary: #0d85e8;
-  --primary-hover: #0a6bc1; /* Darker version of #0d85e8 */
-  --secondary: #0d85e8;
-  --dark: #1f2937; /* Gray 800 */
+  --primary-hover: #0a6bc1;
+  --primary-light: #f0f7ff;   /* tint azul claro — seleccionado, hover */
+  --primary-tint: #eef2ff;    /* tint azul más sutil — radio activo */
+  --dark: #1f2937;
   --light: #ffffff;
-  --accent: #10b981; /* Green 500 - Emerald */
+  --accent: #10b981;
+  --accent-light: #d1fae5;    /* tint verde claro — servicios adicionales */
+  --surface: #f3f4f6;         /* fondo gris neutro — tabla, divisores */
   --text-main: #111827;
   --text-muted: #6b7280;
   --card-bg: #ffffff;
@@ -20,6 +23,7 @@
   --spacing-sm: 1rem;
   --spacing-md: 1.5rem;
   --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
   --radius-md: 12px;
   --radius-lg: 20px;
 
@@ -161,9 +165,14 @@ input[type='number'] {
   transition: all 0.2s;
 }
 
+.radio-card:hover {
+  border-color: var(--primary);
+  background-color: var(--primary-tint);
+}
+
 .radio-card.active {
   border-color: var(--primary);
-  background-color: #eef2ff;
+  background-color: var(--primary-tint);
   color: var(--primary);
   font-weight: 600;
 }
@@ -228,13 +237,13 @@ input[type='number'] {
 
 .module-item:hover {
   border-color: var(--primary);
-  background-color: #f0f7ff;
+  background-color: var(--primary-light);
   transform: translateX(2px);
 }
 
 .module-item.selected {
-  border-color: var(--secondary);
-  background-color: #f0f7ff;
+  border-color: var(--primary);
+  background-color: var(--primary-light);
 }
 
 .module-item.selected::before {
@@ -242,7 +251,7 @@ input[type='number'] {
   position: absolute;
   top: 8px;
   right: 10px;
-  color: var(--secondary);
+  color: var(--primary);
   font-weight: 900;
   font-size: 1rem;
 }
@@ -254,7 +263,7 @@ input[type='number'] {
 
 .module-item.custom-service.selected {
   border-color: var(--accent);
-  background-color: #d1fae5;
+  background-color: var(--accent-light);
 }
 
 .module-item.custom-service.selected::before {
@@ -360,8 +369,8 @@ input[type='number'] {
 }
 
 .module-card.selected {
-  border-color: var(--secondary);
-  background-color: #f0f7ff; /* Light Blue Tint */
+  border-color: var(--primary);
+  background-color: var(--primary-light);
 }
 
 .module-card.selected::after {
@@ -369,7 +378,7 @@ input[type='number'] {
   position: absolute;
   top: 10px;
   right: 15px;
-  color: var(--secondary);
+  color: var(--primary);
   font-weight: 900;
   font-size: 1.2rem;
 }
@@ -381,7 +390,7 @@ input[type='number'] {
 
 .module-card.custom-service.selected {
   border-color: var(--accent);
-  background-color: #d1fae5; /* Light Green Tint when selected */
+  background-color: var(--accent-light);
 }
 
 .module-card.custom-service.selected::after {
@@ -413,7 +422,7 @@ input[type='number'] {
 .custom-services-summary {
   margin-top: var(--spacing-md);
   padding: var(--spacing-md);
-  background-color: #d1fae5;
+  background-color: var(--accent-light);
   border: 1px solid var(--accent);
   border-radius: var(--radius-md);
   margin-bottom: var(--spacing-md);
@@ -517,6 +526,14 @@ input[type='number'] {
 
 .btn-cta:hover {
   background-color: var(--primary-hover);
+  color: white;
+  text-decoration: none;
+}
+
+.btn-cta:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+  color: white;
 }
 
 /* Demo Button - Uses CSS color variables */
@@ -634,8 +651,8 @@ input[type='number'] {
 }
 
 .btn-dark-custom:hover {
-  background-color: #111827;
-  border-color: #111827;
+  background-color: var(--text-main);
+  border-color: var(--text-main);
   color: white;
 }
 
@@ -898,13 +915,13 @@ input[type='number'] {
 
 /* Comparison Table Section Headers */
 .table-group-divider {
-  background-color: #f3f4f6 !important;
+  background-color: var(--surface) !important;
   border-top: 2px solid var(--border-color);
   border-bottom: 2px solid var(--border-color);
 }
 
 .table-group-divider td {
-  background-color: #f3f4f6 !important;
+  background-color: var(--surface) !important;
   font-weight: 700 !important;
   color: var(--dark) !important;
   text-align: left !important;
@@ -931,6 +948,36 @@ input[type='number'] {
 
 .microcopy-price-user {
   font-size: 12px;
-  color: #6b7280;
+  color: var(--text-muted);
   margin-top: 4px;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Focus & interactive states                                         */
+/* ------------------------------------------------------------------ */
+
+input[type='number']:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(13, 133, 232, 0.15);
+}
+
+.radio-card:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.module-item:focus-visible,
+.module-card:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.btn-demo:focus-visible,
+.btn-demo-secondary:focus-visible,
+.btn-primary-custom:focus-visible,
+.btn-outline-primary-custom:focus-visible,
+.btn-dark-custom:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
 }

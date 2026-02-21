@@ -15,10 +15,13 @@
 #saia-app-root {
     --primary: #0d85e8;
     --primary-hover: #0a6bc1;
-    --secondary: #0d85e8;
+    --primary-light: #f0f7ff;
+    --primary-tint: #eef2ff;
     --dark: #1f2937;
     --light: #ffffff;
     --accent: #10b981;
+    --accent-light: #d1fae5;
+    --surface: #f3f4f6;
     --text-main: #111827;
     --text-muted: #6b7280;
     --card-bg: #ffffff;
@@ -28,6 +31,7 @@
     --spacing-sm: 1rem;
     --spacing-md: 1.5rem;
     --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
     --radius-md: 12px;
     --radius-lg: 20px;
     --shadow-sm: 0 1px 2px 0 rgba(0,0,0,0.05);
@@ -307,8 +311,8 @@
 }
 
 #saia-app-root .btn-dark-custom:hover {
-    background-color: #111827 !important;
-    border-color: #111827 !important;
+    background-color: var(--text-main) !important;
+    border-color: var(--text-main) !important;
     color: white !important;
     text-decoration: none !important;
 }
@@ -348,4 +352,29 @@
 
 #saia-app-root .saia-tooltip-container {
     position: relative;
+}
+
+/* ------------------------------------------------------------------ */
+/*  9. Focus & interactive states                                      */
+/* ------------------------------------------------------------------ */
+
+#saia-app-root .radio-card:hover {
+    border-color: var(--primary) !important;
+    background-color: var(--primary-tint) !important;
+}
+
+#saia-app-root input[type='number']:focus {
+    outline: none !important;
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 3px rgba(13, 133, 232, 0.15) !important;
+}
+
+#saia-app-root .btn-cta:focus-visible,
+#saia-app-root .btn-demo:focus-visible,
+#saia-app-root .btn-demo-secondary:focus-visible,
+#saia-app-root .btn-primary-custom:focus-visible,
+#saia-app-root .btn-outline-primary-custom:focus-visible,
+#saia-app-root .btn-dark-custom:focus-visible {
+    outline: 2px solid var(--primary) !important;
+    outline-offset: 2px !important;
 }

@@ -3,7 +3,7 @@
  * Plugin Name: SAIA Pricing Configurator
  * Plugin URI: https://www.saiasoftware.com
  * Description: Carga las paginas HTML existentes (index, configurador, comparacion) como shortcodes WordPress sin alterar su contenido.
- * Version: 3.2.1
+ * Version: 3.2.2
  * Author: SAIA Software
  * Author URI: https://www.saiasoftware.com
  * License: GPL-2.0+
@@ -38,7 +38,7 @@ if (!defined('ABSPATH')) {
 
 define('SAIA_DIR', plugin_dir_path(__FILE__));
 define('SAIA_URL', plugin_dir_url(__FILE__));
-define('SAIA_VER', '3.2.1');
+define('SAIA_VER', '3.2.2');
 
 final class SAIA_Loader {
 
