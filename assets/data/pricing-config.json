@@ -54,7 +54,7 @@
       "priceUSD": 200,
       "icon": "fa-rocket",
       "includedModules": ["correspondencia", "gestion_documental", "archivo"],
-      "includedNote": "Firmas Electrónicas Simples ilimitadas incluidas en el bundle",
+      "includedNote": "Firmas Electrónicas Simples ilimitadas incluidas en el plan",
       "includedUsers": 10,
       "includedStorageGB": 100
     },
@@ -66,7 +66,7 @@
       "priceUSD": 750,
       "icon": "fa-layer-group",
       "includedModules": ["correspondencia", "gestion_documental", "archivo", "gestion_plantillas", "pqr", "actas"],
-      "includedNote": "IA básica + Firmas/Emails certificados (bolsa mensual) incluidos en el bundle",
+      "includedNote": "IA básica + Firmas/Emails certificados (bolsa mensual) incluidos en el plan",
       "includedUsers": 50,
       "includedStorageGB": 200
     },
@@ -78,7 +78,7 @@
       "priceUSD": 2000,
       "icon": "fa-briefcase",
       "includedModules": ["correspondencia", "gestion_documental", "archivo", "gestion_plantillas", "gestion_flujos", "pqr", "help_desk", "iso", "contratos", "historias_laborales", "actas"],
-      "includedNote": "IA básica + avanzada · Integraciones LDAP/API/ERP · bolsas ampliadas incluidas en el bundle",
+      "includedNote": "IA básica + avanzada · Integraciones LDAP/API/ERP · bolsas ampliadas incluidas en el plan",
       "includedUsers": 100,
       "includedStorageGB": 500
     }
