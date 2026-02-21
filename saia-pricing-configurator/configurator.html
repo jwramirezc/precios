@@ -33,20 +33,31 @@
 
     <!-- Main Header -->
     <div class="container py-4">
-        <div class="text-center mb-5">
+        <div class="text-center mb-4">
             <h2 class="display-6 fw-bold mb-3" style="color: var(--primary);">
-                Configura tu plataforma SAIA en menos de 30 segundos y recibe una cotización exacta para tu
-                organización.
+                Arquitecte su plataforma SAIA
             </h2>
+            <p class="lead text-muted mb-0">
+                Seleccione un punto de partida y ajuste cada componente a su medida. El precio se calcula en tiempo real.
+            </p>
+        </div>
+    </div>
 
-            <p class="lead text-muted">
-                Selecciona los módulos, usuarios y recursos que necesitas, y obtén una propuesta personalizada sin
-                compromiso.
-            </p>
-            <p class="small text-muted mt-3 mb-0">
-                Tu configuración se basa en una plataforma segura, certificada y respaldada en tecnología AWS con
-                cumplimiento normativo ISO y respaldo automático diario.
-            </p>
+    <!-- Configuration Presets -->
+    <div class="container mb-5">
+        <p class="text-center text-muted small mb-3">
+            <i class="fa-solid fa-arrow-pointer me-1 text-primary"></i>
+            Elija una configuración de referencia como punto de partida, o configure desde cero
+        </p>
+        <div id="presets-container" class="preset-selector">
+            <!-- Rendered by configurator.js -->
+        </div>
+        <div id="preset-note" class="text-center mt-3" style="display: none;">
+            <span class="text-muted small">
+                <i class="fa-solid fa-circle-info text-primary me-1"></i>
+                Los planes de referencia incluyen IA y firmas certificadas no disponibles en configuración à la carte.
+                <a href="#" data-page="planes" class="text-primary fw-semibold ms-1">Ver planes →</a>
+            </span>
         </div>
     </div>
 
@@ -62,23 +73,6 @@
         <div class="saia-aside">
             <div class="configurator-panel">
                 <h2 class="section-title">Configuración</h2>
-
-                <!-- SaaS Info Card -->
-                <div class="alert alert-light border shadow-sm mb-4" role="alert">
-                    <ul class="list-unstyled mb-0 small">
-                        <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i>Modelo SaaS 100% en la nube
-                        </li>
-                        <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i>Acceso 24/7 desde cualquier
-                            lugar</li>
-                        <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i>Actualizaciones automáticas
-                            incluidas</li>
-                        <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i>Respaldo y protección de la
-                            información</li>
-                        <li class="mb-2"><i class="fa-solid fa-check text-success me-2"></i>Escalable según usuarios y
-                            módulos</li>
-                        <li><i class="fa-solid fa-check text-success me-2"></i>Soporte técnico especializado</li>
-                    </ul>
-                </div>
 
                 <!-- Billing Frequency (SaaS Only) -->
                 <div class="control-group" id="billing-frequency-group">
@@ -132,6 +126,9 @@
                     <h3 class="section-title small mb-2">Servicio Adicional</h3>
                     <div id="custom-services-list"></div>
                 </div>
+
+                <!-- Upgrade Recommendation Banner -->
+                <div id="upgrade-recommendation" style="display: none;"></div>
 
                 <!-- Total -->
                 <div class="price-display">

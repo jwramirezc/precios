@@ -1,12 +1,13 @@
 {
   "currency": "COP",
   "exchangeRate": 4000,
+  "platformFee": 50,
   "usersPricing": [
     { "upTo": 10, "pricePerUser": 7.5 },
-    { "upTo": 50, "pricePerUser": 6.25 },
-    { "upTo": 200, "pricePerUser": 5 },
-    { "upTo": 1000, "pricePerUser": 13.75 },
-    { "upTo": 999999, "pricePerUser": 2.5 }
+    { "upTo": 50, "pricePerUser": 5.0 },
+    { "upTo": 200, "pricePerUser": 3.5 },
+    { "upTo": 1000, "pricePerUser": 2.5 },
+    { "upTo": 999999, "pricePerUser": 2.0 }
   ],
   "storagePricing": {
     "includedGB": 100,
@@ -38,5 +39,42 @@
     "max": 1000,
     "default": 100,
     "step": 10
-  }
+  },
+  "referencePlans": [
+    { "id": "basic", "name": "Configuración Esencial", "priceUSD": 200, "users": 10 },
+    { "id": "standard", "name": "Configuración Operativa", "priceUSD": 750, "users": 50 },
+    { "id": "professional", "name": "Configuración Avanzada", "priceUSD": 2000, "users": 100 }
+  ],
+  "configurationPresets": [
+    {
+      "id": "basic",
+      "name": "Esencial",
+      "subtitle": "Gestión documental base",
+      "priceLabel": "desde $800.000 COP/mes",
+      "icon": "fa-rocket",
+      "modules": ["correspondencia", "gestion_documental", "archivo", "firma"],
+      "users": 10,
+      "storage": 100
+    },
+    {
+      "id": "standard",
+      "name": "Operativa",
+      "subtitle": "Atención al cliente integrada",
+      "priceLabel": "desde $3.000.000 COP/mes",
+      "icon": "fa-layer-group",
+      "modules": ["correspondencia", "gestion_documental", "archivo", "gestion_plantillas", "pqr", "actas", "firma"],
+      "users": 50,
+      "storage": 200
+    },
+    {
+      "id": "professional",
+      "name": "Avanzada",
+      "subtitle": "ISO + IA + Help Desk",
+      "priceLabel": "desde $8.000.000 COP/mes",
+      "icon": "fa-briefcase",
+      "modules": ["correspondencia", "gestion_documental", "archivo", "gestion_plantillas", "gestion_flujos", "pqr", "help_desk", "iso", "contratos", "historias_laborales", "actas", "firma"],
+      "users": 100,
+      "storage": 500
+    }
+  ]
 }

@@ -5,6 +5,7 @@
 
 const app = {
   calculator: null,
+  activePresetId: null,
 
   init() {
     // Wait for configs to be loaded
@@ -22,6 +23,7 @@ const app = {
     this.initializeUserSlider();
     this.initializeStorageSlider();
     this.renderModules();
+    this.renderPresets();
     this.updatePriceUI();
   },
 
@@ -143,6 +145,109 @@ const app = {
     return otrosCategory
       ? { name: otrosCategory.name, icon: `<i class="fa-solid fa-${otrosCategory.icon}"></i>` }
       : { name: 'Otros', icon: '<i class="fa-solid fa-cubes"></i>' };
+  },
+
+  /**
+   * Render preset configuration selector cards
+   */
+  renderPresets() {
+    const container = document.getElementById('presets-container');
+    if (!container) return;
+
+    const presets = this.calculator.config.configurationPresets;
+    if (!presets || !presets.length) return;
+
+    const customActive = this.activePresetId === null;
+    let html = `
+      <div class="preset-card ${customActive ? 'active' : ''}" onclick="app.loadPreset(null)">
+        <div class="preset-card-icon"><i class="fa-solid fa-pen-ruler"></i></div>
+        <div class="preset-card-name">Personalizada</div>
+        <div class="preset-card-sub">Desde cero</div>
+        <div class="preset-card-cta">${customActive ? 'Activa ✓' : 'Seleccionar'}</div>
+      </div>`;
+
+    presets.forEach(preset => {
+      const isActive = this.activePresetId === preset.id;
+      html += `
+        <div class="preset-card ${isActive ? 'active' : ''}" onclick="app.loadPreset('${preset.id}')">
+          <div class="preset-card-icon"><i class="fa-solid ${preset.icon}"></i></div>
+          <div class="preset-card-name">${preset.name}</div>
+          <div class="preset-card-sub">${preset.subtitle}</div>
+          <div class="preset-card-price">${preset.priceLabel}</div>
+          <div class="preset-card-cta">${isActive ? 'Cargada ✓' : 'Cargar'}</div>
+        </div>`;
+    });
+
+    container.innerHTML = html;
+
+    const presetNote = document.getElementById('preset-note');
+    if (presetNote) {
+      presetNote.style.display = this.activePresetId ? 'block' : 'none';
+    }
+  },
+
+  /**
+   * Load a reference configuration preset (or reset to blank if null)
+   */
+  loadPreset(presetId) {
+    // Deselect all modules in state
+    this.calculator.modules.forEach(m => { m.selected = false; });
+    // Deselect all module UI elements
+    document.querySelectorAll('.module-item.selected').forEach(el => {
+      el.classList.remove('selected');
+    });
+
+    if (presetId === null) {
+      // Reset to defaults
+      const defaultUsers = this.calculator.config.userSlider?.default || 5;
+      const defaultStorage = this.calculator.config.storageSlider?.default || 100;
+      this.calculator.updateConfig('userCount', defaultUsers);
+      this.calculator.updateConfig('storageGB', defaultStorage);
+      const usersInput = document.getElementById('users-input');
+      if (usersInput) usersInput.value = defaultUsers;
+      const userDisplay = document.getElementById('user-count-display');
+      if (userDisplay) userDisplay.textContent = defaultUsers;
+      const storageInput = document.getElementById('storage-input');
+      if (storageInput) storageInput.value = defaultStorage;
+      const storageDisplay = document.getElementById('storage-count-display');
+      if (storageDisplay) storageDisplay.textContent = defaultStorage;
+      this.activePresetId = null;
+      this.renderPresets();
+      this.updatePriceUI();
+      return;
+    }
+
+    const presets = this.calculator.config.configurationPresets || [];
+    const preset = presets.find(p => p.id === presetId);
+    if (!preset) return;
+
+    // Select preset modules
+    preset.modules.forEach(moduleId => {
+      const module = this.calculator.getModuleById(moduleId);
+      if (module && module.visible) {
+        module.selected = true;
+        const el = document.querySelector(`[data-module-id="${moduleId}"]`);
+        if (el) el.classList.add('selected');
+      }
+    });
+
+    // Set users
+    this.calculator.updateConfig('userCount', preset.users);
+    const usersInput = document.getElementById('users-input');
+    if (usersInput) usersInput.value = preset.users;
+    const userDisplay = document.getElementById('user-count-display');
+    if (userDisplay) userDisplay.textContent = preset.users;
+
+    // Set storage
+    this.calculator.updateConfig('storageGB', preset.storage);
+    const storageInput = document.getElementById('storage-input');
+    if (storageInput) storageInput.value = preset.storage;
+    const storageDisplay = document.getElementById('storage-count-display');
+    if (storageDisplay) storageDisplay.textContent = preset.storage;
+
+    this.activePresetId = presetId;
+    this.renderPresets();
+    this.updatePriceUI();
   },
 
   renderModules() {
@@ -346,40 +451,89 @@ const app = {
     }
 
     if (containerToUse) {
-      const breakdownTexts = CONFIGURATOR_TEXTS?.breakdown || {};
+      // Build per-module itemization
+      const selectedCalculable = this.calculator.modules.filter(
+        m => m.selected && m.calculable && m.visible
+      );
+      const MAX_VISIBLE_MODULES = 5;
+      let modulesItemsHtml = '';
+      if (selectedCalculable.length > 0) {
+        const visibleModules = selectedCalculable.slice(0, MAX_VISIBLE_MODULES);
+        const hiddenCount = selectedCalculable.length - visibleModules.length;
+        modulesItemsHtml = `<div class="breakdown-modules-list">`;
+        visibleModules.forEach(m => {
+          const tierPrice = this.calculator.pricingTiers[m.pricing_tier] || 0;
+          modulesItemsHtml += `
+            <div class="breakdown-module-item">
+              <span class="breakdown-module-name">· ${m.name}</span>
+              <span>${formatMoney(tierPrice)}</span>
+            </div>`;
+        });
+        if (hiddenCount > 0) {
+          modulesItemsHtml += `
+            <div class="breakdown-module-item text-muted" style="font-style: italic;">
+              <span>· y ${hiddenCount} módulo${hiddenCount > 1 ? 's' : ''} más</span>
+              <span>${formatMoney(selectedCalculable.slice(MAX_VISIBLE_MODULES).reduce((s, m) => s + (this.calculator.pricingTiers[m.pricing_tier] || 0), 0))}</span>
+            </div>`;
+        }
+        modulesItemsHtml += `</div>`;
+      }
+
       containerToUse.innerHTML = `
+            <div class="d-flex justify-content-between mb-0 fw-semibold">
+                <span>Plataforma base SaaS:</span>
+                <span>${formatMoney(breakdown.platformFee)}</span>
+            </div>
+            <div class="text-muted mb-2" style="font-size: 0.78em;">AWS · soporte técnico · actualizaciones automáticas</div>
             <div class="d-flex justify-content-between mb-0">
-                <span>${breakdownTexts.users || 'Usuarios'} (${this.calculator.userCount}):</span>
+                <span>Usuarios (${this.calculator.userCount}):</span>
                 <span>${formatMoney(breakdown.userCost)}</span>
             </div>
             <div class="microcopy-price-user text-end mb-2">
-                ≈ ${formatMoney(breakdown.userCost / this.calculator.userCount)} ${breakdownTexts.perUser || 'por usuario'}
+                ≈ ${formatMoney(breakdown.userCost / this.calculator.userCount)} por usuario · solo usuarios activos
             </div>
             <div class="mb-1">
                 <div class="d-flex justify-content-between">
-                    <span>${breakdownTexts.modules || 'Módulos'} (${this.calculator.getSelectedModules().length} ${breakdownTexts.selected || 'seleccionados'}):</span>
+                    <span>Módulos (${selectedCalculable.length}):</span>
                     <span>${formatMoney(breakdown.modulesCost)}</span>
                 </div>
-                ${this.calculator.getSelectedModules().length > 0 ?
-          `<div class="text-muted ms-2" style="font-size: 0.85em; list-style-type: none;">
-                        ${breakdownTexts.includes || 'Incluye'}: ${this.calculator.getSelectedModules().map(m => m.name).slice(0, 3).join(', ')}${this.calculator.getSelectedModules().length > 3 ? '...' : ''}
-                    </div>` : ''
-        }
+                ${modulesItemsHtml}
             </div>
             <div class="d-flex justify-content-between mb-1">
-                <span>${breakdownTexts.storage || 'Almacenamiento'} (${this.calculator.storageGB} GB):</span>
+                <span>Almacenamiento (${this.calculator.storageGB} GB):</span>
                 <span>
-                    ${breakdown.storageCost === 0 ? `<span class="badge bg-success text-white">${breakdownTexts.storageIncluded || 'Incluido'}</span>` : formatMoney(breakdown.storageCost)}
+                    ${breakdown.storageCost === 0 ? `<span class="badge bg-success text-white">Incluido</span>` : formatMoney(breakdown.storageCost)}
                 </span>
             </div>
             ${breakdown.multiplier > 1.0 ?
-          `<div class="d-flex justify-content-between mb-1 text-warning">
-                    <span>${breakdownTexts.enterpriseMultiplier || 'Multiplicador Enterprise'}:</span>
-                    <span>x${breakdown.multiplier.toFixed(1)}</span>
-                 </div>` : ''
-        }
+              `<div class="d-flex justify-content-between mb-1 text-warning">
+                  <span>Multiplicador Enterprise:</span>
+                  <span>x${breakdown.multiplier.toFixed(1)}</span>
+               </div>` : ''
+            }
             <div class="border-bottom my-2"></div>
-        `;
+      `;
+    }
+
+    // Upgrade recommendation banner
+    const upgradeRecommendation = document.getElementById('upgrade-recommendation');
+    if (upgradeRecommendation) {
+      const referencePlans = this.calculator.config.referencePlans || [];
+      const currentMonthlyUSD = breakdown.totalMonthlyUSD;
+      const matchingPlan = referencePlans.find(
+        plan => currentMonthlyUSD >= plan.priceUSD * 0.6 && currentMonthlyUSD < plan.priceUSD * 1.1
+      );
+      if (matchingPlan && selectedModules.length > 0) {
+        upgradeRecommendation.style.display = 'block';
+        upgradeRecommendation.innerHTML = `
+          <div class="alert alert-info small py-2 px-3 mb-3">
+            <i class="fa-solid fa-lightbulb me-1"></i>
+            <strong>Tip:</strong> La <strong>${matchingPlan.name}</strong> incluye IA básica y firmas certificadas por <strong>${formatMoney(matchingPlan.priceUSD)}/mes</strong>.
+            <a href="#" data-page="planes" class="alert-link ms-1">Comparar →</a>
+          </div>`;
+      } else {
+        upgradeRecommendation.style.display = 'none';
+      }
     }
 
 

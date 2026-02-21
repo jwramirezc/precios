@@ -209,15 +209,17 @@ class PricingCalculator {
      * Returns a detailed breakdown of costs in USD (Monthly)
      */
     calculateBreakdown() {
+        const platformFee = this.config.platformFee || 0;
         const userCost = this.calculateUserCost();
         const modulesCost = this.calculateModulesCost();
         const storageCost = this.calculateStorageCost();
-        const subtotal = userCost + modulesCost + storageCost;
+        const subtotal = platformFee + userCost + modulesCost + storageCost;
 
         const multiplier = this.getSzaasMultiplier();
         const totalMonthlyUSD = subtotal * multiplier;
 
         return {
+            platformFee,
             userCost,
             modulesCost,
             storageCost,
