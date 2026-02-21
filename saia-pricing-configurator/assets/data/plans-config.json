@@ -1,7 +1,7 @@
 [
   {
     "id": "basic",
-    "name": "Configuración Esencial",
+    "name": "Esencial",
     "icon": "fa-rocket",
     "description": "Punto de partida para organizaciones que inician su transformación documental.",
     "price": 200,
@@ -20,7 +20,7 @@
   },
   {
     "id": "standard",
-    "name": "Configuración Operativa",
+    "name": "Operativa",
     "icon": "fa-layer-group",
     "description": "Para organizaciones que necesitan atención al cliente integrada con su gestión documental.",
     "price": 750,
@@ -45,7 +45,7 @@
   },
   {
     "id": "professional",
-    "name": "Configuración Avanzada",
+    "name": "Avanzada",
     "icon": "fa-briefcase",
     "description": "Plataforma completa con ISO 9001, IA avanzada y flujos de trabajo automatizados.",
     "price": 2000,
