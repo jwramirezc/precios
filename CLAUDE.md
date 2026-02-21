@@ -17,6 +17,7 @@ The project uses Bootstrap 5, Font Awesome, and Google Fonts (Outfit). No build 
 This is a static site with no build step. To develop:
 
 1. Open HTML files directly in a browser or use a local server:
+
    ```bash
    python3 -m http.server 8000
    # or
@@ -31,6 +32,7 @@ This is a static site with no build step. To develop:
 The project deploys automatically to cPanel via FTP when pushing to the `main` branch. The GitHub Actions workflow is configured in [.github/workflows/deploy-ftp.yml](.github/workflows/deploy-ftp.yml).
 
 The site deploys to the `/configurator/` directory on the server. FTP credentials are stored in GitHub Secrets:
+
 - `FTP_SERVER`
 - `FTP_USERNAME`
 - `FTP_PASSWORD`
@@ -42,6 +44,7 @@ The site deploys to the `/configurator/` directory on the server. FTP credential
 All content is loaded from JSON configuration files in [assets/data/](assets/data/). This allows non-developers to update pricing, features, and content without touching code.
 
 **Key JSON Files:**
+
 - `pricing-config.json` - Base pricing configuration (user costs, storage costs, discounts)
 - `modules-data.json` - Module definitions (name, description, icon, pricing tier)
 - `plans-config.json` - Predefined plan definitions
@@ -60,21 +63,25 @@ All content is loaded from JSON configuration files in [assets/data/](assets/dat
 The JavaScript follows a modular, event-driven approach:
 
 **Configuration Loaders** (run first):
+
 - [config.js](assets/js/config.js) - Main config loader, loads all JSON files via `ConfigLoader`
 - [general-config.js](assets/js/general-config.js) - Loads general settings and updates links
 - [plans-config.js](assets/js/plans-config.js) - Loads predefined plans data
 
 **Core Logic**:
+
 - [calculator.js](assets/js/calculator.js) - Core pricing calculation engine with two main classes:
   - `Module` - Represents a selectable module
   - `PricingCalculator` - Calculates total price based on users, storage, modules, and billing cycle
 
 **UI Renderers**:
+
 - [configurator.js](assets/js/configurator.js) - UI controller for configurator page, handles user interactions
 - [plans-renderer.js](assets/js/plans-renderer.js) - Renders predefined plan cards on index.html
 - [comparison-renderer.js](assets/js/comparison-renderer.js) - Renders comparison table on comparison.html
 
 **Utilities**:
+
 - [faq.js](assets/js/faq.js) - Renders FAQ accordion from JSON
 - [tooltips.js](assets/js/tooltips.js) - Initializes Bootstrap tooltips with custom data
 - [proposal-benefits.js](assets/js/proposal-benefits.js) - Renders "What's Included" sections
@@ -153,6 +160,7 @@ document.addEventListener('configLoaded', () => {
 ### Updating Prices
 
 Edit [assets/data/pricing-config.json](assets/data/pricing-config.json) to change:
+
 - Base user costs
 - Storage costs per GB
 - Annual discount percentage
@@ -161,6 +169,7 @@ Edit [assets/data/pricing-config.json](assets/data/pricing-config.json) to chang
 ### Adding or Modifying Modules
 
 Edit [assets/data/modules-data.json](assets/data/modules-data.json). Each module requires:
+
 ```json
 {
   "id": "unique_id",
@@ -188,6 +197,7 @@ Edit [assets/data/faq.json](assets/data/faq.json). The FAQ accordion is automati
 ### Updating External Links
 
 Edit [assets/data/general-config.json](assets/data/general-config.json) to change:
+
 - Demo request link
 - Contact form link
 - Personalized quote link
