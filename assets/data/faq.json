@@ -1,92 +1,62 @@
 [
   {
     "id": "faq-1",
-    "question": "¿Cuáles son los tiempos de implementación?",
-    "answer": "La implementación suele realizarse entre 7 y 30 días dependiendo de la complejidad de su configuración y los módulos seleccionados. Para planes Enterprise o configuraciones personalizadas, el tiempo puede extenderse según los requisitos específicos."
+    "question": "¿Puedo agregar módulos sin cambiar de configuración o plan?",
+    "answer": "Sí. La arquitectura de SAIA está diseñada para que pueda agregar módulos en cualquier momento sin migrar datos, sin contratos nuevos y sin interrupciones. Si su configuración actual no incluye un módulo que ahora necesita, simplemente lo activamos en el siguiente ciclo de facturación."
   },
   {
     "id": "faq-2",
-    "question": "¿Qué incluye el modelo SaaS?",
-    "answer": "El modelo SaaS incluye: infraestructura 100% en la nube, acceso 24/7 desde cualquier lugar, actualizaciones automáticas incluidas, respaldo y protección de la información, escalabilidad según usuarios y módulos, y soporte técnico especializado."
+    "question": "¿Qué pasa si mi organización crece en usuarios?",
+    "answer": "SAIA escala con su operación. Puede incrementar el número de usuarios en cualquier momento y el ajuste se calcula de forma proporcional al ciclo de facturación. No hay saltos de configuración forzados: usted define cuántos usuarios necesita y el precio se ajusta en consecuencia."
   },
   {
     "id": "faq-3",
-    "question": "¿Puedo cambiar de plan después de contratar?",
-    "answer": "Sí, puede actualizar su plan en cualquier momento. Los cambios se reflejan en el siguiente ciclo de facturación. Si necesita reducir su plan, puede contactar a nuestro equipo de ventas para evaluar las opciones disponibles."
+    "question": "¿Hay costos ocultos o cargos inesperados?",
+    "answer": "No. El configurador muestra el precio real basado en los módulos, usuarios y almacenamiento que usted selecciona. No hay cargos por activación ni mantenimiento adicional. Lo único que puede ajustar el precio es lo que usted mismo controla: módulos, usuarios y almacenamiento."
   },
   {
     "id": "faq-4",
-    "question": "¿Qué métodos de pago aceptan?",
-    "answer": "Aceptamos pagos mediante transferencia bancaria, tarjeta de crédito y débito. Los pagos pueden realizarse de forma mensual o anual, con un descuento del 15% en la modalidad anual."
+    "question": "¿Hay contratos de permanencia mínima?",
+    "answer": "La modalidad mensual no tiene permanencia mínima. Puede cancelar al final de cualquier ciclo de facturación sin penalizaciones. La modalidad anual incluye un descuento del 15% y se factura por período completo."
   },
   {
     "id": "faq-5",
-    "question": "¿Hay límite en el número de usuarios?",
-    "answer": "Los planes Basic, Standard y Professional tienen límites de 10, 50 y 100 usuarios respectivamente. El plan Enterprise permite escalabilidad ilimitada según sus necesidades. En el cotizador puede ajustar el número de usuarios hasta 500 para estimar precios."
+    "question": "¿Los datos de mi organización están seguros?",
+    "answer": "Sí. Su información está alojada en infraestructura AWS con encriptación en tránsito y en reposo, respaldos automáticos diarios, control de acceso por roles y auditoría de actividad. Cumplimos con estándares ISO 27001 de seguridad de la información y normativa local de protección de datos."
   },
   {
     "id": "faq-6",
-    "question": "¿Qué módulos están incluidos en cada plan?",
-    "answer": "Cada plan incluye diferentes módulos. El plan Basic incluye Correspondencia, Gestión Documental y Archivo. Standard añade PQRS y plantillas. Professional incluye Help Desk, ISO 9001 y flujos de trabajo. Enterprise permite selección libre de módulos según necesidad."
+    "question": "¿Puedo evaluar el sistema antes de contratar?",
+    "answer": "Sí. Coordinamos una demostración personalizada donde puede ver el sistema funcionando con casos de uso de su industria. También puede usar el configurador ahora mismo para obtener una estimación de inversión sin registrarse ni comprometerse."
   },
   {
     "id": "faq-7",
-    "question": "¿Ofrecen capacitación para los usuarios?",
-    "answer": "Sí, ofrecemos capacitación inicial para administradores y usuarios finales. El alcance y modalidad de la capacitación varía según el plan contratado. Para planes Enterprise, la capacitación es más personalizada y extensiva."
+    "question": "¿Cuánto tiempo toma la implementación?",
+    "answer": "Entre 7 y 30 días según la complejidad de la configuración. Una implementación estándar (módulos base, usuarios definidos, sin integraciones externas) se realiza en 7 a 15 días. Configuraciones con integraciones, flujos personalizados o el módulo ISO pueden requerir hasta 30 días."
   },
   {
     "id": "faq-8",
-    "question": "¿Cómo funcionan las firmas electrónicas?",
-    "answer": "El sistema incluye firmas electrónicas simples ilimitadas en todos los planes. Los planes Standard y Professional incluyen además firmas certificadas con límites mensuales (50 y 100 respectivamente). Las firmas cumplen con estándares legales vigentes."
+    "question": "¿Qué soporte técnico incluye la plataforma?",
+    "answer": "Todos los planes incluyen soporte técnico y funcional en horario laboral. Las configuraciones avanzadas y la Arquitectura Personalizada incluyen soporte prioritario con tiempos de respuesta garantizados y un asesor de cuenta asignado."
   },
   {
     "id": "faq-9",
-    "question": "¿Puedo integrar el sistema con otros software?",
-    "answer": "Sí, el plan Professional y Enterprise incluyen integraciones avanzadas con sistemas como LDAP, API, ERP, CRM y otros. Las integraciones pueden ser personalizadas según sus necesidades específicas en el plan Enterprise."
+    "question": "¿Pueden integrarse con sistemas que ya usamos (ERP, CRM, LDAP)?",
+    "answer": "Sí. Las integraciones con sistemas externos están disponibles en la Configuración Avanzada y en Arquitectura Personalizada. Para integraciones específicas no contempladas en las configuraciones estándar, el equipo de desarrollo las evalúa como parte de los servicios a medida."
   },
   {
     "id": "faq-10",
-    "question": "¿Qué nivel de soporte técnico incluye?",
-    "answer": "Todos los planes incluyen soporte técnico especializado. El plan Enterprise incluye soporte prioritario y acompañamiento especializado. El soporte está disponible durante horario laboral, con opciones extendidas según el plan."
+    "question": "¿Cómo funciona el configurador de precios?",
+    "answer": "El configurador permite seleccionar exactamente los módulos que necesita, definir el número de usuarios y el almacenamiento requerido, y ver el precio resultante en tiempo real. Al finalizar, puede solicitar una cotización formal que llegará en menos de 24 horas. No requiere registro previo."
   },
   {
     "id": "faq-11",
-    "question": "¿Los datos están seguros en la nube?",
-    "answer": "Sí, implementamos medidas de seguridad avanzadas incluyendo encriptación de datos, respaldos diarios automáticos, protección contra accesos no autorizados y cumplimiento con estándares de seguridad de la información. Sus datos están protegidos con seguridad blindada."
+    "question": "¿Qué incluye la Inteligencia Artificial de SAIA?",
+    "answer": "La IA de SAIA incluye clasificación automática de documentos, extracción de datos de documentos digitalizados, análisis de patrones en correspondencia y reportes predictivos de gestión. La IA básica aplica automatización en procesos rutinarios; la IA avanzada incluye modelos entrenados con la información de su organización."
   },
   {
     "id": "faq-12",
-    "question": "¿Puedo probar el sistema antes de contratar?",
-    "answer": "Sí, ofrecemos períodos de prueba para que pueda evaluar el sistema. Contacte a nuestro equipo de ventas para coordinar una demostración personalizada y acceso a una versión de prueba según sus necesidades."
-  },
-  {
-    "id": "faq-13",
-    "question": "¿Qué sucede si necesito más almacenamiento?",
-    "answer": "El almacenamiento es configurable en el cotizador. Puede ajustar la cantidad de GB según sus necesidades. Si requiere más almacenamiento después de contratar, puede actualizar su plan o contactar a ventas para ajustes personalizados."
-  },
-  {
-    "id": "faq-14",
-    "question": "¿El sistema funciona en dispositivos móviles?",
-    "answer": "Sí, el sistema es completamente responsive y accesible desde cualquier dispositivo (computadoras, tablets y smartphones) con conexión a internet. El acceso 24/7 está garantizado desde cualquier lugar."
-  },
-  {
-    "id": "faq-15",
-    "question": "¿Qué es la Inteligencia Artificial incluida?",
-    "answer": "Los planes Standard y Professional incluyen Inteligencia Artificial básica. El plan Professional añade IA avanzada. La IA permite automatización cognitiva, análisis de datos integrado y optimización de procesos documentales."
-  },
-  {
-    "id": "faq-16",
-    "question": "¿Hay costos ocultos o adicionales?",
-    "answer": "No, el precio mostrado en el cotizador incluye todos los costos base del plan seleccionado. Los únicos ajustes serían por cambios en usuarios, almacenamiento o módulos adicionales, todos transparentes en el cotizador."
-  },
-  {
-    "id": "faq-17",
-    "question": "¿Puedo cancelar mi suscripción en cualquier momento?",
-    "answer": "Sí, puede cancelar su suscripción en cualquier momento. La cancelación se procesa al final del período de facturación actual. No hay penalizaciones por cancelación anticipada."
-  },
-  {
-    "id": "faq-18",
-    "question": "¿Cómo funciona el plan 'Procesos a Medida'?",
-    "answer": "El plan 'Procesos a Medida' permite personalización completa de módulos y funcionalidades según sus necesidades específicas. Incluye desarrollo de módulos personalizados, integraciones a medida y acompañamiento especializado. Contacte a ventas para una cotización personalizada."
+    "question": "¿El sistema funciona en dispositivos móviles y trabajo remoto?",
+    "answer": "Sí. SAIA es una plataforma 100% web, accesible desde cualquier navegador en computadoras, tablets y smartphones. No requiere instalación local. El acceso es continuo con disponibilidad 24/7 desde cualquier lugar con conexión a internet."
   }
 ]

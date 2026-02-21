@@ -23,12 +23,24 @@
         <p>Soluciones escalables de procesos para tu empresa</p>
     </header> -->
 
-    <!-- Value Proposition -->
-    <div class="container py-4">
+    <!-- Hero -->
+    <div class="container py-5">
         <div class="text-center">
-            <p class="lead fw-bold" style="color: var(--primary); font-size: 1.5rem; line-height: 1.6;">
-                Gestiona tu organización con precisión, trazabilidad total y cero papel desde el primer día.
+            <h1 class="display-5 fw-bold mb-3" style="color: var(--dark);">
+                Su operación tiene una arquitectura propia.<br class="d-none d-md-inline">
+                Su plataforma también debería tenerla.
+            </h1>
+            <p class="lead text-muted mb-4" style="max-width: 660px; margin: 0 auto;">
+                SAIA es un sistema modular de gestión empresarial. Solo paga por los módulos que necesita, con la solidez que exige una operación real.
             </p>
+            <div class="d-flex flex-wrap gap-3 justify-content-center">
+                <a href="#" data-page="configurador" class="btn-primary-custom rounded-pill px-4 py-2 fw-bold">
+                    Diseñar mi arquitectura <i class="fa-solid fa-arrow-right ms-2"></i>
+                </a>
+                <a href="#plans-section" class="btn-outline-primary-custom rounded-pill px-4 py-2">
+                    Ver configuraciones de referencia
+                </a>
+            </div>
         </div>
     </div>
 
@@ -37,15 +49,50 @@
         <div id="reasons-container" class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4 justify-content-center">
             <!-- Dynamic Content -->
         </div>
-        <hr class="my-5 opacity-10">
+        <hr class="my-4 opacity-10">
+    </div>
+
+    <!-- Arquitectura modular — concepto -->
+    <div class="container py-4">
+        <div class="text-center mb-4">
+            <p class="text-muted small text-uppercase fw-bold mb-2" style="letter-spacing: 1px;">Cómo funciona</p>
+            <h2 class="h3 fw-bold mb-2" style="color: var(--dark);">Una plataforma que se adapta a su organización</h2>
+            <p class="text-muted mb-0" style="max-width: 560px; margin: 0 auto;">
+                Solo activa los módulos que necesita hoy. Agregue más cuando su operación crezca.<br>
+                Sin migraciones. Sin contratos nuevos.
+            </p>
+        </div>
+        <div class="row g-3 justify-content-center">
+            <div class="col-md-4">
+                <div class="p-4 rounded-3 border bg-white text-center h-100">
+                    <div class="mb-3"><i class="fa-solid fa-server text-primary fs-3"></i></div>
+                    <strong class="d-block mb-2" style="color: var(--dark);">Núcleo Base</strong>
+                    <small class="text-muted">Siempre incluido: usuarios, almacenamiento, soporte e infraestructura AWS.</small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-4 rounded-3 h-100 text-center" style="background: var(--primary-tint); border: 2px solid var(--primary);">
+                    <div class="mb-3"><i class="fa-solid fa-puzzle-piece text-primary fs-3"></i></div>
+                    <strong class="d-block mb-2" style="color: var(--dark);">Módulos Operativos</strong>
+                    <small class="text-muted">Usted elige: Correspondencia, Gestión Documental, Archivo, PQRS, Plantillas y más.</small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="p-4 rounded-3 border bg-white text-center h-100">
+                    <div class="mb-3"><i class="fa-solid fa-rocket text-primary fs-3"></i></div>
+                    <strong class="d-block mb-2" style="color: var(--dark);">Módulos Avanzados</strong>
+                    <small class="text-muted">Cuando los necesite: ISO 9001, Help Desk, Inteligencia Artificial, Flujos e Integraciones.</small>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Plans & Pricing Section -->
     <section id="plans-section" class="py-5 bg-light">
         <div class="container">
             <div class="text-center mb-5">
-                <h2 class="display-4 fw-bold" style="color: var(--primary);">Planes y Precios</h2>
-                <p class="lead text-muted">Selecciona el plan ideal para escalar tu operación</p>
+                <h2 class="display-4 fw-bold" style="color: var(--primary);">Configuraciones de referencia</h2>
+                <p class="lead text-muted">Las arquitecturas más solicitadas por organizaciones como la suya.<br class="d-none d-md-inline">Cada una es un punto de partida, no un límite.</p>
 
                 <!-- CTA Secondary -->
                 <div class="mt-4 mb-5">
@@ -93,7 +140,7 @@
 
             <!-- Comparison Link -->
             <div class="text-center mt-5">
-                <p class="text-muted mb-3">¿Necesitas ver qué incluye cada plan en detalle?</p>
+                <p class="text-muted mb-3">¿Necesita comparar funcionalidad por funcionalidad?</p>
                 <a href="#" data-page="comparacion" class="btn-outline-primary-custom rounded-pill px-4">
                     Ver Comparativo Completo <i class="fa-solid fa-table-list ms-2"></i>
                 </a>
@@ -112,11 +159,17 @@
             <!-- Final CTA Section -->
             <div class="text-center py-4 my-4">
                 <p class="lead mb-3" style="color: var(--dark);">
-                    ¿Listo para optimizar tu operación? Configura tu plan y recibe tu propuesta en minutos.
+                    ¿Listo para definir la arquitectura de su operación?
                 </p>
-                <a href="#" data-page="configurador" class="btn-outline-primary-custom rounded-pill px-4 py-2">
-                    Configurar mi plan ahora
-                </a>
+                <div class="d-flex flex-wrap gap-3 justify-content-center">
+                    <a href="#" data-page="configurador" class="btn-primary-custom rounded-pill px-4 py-2">
+                        Configurar mi plataforma
+                    </a>
+                    <a href="#" data-link="requestDemo" class="btn-outline-primary-custom rounded-pill px-4 py-2">
+                        Hablar con un experto
+                    </a>
+                </div>
+                <p class="text-muted small mt-3 mb-0">La mayoría de organizaciones define su configuración ideal en menos de 2 minutos.</p>
             </div>
 
             <div class="faq-cta">

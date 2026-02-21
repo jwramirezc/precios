@@ -1,42 +1,42 @@
 [
   {
     "icon": "fa-cloud",
-    "title": "Infraestructura 100% SaaS",
-    "description": "Despliegue inmediato, seguro y sin costos de hardware."
-  },
-  {
-    "icon": "fa-business-time",
-    "title": "Disponibilidad 24/7",
-    "description": "Acceso garantizado desde cualquier dispositivo y lugar."
-  },
-  {
-    "icon": "fa-rotate",
-    "title": "Actualizaciones Automáticas",
-    "description": "Siempre contará con la última versión y mejoras."
+    "title": "Infraestructura AWS",
+    "description": "Despliegue seguro en Amazon Web Services con disponibilidad empresarial garantizada."
   },
   {
     "icon": "fa-certificate",
-    "title": "Cumplimiento Normativo",
-    "description": "Gestión documental alineada con normas AGN e ISO."
+    "title": "Cumplimiento ISO y AGN",
+    "description": "Gestión documental alineada con normas ISO 9001, ISO 27001 y Archivo General de la Nación."
+  },
+  {
+    "icon": "fa-shield-halved",
+    "title": "Seguridad de Datos",
+    "description": "Encriptación, respaldos diarios automáticos y protección contra accesos no autorizados."
+  },
+  {
+    "icon": "fa-cubes",
+    "title": "Arquitectura Modular",
+    "description": "Active solo los módulos que necesita. Agregue más cuando su operación lo requiera."
   },
   {
     "icon": "fa-brain",
     "title": "Inteligencia Artificial",
-    "description": "Automatización cognitiva y análisis de datos integrado."
+    "description": "Automatización cognitiva, análisis documental y clasificación inteligente integrados."
+  },
+  {
+    "icon": "fa-rotate",
+    "title": "Actualizaciones Continuas",
+    "description": "Siempre en la versión más reciente, sin interrupciones ni costos adicionales."
   },
   {
     "icon": "fa-headset",
-    "title": "Soporte Corporativo",
-    "description": "Acompañamiento especializado por expertos."
+    "title": "Soporte Especializado",
+    "description": "Acompañamiento técnico y funcional por expertos en gestión documental empresarial."
   },
   {
-    "icon": "fa-shield-halved",
-    "title": "Seguridad Blindada",
-    "description": "Protección de datos empresariales y respaldos diarios."
-  },
-  {
-    "icon": "fa-cubes",
-    "title": "Modularidad Total",
-    "description": "Personalice su solución activando solo los módulos necesarios."
+    "icon": "fa-business-time",
+    "title": "Acceso 24/7",
+    "description": "Desde cualquier dispositivo y lugar. Su operación no se detiene."
   }
 ]
