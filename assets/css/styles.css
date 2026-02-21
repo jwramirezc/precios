@@ -1095,3 +1095,51 @@ input[type='number']:focus {
   text-overflow: ellipsis;
   max-width: 170px;
 }
+
+/* ================================================
+   Module locked in preset bundle (preset-included)
+   ================================================ */
+
+.module-item.preset-included {
+  border-color: var(--primary);
+  background: linear-gradient(135deg, rgba(var(--primary-rgb, 58, 110, 255), 0.06) 0%, rgba(var(--primary-rgb, 58, 110, 255), 0.02) 100%);
+}
+
+.module-item.preset-included::after {
+  content: '✓ Bundle';
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--primary);
+  background: rgba(var(--primary-rgb, 58, 110, 255), 0.1);
+  border: 1px solid var(--primary);
+  border-radius: 4px;
+  padding: 1px 5px;
+  pointer-events: none;
+}
+
+/* Make module-item position:relative for the ::after badge */
+.module-item {
+  position: relative;
+}
+
+/* ================================================
+   Shake animation (locked preset module feedback)
+   ================================================ */
+
+@keyframes shake {
+  0%   { transform: translateX(0); }
+  15%  { transform: translateX(-5px); }
+  30%  { transform: translateX(5px); }
+  45%  { transform: translateX(-4px); }
+  60%  { transform: translateX(4px); }
+  75%  { transform: translateX(-2px); }
+  90%  { transform: translateX(2px); }
+  100% { transform: translateX(0); }
+}
+
+.module-item.shake {
+  animation: shake 0.4s ease-in-out;
+}

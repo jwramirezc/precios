@@ -37,6 +37,9 @@ class PricingCalculator {
         this.billingCycle = 'monthly'; // 'monthly' or 'annual'
         this.storageGB = config.storageSlider?.default || 100;
 
+        // Active preset: null = custom mode; object = preset bundle mode
+        this.activePreset = null;
+
         // Enterprise Flags (can be toggled via updateConfig)
         this.isEnterprise = false;
         this.isDedicated = false;
@@ -49,6 +52,13 @@ class PricingCalculator {
 
     setPricingTiers(pricingTiers) {
         this.pricingTiers = pricingTiers || {};
+    }
+
+    /**
+     * Set the active preset (object from configurationPresets) or null for custom mode.
+     */
+    setActivePreset(preset) {
+        this.activePreset = preset || null;
     }
 
     getModuleById(id) {
@@ -74,44 +84,82 @@ class PricingCalculator {
         if (this.hasOwnProperty(key)) {
             this[key] = value;
         } else if (this.config.hasOwnProperty(key)) {
-            // Caution: modifying shared config might affect other components, 
-            // but here it's arguably local state management if keys match.
             this.config[key] = value;
         }
     }
 
     /**
-     * Calculate cost for users using progressive tiers
+     * Helper: progressive user cost for exactly N users.
+     * Used by both calculateUserCost() and calculateExtraUserCost().
+     */
+    calculateUserCostForN(n) {
+        let remaining = n;
+        let total = 0;
+        const tiers = this.config.usersPricing || [];
+        const sorted = [...tiers].sort((a, b) => a.upTo - b.upTo);
+        let prev = 0;
+
+        for (const tier of sorted) {
+            if (remaining <= 0) break;
+            const span = tier.upTo - prev;
+            const inTier = Math.min(remaining, span);
+            total += inTier * tier.pricePerUser;
+            remaining -= inTier;
+            prev = tier.upTo;
+        }
+
+        if (remaining > 0 && sorted.length > 0) {
+            total += remaining * sorted[sorted.length - 1].pricePerUser;
+        }
+
+        return total;
+    }
+
+    /**
+     * Calculate cost for users using progressive tiers (custom mode).
      */
     calculateUserCost() {
-        let remainingUsers = this.userCount;
-        let totalUserCost = 0;
-        const tiers = this.config.usersPricing || [];
+        return this.calculateUserCostForN(this.userCount);
+    }
 
-        // Sort tiers just in case
-        const sortedTiers = [...tiers].sort((a, b) => a.upTo - b.upTo);
+    /**
+     * Cost of users ABOVE the preset's includedUsers (preset add-on mode).
+     * Returns 0 if current userCount <= includedUsers.
+     */
+    calculateExtraUserCost(includedUsers) {
+        if (this.userCount <= includedUsers) return 0;
+        return this.calculateUserCostForN(this.userCount) - this.calculateUserCostForN(includedUsers);
+    }
 
-        let previousLimit = 0;
+    /**
+     * Cost of storage ABOVE the preset's includedStorageGB (preset add-on mode).
+     * Returns 0 if current storageGB <= includedStorageGB.
+     */
+    calculateExtraStorageCost(includedStorageGB) {
+        const billableGB = Math.max(0, this.storageGB - includedStorageGB);
+        if (billableGB === 0) return 0;
 
-        for (const tier of sortedTiers) {
-            if (remainingUsers <= 0) break;
+        const tiers = this.config.storagePricing?.tiers || [];
+        const sorted = [...tiers].sort((a, b) => a.upTo - b.upTo);
 
-            const tierSpan = tier.upTo - previousLimit;
-            const usersInThisTier = Math.min(remainingUsers, tierSpan);
+        let cost = 0;
+        let remaining = billableGB;
+        let prev = 0;
 
-            totalUserCost += usersInThisTier * tier.pricePerUser;
-
-            remainingUsers -= usersInThisTier;
-            previousLimit = tier.upTo;
+        for (const tier of sorted) {
+            if (remaining <= 0) break;
+            const span = tier.upTo - prev;
+            const inTier = Math.min(remaining, span);
+            cost += inTier * tier.pricePerGB;
+            remaining -= inTier;
+            prev = tier.upTo;
         }
 
-        // Handle overflow if users exceed max defined tier (fallback to lowest price)
-        if (remainingUsers > 0 && sortedTiers.length > 0) {
-            const lastTierPrice = sortedTiers[sortedTiers.length - 1].pricePerUser;
-            totalUserCost += remainingUsers * lastTierPrice;
+        if (remaining > 0 && sorted.length > 0) {
+            cost += remaining * sorted[sorted.length - 1].pricePerGB;
         }
 
-        return totalUserCost;
+        return cost;
     }
 
     calculateModulesCost() {
@@ -120,7 +168,6 @@ class PricingCalculator {
         );
         return selectedCalculableModules.reduce((total, module) => {
             let price = 0;
-            // Look up price by pricing_tier key in the pricingTiers object (module-pricing.json)
             if (module.pricing_tier && this.pricingTiers[module.pricing_tier] !== undefined) {
                 price = this.pricingTiers[module.pricing_tier];
             } else {
@@ -131,64 +178,31 @@ class PricingCalculator {
     }
 
     calculateStorageCost() {
-        // Get config values
         const includedGB = this.config.storagePricing?.includedGB || 0;
         const tiers = this.config.storagePricing?.tiers || [];
 
-        // Calculate billable GB
         let remainingGB = Math.max(0, this.storageGB - includedGB);
 
-        // If no tiers defined, fallback to old linear logic if pricePerGB exists (backward compatibility)
         if (!tiers.length) {
             const pricePerGB = this.config.storagePricing?.pricePerGB || 0;
             return remainingGB * pricePerGB;
         }
 
         let totalStorageCost = 0;
-        // Sort tiers just in case
         const sortedTiers = [...tiers].sort((a, b) => a.upTo - b.upTo);
-
-        // Logic for progressive storage calculation
-        // Note: storage tiers are USUALLY defined relative to the *billable* amount in this request context?
-        // OR relative to absolute? 
-        // Request says: "0-100 GB: gratis", "101-500 GB: $4". 
-        // This implies the tier "upTo: 500" covers the range from 0 (billable) to 400 (billable) effectively?
-        // NO, wait. The request says "tiers: [{upTo: 500}]". 
-        // If I have 600 total GB: 100 included. 500 billable.
-        // If the tiers are applied to "billableGB":
-        // Tier 1 (upTo 500) covers first 500 billable GB.
-        // Tier 2 covers next etc.
-        //
-        // Let's assume tiers apply to the BILLABLE amount.
-        // Tiers: upTo 500, upTo 2000.
-        // If I have 600GB total. 100 Included. Billable = 500.
-        // Billable 500 fits entirely in first tier (upTo 500). cost = 500 * 4 = 2000.
-        //
-        // If I have 2100GB total. 100 Included. Billable = 2000.
-        // First 500 billable @ 4 = 2000.
-        // Next 1500 billable (upTo 2000 tier coverage) @ 3 = 4500.
-        // Total = 6500.
-        //
-        // This matches the "Progressive" model requested.
-
         let previousLimit = 0;
 
         for (const tier of sortedTiers) {
             if (remainingGB <= 0) break;
-
             const tierSpan = tier.upTo - previousLimit;
             const gbInThisTier = Math.min(remainingGB, tierSpan);
-
             totalStorageCost += gbInThisTier * tier.pricePerGB;
-
             remainingGB -= gbInThisTier;
             previousLimit = tier.upTo;
         }
 
-        // Handle overflow if GBs exceed max defined tier (fallback to lowest price)
         if (remainingGB > 0 && sortedTiers.length > 0) {
-            const lastTierPrice = sortedTiers[sortedTiers.length - 1].pricePerGB;
-            totalStorageCost += remainingGB * lastTierPrice;
+            totalStorageCost += remainingGB * sortedTiers[sortedTiers.length - 1].pricePerGB;
         }
 
         return totalStorageCost;
@@ -197,18 +211,70 @@ class PricingCalculator {
     getSzaasMultiplier() {
         let multiplier = 1.0;
         const multipliers = this.config.saasMultipliers || {};
-
         if (this.isEnterprise) multiplier *= (multipliers.enterprise || 1.3);
         if (this.isDedicated) multiplier *= (multipliers.dedicatedInstance || 1.5);
         if (this.isCompliance) multiplier *= (multipliers.compliance || 1.2);
-
         return multiplier;
     }
 
     /**
-     * Returns a detailed breakdown of costs in USD (Monthly)
+     * PRESET MODE breakdown: fixed bundle price + à-la-carte add-ons on top.
+     * Reads priceUSD, includedModules, includedUsers, includedStorageGB from preset JSON.
+     */
+    calculatePresetBreakdown() {
+        const preset = this.activePreset;
+        const presetBaseUSD = preset.priceUSD;
+        const includedModuleIds = preset.includedModules || [];
+
+        // Extra modules = selected calculable modules NOT in the preset's includedModules
+        const extraModules = this.modules.filter(
+            m => m.selected && m.calculable && m.visible && !includedModuleIds.includes(m.id)
+        );
+        const extraModulesCost = extraModules.reduce((sum, m) => {
+            return sum + (this.pricingTiers[m.pricing_tier] || 0);
+        }, 0);
+
+        // Extra users above preset's included count
+        const extraUsersCost = this.calculateExtraUserCost(preset.includedUsers);
+
+        // Extra storage above preset's included GB
+        const extraStorageCost = this.calculateExtraStorageCost(preset.includedStorageGB);
+
+        const totalMonthlyUSD = presetBaseUSD + extraModulesCost + extraUsersCost + extraStorageCost;
+
+        return {
+            isPreset: true,
+            presetBaseUSD,
+            presetName: preset.name,
+            presetIncludedNote: preset.includedNote || '',
+            includedModuleIds,
+            includedUsers: preset.includedUsers,
+            includedStorageGB: preset.includedStorageGB,
+            extraModules,
+            extraModulesCost,
+            extraUsersCost,
+            extraStorageCost,
+            // Keep these at 0 so existing code that reads them doesn't break
+            platformFee: 0,
+            userCost: 0,
+            modulesCost: 0,
+            storageCost: 0,
+            subtotal: totalMonthlyUSD,
+            multiplier: 1,
+            totalMonthlyUSD
+        };
+    }
+
+    /**
+     * Returns a detailed breakdown of costs in USD (Monthly).
+     * Routes to preset or custom calculation based on activePreset.
      */
     calculateBreakdown() {
+        if (this.activePreset) {
+            return this.calculatePresetBreakdown();
+        }
+
+        // Custom mode: full à-la-carte calculation
         const platformFee = this.config.platformFee || 0;
         const userCost = this.calculateUserCost();
         const modulesCost = this.calculateModulesCost();
@@ -219,6 +285,7 @@ class PricingCalculator {
         const totalMonthlyUSD = subtotal * multiplier;
 
         return {
+            isPreset: false,
             platformFee,
             userCost,
             modulesCost,
@@ -233,19 +300,13 @@ class PricingCalculator {
         const breakdown = this.calculateBreakdown();
         let total = breakdown.totalMonthlyUSD;
 
-        // Apply Annual Discount if applicable
         if (this.billingCycle === 'annual') {
             const discountPercent = this.config.annualDiscountPercent || 0;
             const discountMultiplier = 1 - (discountPercent / 100);
-
-            // Apply annual discount to the monthly rate
             total *= discountMultiplier;
-
-            // Total Annual Price
             total *= 12;
         }
 
-        // Convert currency
         if (this.config.currency === 'COP') {
             total *= (this.config.exchangeRate || 4000);
         }
