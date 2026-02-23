@@ -127,6 +127,30 @@
     "url": "https://www.saiasoftware.com/",
     "pricing_tier": "core",
     "visible": true,
-    "category": "procesos_operaciones"
+    "category": "procesos_operaciones",
+    "quantity_config": {
+      "enabled": true,
+      "label": "firmas certificadas/mes",
+      "unit": "firmas",
+      "default_qty": 50,
+      "pricing_key": "firma_certificada_blocks"
+    }
+  },
+  {
+    "id": "email",
+    "name": "Módulo de Emails Certificados",
+    "description": "Envíe comunicaciones con valor probatorio y acuse de recibo certificado.",
+    "icon": "<i class=\"fa-solid fa-envelope-circle-check\"></i>",
+    "url": "https://www.saiasoftware.com/",
+    "pricing_tier": "core",
+    "visible": true,
+    "category": "procesos_operaciones",
+    "quantity_config": {
+      "enabled": true,
+      "label": "emails certificados/mes",
+      "unit": "emails",
+      "default_qty": 50,
+      "pricing_key": "email_certificado_blocks"
+    }
   }
 ]
