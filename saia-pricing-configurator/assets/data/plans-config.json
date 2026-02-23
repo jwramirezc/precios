@@ -77,7 +77,7 @@
     "name": "Arquitectura Personalizada",
     "icon": "fa-building",
     "description": "Infraestructura dedicada para organizaciones con operaciones complejas o críticas.",
-    "price": "Contactar",
+    "price": "",
     "userLimit": "Más de 100",
     "highlight": false,
     "features": [
@@ -87,16 +87,17 @@
       "Soporte prioritario y asesor especializado asignado",
       "Instancias dedicadas de la plataforma"
     ],
-    "buttonText": "Solicitar este modelo",
+    "buttonText": "Contactar",
     "buttonAction": "contact",
-    "style": "white"
+    "style": "white",
+    "showCustomizeButton": false
   },
   {
     "id": "dev_custom",
     "name": "Procesos a Medida",
     "icon": "fa-code-branch",
     "description": "Desarrollo e implementación de procesos específicos de su organización.",
-    "price": "Contactar",
+    "price": "",
     "userLimit": "Usuarios según necesidad",
     "highlight": false,
     "features": [
@@ -108,9 +109,10 @@
       "Líder de proyecto asignado",
       "Soporte técnico y funcional por 12 meses"
     ],
-    "buttonText": "Solicitar propuesta",
+    "buttonText": "Contactar",
     "buttonAction": "contact",
-    "style": "standard"
+    "style": "standard",
+    "showCustomizeButton": false
   },
   {
     "id": "custom",

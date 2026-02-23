@@ -315,7 +315,6 @@ const app = {
     const originalPriceEl    = document.getElementById('original-price');
     const customServicesSummary  = document.getElementById('custom-services-summary');
     const customServicesList = document.getElementById('custom-services-list');
-    const breakdownContainer = document.getElementById('price-breakdown');
     const upgradeEl          = document.getElementById('upgrade-recommendation');
 
     if (!totalPriceEl) return;
@@ -325,7 +324,6 @@ const app = {
 
     // ── Empty state (no preset, no modules selected) ─────────────────
     if (!hasPreset && selectedModules.length === 0) {
-      if (breakdownContainer) breakdownContainer.innerHTML = '';
       if (originalPriceContainer) originalPriceContainer.style.display = 'none';
       if (customServicesSummary) customServicesSummary.style.display = 'none';
       if (upgradeEl) upgradeEl.style.display = 'none';
@@ -358,15 +356,6 @@ const app = {
       };
       return new Intl.NumberFormat('es-CO', opts).format(val);
     };
-
-    // ── Breakdown HTML ────────────────────────────────────────────────
-    if (breakdownContainer) {
-      if (breakdown.isPreset) {
-        breakdownContainer.innerHTML = this._buildPresetBreakdownHTML(breakdown, formatMoney);
-      } else {
-        breakdownContainer.innerHTML = this._buildCustomBreakdownHTML(breakdown, formatMoney);
-      }
-    }
 
     // ── Upgrade recommendation (solo en modo custom) ──────────────────
     if (upgradeEl) {
@@ -415,143 +404,6 @@ const app = {
 
     // ── Total ─────────────────────────────────────────────────────────
     totalPriceEl.textContent = this.calculator.getFormattedTotal();
-  },
-
-  /**
-   * Breakdown HTML for PRESET mode:
-   *   Configuración [Name] (base):   $800.000
-   *   [if extras] Módulos adicionales / Usuarios adicionales / Almacenamiento adicional
-   */
-  _buildPresetBreakdownHTML(breakdown, formatMoney) {
-    const preset = this.calculator.activePreset;
-    const extraUsers   = this.calculator.userCount - preset.includedUsers;
-    const extraStorage = this.calculator.storageGB  - preset.includedStorageGB;
-
-    let extrasHtml = '';
-
-    if (breakdown.extraModules.length > 0) {
-      extrasHtml += `
-        <div class="d-flex justify-content-between mb-0 mt-2">
-          <span>Módulos adicionales (${breakdown.extraModules.length}):</span>
-          <span>${formatMoney(breakdown.extraModulesCost)}</span>
-        </div>
-        <div class="breakdown-modules-list">`;
-      breakdown.extraModules.forEach(m => {
-        const price = this.calculator.pricingTiers[m.pricing_tier] || 0;
-        extrasHtml += `
-          <div class="breakdown-module-item">
-            <span class="breakdown-module-name">· ${m.name}</span>
-            <span>${formatMoney(price)}</span>
-          </div>`;
-      });
-      extrasHtml += `</div>`;
-    }
-
-    if (breakdown.extraUsersCost > 0) {
-      extrasHtml += `
-        <div class="d-flex justify-content-between mb-0 mt-1">
-          <span>Usuarios adicionales (+${extraUsers}):</span>
-          <span>${formatMoney(breakdown.extraUsersCost)}</span>
-        </div>`;
-    }
-
-    if (breakdown.extraStorageCost > 0) {
-      extrasHtml += `
-        <div class="d-flex justify-content-between mb-0 mt-1">
-          <span>Almacenamiento adicional (+${extraStorage} GB):</span>
-          <span>${formatMoney(breakdown.extraStorageCost)}</span>
-        </div>`;
-    }
-
-    const hasExtras = extrasHtml.length > 0;
-
-    return `
-      <div class="d-flex justify-content-between mb-0 fw-semibold">
-        <span>Configuración ${breakdown.presetName}:</span>
-        <span>${formatMoney(breakdown.presetBaseUSD)}</span>
-      </div>
-      <div class="text-muted mb-1" style="font-size:0.78em;">
-        ${preset.includedUsers} usuarios · ${preset.includedStorageGB} GB · módulos base
-      </div>
-      ${breakdown.presetIncludedNote ? `
-      <div class="text-muted mb-2" style="font-size:0.78em;">
-        <i class="fa-solid fa-star text-warning me-1"></i>${breakdown.presetIncludedNote}
-      </div>` : ''}
-      ${hasExtras ? extrasHtml : ''}
-      <div class="border-bottom my-2"></div>`;
-  },
-
-  /**
-   * Breakdown HTML for CUSTOM mode:
-   *   Plataforma base SaaS / Usuarios / Módulos (itemizados) / Almacenamiento
-   */
-  _buildCustomBreakdownHTML(breakdown, formatMoney) {
-    const selectedCalculable = this.calculator.modules.filter(
-      m => m.selected && m.calculable && m.visible
-    );
-    const MAX_VISIBLE = 5;
-    const visible = selectedCalculable.slice(0, MAX_VISIBLE);
-    const hiddenCount = selectedCalculable.length - visible.length;
-
-    let modulesItemsHtml = '';
-    if (selectedCalculable.length > 0) {
-      modulesItemsHtml = `<div class="breakdown-modules-list">`;
-      visible.forEach(m => {
-        const price = this.calculator.pricingTiers[m.pricing_tier] || 0;
-        modulesItemsHtml += `
-          <div class="breakdown-module-item">
-            <span class="breakdown-module-name">· ${m.name}</span>
-            <span>${formatMoney(price)}</span>
-          </div>`;
-      });
-      if (hiddenCount > 0) {
-        const hiddenCost = selectedCalculable.slice(MAX_VISIBLE)
-          .reduce((s, m) => s + (this.calculator.pricingTiers[m.pricing_tier] || 0), 0);
-        modulesItemsHtml += `
-          <div class="breakdown-module-item" style="font-style:italic;">
-            <span>· y ${hiddenCount} módulo${hiddenCount > 1 ? 's' : ''} más</span>
-            <span>${formatMoney(hiddenCost)}</span>
-          </div>`;
-      }
-      modulesItemsHtml += `</div>`;
-    }
-
-    const perUserCost = this.calculator.userCount > 0
-      ? breakdown.userCost / this.calculator.userCount
-      : 0;
-
-    return `
-      <div class="d-flex justify-content-between mb-0 fw-semibold">
-        <span>Plataforma base SaaS:</span>
-        <span>${formatMoney(breakdown.platformFee)}</span>
-      </div>
-      <div class="text-muted mb-2" style="font-size:0.78em;">AWS · soporte técnico · actualizaciones automáticas</div>
-      <div class="d-flex justify-content-between mb-0">
-        <span>Usuarios (${this.calculator.userCount}):</span>
-        <span>${formatMoney(breakdown.userCost)}</span>
-      </div>
-      <div class="microcopy-price-user text-end mb-2">
-        ≈ ${formatMoney(perUserCost)} por usuario
-      </div>
-      <div class="mb-1">
-        <div class="d-flex justify-content-between">
-          <span>Módulos (${selectedCalculable.length}):</span>
-          <span>${formatMoney(breakdown.modulesCost)}</span>
-        </div>
-        ${modulesItemsHtml}
-      </div>
-      <div class="d-flex justify-content-between mb-1">
-        <span>Almacenamiento (${this.calculator.storageGB} GB):</span>
-        <span>${breakdown.storageCost === 0
-          ? '<span class="badge bg-success text-white">Incluido</span>'
-          : formatMoney(breakdown.storageCost)}</span>
-      </div>
-      ${breakdown.multiplier > 1.0 ? `
-      <div class="d-flex justify-content-between mb-1 text-warning">
-        <span>Multiplicador Enterprise:</span>
-        <span>x${breakdown.multiplier.toFixed(1)}</span>
-      </div>` : ''}
-      <div class="border-bottom my-2"></div>`;
   },
 
   calculateOriginalAnnualPrice() {

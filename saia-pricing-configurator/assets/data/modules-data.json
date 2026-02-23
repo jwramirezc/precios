@@ -128,17 +128,5 @@
     "pricing_tier": "core",
     "visible": true,
     "category": "procesos_operaciones"
-  },
-  {
-    "id": "medida",
-    "name": "Procesos a Medida",
-    "description": "Construimos procesos a medida con parametrización especializada.",
-    "icon": "<i class=\"fa-solid fa-gears\"></i>",
-    "url": "https://www.saiasoftware.com/soporte-en-linea/",
-    "calculable": false,
-    "type": "service",
-    "price_behavior": "custom",
-    "visible": true,
-    "category": "personalizacion"
   }
 ]
