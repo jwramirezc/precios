@@ -124,7 +124,7 @@ function renderPlans(containerId, data) {
         : ''
     }
                         </button>
-                        ${plan.style !== 'dashed' ? `
+                        ${plan.style !== 'dashed' && plan.showCustomizeButton !== false ? `
                         <button onclick="${getConfiguratorUrl(plan.id)}" class="btn-outline-primary-custom rounded-pill py-2">
                             <i class="fa-solid fa-sliders-h me-2"></i>Personalizar este modelo
                         </button>` : ''}
