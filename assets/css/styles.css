@@ -1069,34 +1069,6 @@ input[type='number']:focus {
 }
 
 /* ================================================
-   Itemized Breakdown (configurador sidebar)
-   ================================================ */
-
-.breakdown-modules-list {
-  margin: 4px 0 4px 4px;
-  padding-left: 8px;
-  border-left: 2px solid var(--border-color);
-}
-
-.breakdown-module-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  font-size: 0.78em;
-  color: var(--text-muted);
-  padding: 2px 0;
-  gap: 4px;
-}
-
-.breakdown-module-name {
-  flex: 1;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 170px;
-}
-
-/* ================================================
    Module locked in preset bundle (preset-included)
    ================================================ */
 
