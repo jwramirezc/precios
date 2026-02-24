@@ -1,5 +1,27 @@
 {
   "core": 50,
   "advanced": 120,
-  "enterprise": 250
+  "enterprise": 250,
+
+  "firma_certificada_blocks": {
+    "type": "block",
+    "blocks": [
+      { "qty": 50,   "priceUSD": 15,  "label": "50 firmas/mes" },
+      { "qty": 100,  "priceUSD": 25,  "label": "100 firmas/mes" },
+      { "qty": 200,  "priceUSD": 45,  "label": "200 firmas/mes" },
+      { "qty": 500,  "priceUSD": 90,  "label": "500 firmas/mes" },
+      { "qty": 1000, "priceUSD": 160, "label": "1.000 firmas/mes" }
+    ]
+  },
+
+  "email_certificado_blocks": {
+    "type": "block",
+    "blocks": [
+      { "qty": 50,   "priceUSD": 12,  "label": "50 emails/mes" },
+      { "qty": 100,  "priceUSD": 20,  "label": "100 emails/mes" },
+      { "qty": 200,  "priceUSD": 35,  "label": "200 emails/mes" },
+      { "qty": 500,  "priceUSD": 70,  "label": "500 emails/mes" },
+      { "qty": 1000, "priceUSD": 120, "label": "1.000 emails/mes" }
+    ]
+  }
 }

@@ -143,8 +143,14 @@ const app = {
    * Uses includedModules / includedUsers / includedStorageGB from JSON.
    */
   loadPreset(presetId) {
-    // Clear all module selections and preset-included markers
-    this.calculator.modules.forEach(m => { m.selected = false; });
+    // Clear all module selections, preset markers and quantity selectors
+    this.calculator.modules.forEach(m => {
+      m.selected = false;
+      if (m.hasQuantity()) {
+        m.selectedQty = m.quantity_config.default_qty;
+        this._hideQuantitySelector(m.id);
+      }
+    });
     document.querySelectorAll('.module-item').forEach(el => {
       el.classList.remove('selected', 'preset-included');
     });
@@ -169,10 +175,16 @@ const app = {
 
     // Select and mark preset's includedModules
     const includedModules = preset.includedModules || [];
+    const includedQtys = preset.includedQuantities || {};
     includedModules.forEach(moduleId => {
       const module = this.calculator.getModuleById(moduleId);
       if (module && module.visible) {
         module.selected = true;
+        // Apply included quantity (or keep default_qty if not in includedQuantities)
+        if (module.hasQuantity()) {
+          module.selectedQty = includedQtys[moduleId] || module.quantity_config.default_qty;
+          this._showQuantitySelector(module);
+        }
         const el = document.querySelector(`[data-module-id="${moduleId}"]`);
         if (el) el.classList.add('selected', 'preset-included');
       }
@@ -261,6 +273,7 @@ const app = {
             <i class="fa-solid fa-circle-info"></i> ${infoText}
           </a>
         </div>
+        ${module.hasQuantity() ? `<div class="module-quantity-selector" data-qty-for="${module.id}" style="display:none"></div>` : ''}
       </div>`;
   },
 
@@ -286,6 +299,18 @@ const app = {
 
     this.calculator.toggleModule(id);
     this.updateModuleItemState(id);
+
+    // Show or hide quantity selector
+    if (module?.hasQuantity()) {
+      if (module.selected) {
+        // Reset to default qty when activating manually
+        module.selectedQty = module.quantity_config.default_qty;
+        this._showQuantitySelector(module);
+      } else {
+        this._hideQuantitySelector(id);
+      }
+    }
+
     this.updatePriceUI();
   },
 
@@ -368,7 +393,7 @@ const app = {
           upgradeEl.innerHTML = `
             <div class="alert alert-info small py-2 px-3 mb-3">
               <i class="fa-solid fa-lightbulb me-1"></i>
-              <strong>Tip:</strong> La <strong>${match.name}</strong> incluye IA básica y firmas certificadas por <strong>${formatMoney(match.priceUSD)}/mes</strong>.
+              <strong>Tip:</strong> La configuración <strong>${match.name}</strong> incluye bolsas de firmas y emails certificados, además de beneficios adicionales, por <strong>${formatMoney(match.priceUSD)}/mes</strong>. En configuración à la carte puede ajustar cada bolsa según necesidad.
               <a href="#" data-page="planes" class="alert-link ms-1">Comparar →</a>
             </div>`;
         } else {
@@ -376,6 +401,47 @@ const app = {
         }
       } else {
         upgradeEl.style.display = 'none';
+      }
+    }
+
+    // ── Quantity modules summary (líneas de bolsa en sidebar) ─────────
+    const quantitySummaryEl = document.getElementById('quantity-summary');
+    if (quantitySummaryEl) {
+      const qtyModules = this.calculator.modules.filter(
+        m => m.selected && m.visible && m.hasQuantity() && m.selectedQty
+      );
+      if (qtyModules.length > 0) {
+        const preset = this.calculator.activePreset;
+        const includedQtys = preset?.includedQuantities || {};
+        const lines = qtyModules.map(m => {
+          const key = m.quantity_config.pricing_key;
+          const includedQty = includedQtys[m.id] || 0;
+          let cost = 0;
+          if (preset) {
+            if (m.selectedQty > includedQty) {
+              cost = this.calculator._getBlockPrice(key, m.selectedQty)
+                   - this.calculator._getBlockPrice(key, includedQty);
+            }
+          } else {
+            cost = this.calculator._getBlockPrice(key, m.selectedQty);
+          }
+          const tag = cost === 0
+            ? `<span class="badge bg-success ms-1" style="font-size:0.7em;">Incluido</span>`
+            : `<span class="qty-cost-tag">+${formatMoney(cost)}/mes</span>`;
+          return `<div class="qty-summary-line">
+            <span><i class="fa-solid fa-layer-group me-1 text-primary" style="font-size:0.8em;"></i>${m.name} (${m.selectedQty} ${m.quantity_config.unit}/mes)</span>
+            ${tag}
+          </div>`;
+        }).join('');
+        quantitySummaryEl.innerHTML = `
+          <div class="qty-summary-block">
+            <div class="qty-summary-title">Bolsas de consumo</div>
+            ${lines}
+          </div>`;
+        quantitySummaryEl.style.display = 'block';
+      } else {
+        quantitySummaryEl.innerHTML = '';
+        quantitySummaryEl.style.display = 'none';
       }
     }
 
@@ -410,6 +476,54 @@ const app = {
     // Legacy method — kept for compatibility; logic now lives in updatePriceUI
     return 0;
   },
+
+  /* ------------------------------------------------------------------ */
+  /*  Quantity selector — módulos con quantity_config.enabled = true     */
+  /* ------------------------------------------------------------------ */
+
+  _buildQuantitySelectorHTML(module) {
+    const cfg = module.quantity_config;
+    const pricingDef = this.calculator.pricingTiers[cfg.pricing_key];
+    if (!pricingDef?.blocks) return '';
+
+    const options = pricingDef.blocks.map(b =>
+      `<option value="${b.qty}" ${b.qty === module.selectedQty ? 'selected' : ''}>${b.label}</option>`
+    ).join('');
+
+    return `
+      <div class="qty-inner">
+        <label class="qty-label">
+          <i class="fa-solid fa-layer-group"></i> ${cfg.label}
+        </label>
+        <select class="qty-select"
+                onchange="app.updateModuleQty('${module.id}', +this.value)"
+                onclick="event.stopPropagation()">
+          ${options}
+        </select>
+      </div>`;
+  },
+
+  _showQuantitySelector(module) {
+    const container = document.querySelector(`[data-qty-for="${module.id}"]`);
+    if (!container) return;
+    container.innerHTML = this._buildQuantitySelectorHTML(module);
+    container.style.display = 'block';
+  },
+
+  _hideQuantitySelector(moduleId) {
+    const container = document.querySelector(`[data-qty-for="${moduleId}"]`);
+    if (!container) return;
+    container.innerHTML = '';
+    container.style.display = 'none';
+  },
+
+  updateModuleQty(moduleId, qty) {
+    const module = this.calculator.getModuleById(moduleId);
+    if (module && module.hasQuantity()) {
+      module.selectedQty = qty;
+      this.updatePriceUI();
+    }
+  },
 };
 
 // --- Globals (Window) for HTML inline handlers ---
@@ -440,6 +554,10 @@ window.updateStorage = function (val) {
   const display = document.getElementById('storage-count-display');
   if (display) display.textContent = val;
   app.updatePriceUI();
+};
+
+window.updateModuleQty = function (moduleId, qty) {
+  app.updateModuleQty(moduleId, qty);
 };
 
 // Initialize when configs are loaded (only on configurator page)
