@@ -35,7 +35,10 @@
     "enterpriseMultiplier": "Multiplicador Enterprise",
     "perUser": "por usuario",
     "selected": "seleccionados",
-    "includes": "Incluye"
+    "includes": "Incluye",
+    "quantityBolsa": "Bolsas de consumo",
+    "quantityIncluded": "Incluido en plan",
+    "quantityExtra": "Bolsa adicional"
   },
   "modulesSection": {
     "infoLinkText": "Más info",

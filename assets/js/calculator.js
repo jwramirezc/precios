@@ -20,10 +20,17 @@ class Module {
         this.pricing_tier = data.pricing_tier;
         this.category = data.category;
         this.selected = false;
+        // Quantity config — only present on modules with variable consumption (blocks/per-unit)
+        this.quantity_config = data.quantity_config || null;
+        this.selectedQty = data.quantity_config?.default_qty || null;
     }
 
     toggle() {
         this.selected = !this.selected;
+    }
+
+    hasQuantity() {
+        return !!(this.quantity_config?.enabled);
     }
 }
 
@@ -162,6 +169,55 @@ class PricingCalculator {
         return cost;
     }
 
+    /**
+     * Returns the USD price for a given pricing_key + qty combination.
+     * Supports type:"block" (closed pack) and type:"per_unit".
+     * Returns 0 if key or qty not found — never throws.
+     */
+    _getBlockPrice(pricingKey, qty) {
+        const def = this.pricingTiers[pricingKey];
+        if (!def) return 0;
+        if (def.type === 'block') {
+            const block = (def.blocks || []).find(b => b.qty === qty);
+            return block ? block.priceUSD : 0;
+        }
+        if (def.type === 'per_unit') {
+            return qty * (def.pricePerUnit || 0);
+        }
+        return 0;
+    }
+
+    /**
+     * CUSTOM MODE — full price of every selected quantity module.
+     * Each module pays the price of its chosen block/tier regardless of any preset.
+     */
+    calculateQuantityModulesCost() {
+        return this.modules
+            .filter(m => m.selected && m.visible && m.hasQuantity() && m.selectedQty)
+            .reduce((total, m) => {
+                return total + this._getBlockPrice(m.quantity_config.pricing_key, m.selectedQty);
+            }, 0);
+    }
+
+    /**
+     * PRESET MODE — only charges the DELTA between selected and included tiers.
+     *   extra = price(tier_selected) - price(tier_included)
+     * If selected qty <= included qty → extra = 0.
+     */
+    calculatePresetExtraQuantityCost(preset) {
+        const includedQtys = preset.includedQuantities || {};
+        return this.modules
+            .filter(m => m.selected && m.visible && m.hasQuantity() && m.selectedQty)
+            .reduce((total, m) => {
+                const includedQty = includedQtys[m.id] || 0;
+                if (m.selectedQty <= includedQty) return total;
+                const key = m.quantity_config.pricing_key;
+                const priceSelected = this._getBlockPrice(key, m.selectedQty);
+                const priceIncluded  = this._getBlockPrice(key, includedQty);
+                return total + Math.max(0, priceSelected - priceIncluded);
+            }, 0);
+    }
+
     calculateModulesCost() {
         const selectedCalculableModules = this.modules.filter(
             m => m.selected && m.calculable && m.visible
@@ -240,7 +296,10 @@ class PricingCalculator {
         // Extra storage above preset's included GB
         const extraStorageCost = this.calculateExtraStorageCost(preset.includedStorageGB);
 
-        const totalMonthlyUSD = presetBaseUSD + extraModulesCost + extraUsersCost + extraStorageCost;
+        // Extra quantity cost (delta between selected tier and included tier)
+        const extraQtyCost = this.calculatePresetExtraQuantityCost(preset);
+
+        const totalMonthlyUSD = presetBaseUSD + extraModulesCost + extraUsersCost + extraStorageCost + extraQtyCost;
 
         return {
             isPreset: true,
@@ -254,6 +313,7 @@ class PricingCalculator {
             extraModulesCost,
             extraUsersCost,
             extraStorageCost,
+            extraQtyCost,
             // Keep these at 0 so existing code that reads them doesn't break
             platformFee: 0,
             userCost: 0,
@@ -279,7 +339,8 @@ class PricingCalculator {
         const userCost = this.calculateUserCost();
         const modulesCost = this.calculateModulesCost();
         const storageCost = this.calculateStorageCost();
-        const subtotal = platformFee + userCost + modulesCost + storageCost;
+        const quantityCost = this.calculateQuantityModulesCost();
+        const subtotal = platformFee + userCost + modulesCost + storageCost + quantityCost;
 
         const multiplier = this.getSzaasMultiplier();
         const totalMonthlyUSD = subtotal * multiplier;
@@ -290,6 +351,7 @@ class PricingCalculator {
             userCost,
             modulesCost,
             storageCost,
+            quantityCost,
             subtotal,
             multiplier,
             totalMonthlyUSD

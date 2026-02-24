@@ -54,6 +54,7 @@
       "priceUSD": 200,
       "icon": "fa-rocket",
       "includedModules": ["correspondencia", "gestion_documental", "archivo"],
+      "includedQuantities": {},
       "includedNote": "Firmas Electrónicas Simples ilimitadas incluidas en el plan",
       "includedUsers": 10,
       "includedStorageGB": 100
@@ -65,8 +66,9 @@
       "priceLabel": "$3.000.000 COP/mes",
       "priceUSD": 750,
       "icon": "fa-layer-group",
-      "includedModules": ["correspondencia", "gestion_documental", "archivo", "gestion_plantillas", "pqr", "actas"],
-      "includedNote": "IA básica + Firmas/Emails certificados (bolsa mensual) incluidos en el plan",
+      "includedModules": ["correspondencia", "gestion_documental", "archivo", "gestion_plantillas", "pqr", "actas", "firma", "email"],
+      "includedQuantities": { "firma": 50, "email": 50 },
+      "includedNote": "Incluye bolsa de 50 firmas y 50 emails certificados por mes",
       "includedUsers": 50,
       "includedStorageGB": 200
     },
@@ -77,8 +79,9 @@
       "priceLabel": "$8.000.000 COP/mes",
       "priceUSD": 2000,
       "icon": "fa-briefcase",
-      "includedModules": ["correspondencia", "gestion_documental", "archivo", "gestion_plantillas", "gestion_flujos", "pqr", "help_desk", "iso", "contratos", "historias_laborales", "actas"],
-      "includedNote": "IA básica + avanzada · Integraciones LDAP/API/ERP · bolsas ampliadas incluidas en el plan",
+      "includedModules": ["correspondencia", "gestion_documental", "archivo", "gestion_plantillas", "gestion_flujos", "pqr", "help_desk", "iso", "contratos", "historias_laborales", "actas", "firma", "email"],
+      "includedQuantities": { "firma": 100, "email": 100 },
+      "includedNote": "Incluye bolsa de 100 firmas y 100 emails certificados por mes · IA avanzada · Integraciones LDAP/API/ERP",
       "includedUsers": 100,
       "includedStorageGB": 500
     }
