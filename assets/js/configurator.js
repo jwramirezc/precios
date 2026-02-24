@@ -352,6 +352,8 @@ const app = {
       if (originalPriceContainer) originalPriceContainer.style.display = 'none';
       if (customServicesSummary) customServicesSummary.style.display = 'none';
       if (upgradeEl) upgradeEl.style.display = 'none';
+      const qtySummaryEmpty = document.getElementById('quantity-summary');
+      if (qtySummaryEmpty) { qtySummaryEmpty.innerHTML = ''; qtySummaryEmpty.style.display = 'none'; }
       if (labelEl) labelEl.textContent = 'Seleccione módulos para calcular';
       totalPriceEl.textContent = '—';
       return;
