@@ -38,27 +38,35 @@ const app = {
     const texts = CONFIGURATOR_TEXTS;
 
     const headerTitle = document.querySelector('.display-6.fw-bold');
-    if (headerTitle && texts.header?.title) headerTitle.textContent = texts.header.title;
+    if (headerTitle && texts.header?.title)
+      headerTitle.textContent = texts.header.title;
 
     const headerSubtitle = document.querySelector('.lead.text-muted');
-    if (headerSubtitle && texts.header?.subtitle) headerSubtitle.textContent = texts.header.subtitle;
+    if (headerSubtitle && texts.header?.subtitle)
+      headerSubtitle.textContent = texts.header.subtitle;
 
     const headerDisclaimer = document.querySelector('.small.text-muted');
-    if (headerDisclaimer && texts.header?.disclaimer) headerDisclaimer.textContent = texts.header.disclaimer;
+    if (headerDisclaimer && texts.header?.disclaimer)
+      headerDisclaimer.textContent = texts.header.disclaimer;
 
     const configTitle = document.querySelector('.section-title');
-    if (configTitle && texts.sidebar?.configTitle) configTitle.textContent = texts.sidebar.configTitle;
+    if (configTitle && texts.sidebar?.configTitle)
+      configTitle.textContent = texts.sidebar.configTitle;
   },
 
   updateAnnualDiscountLabel() {
     const annualDiscount = PRICING_CONFIG?.annualDiscountPercent;
     const el = document.getElementById('annual-discount-label');
-    if (el && annualDiscount !== undefined) el.textContent = `-${annualDiscount}%`;
+    if (el && annualDiscount !== undefined)
+      el.textContent = `-${annualDiscount}%`;
   },
 
   initializeUserSlider() {
     const userSlider = PRICING_CONFIG.userSlider;
-    if (!userSlider) { console.error('Missing userSlider in pricing-config.json'); return; }
+    if (!userSlider) {
+      console.error('Missing userSlider in pricing-config.json');
+      return;
+    }
 
     const usersInput = document.getElementById('users-input');
     const userCountDisplay = document.getElementById('user-count-display');
@@ -75,10 +83,15 @@ const app = {
 
   initializeStorageSlider() {
     const storageSlider = PRICING_CONFIG.storageSlider;
-    if (!storageSlider) { console.error('Missing storageSlider in pricing-config.json'); return; }
+    if (!storageSlider) {
+      console.error('Missing storageSlider in pricing-config.json');
+      return;
+    }
 
     const storageInput = document.getElementById('storage-input');
-    const storageCountDisplay = document.getElementById('storage-count-display');
+    const storageCountDisplay = document.getElementById(
+      'storage-count-display'
+    );
 
     if (storageInput) {
       storageInput.min = storageSlider.min;
@@ -87,13 +100,22 @@ const app = {
       storageInput.step = storageSlider.step;
       this.calculator.updateConfig('storageGB', storageSlider.default);
     }
-    if (storageCountDisplay) storageCountDisplay.textContent = storageSlider.default;
+    if (storageCountDisplay)
+      storageCountDisplay.textContent = storageSlider.default;
   },
 
   getCategoryInfo(categoryId) {
-    if (!CATEGORIES_CONFIG) return { name: 'Cargando...', icon: '<i class="fa-solid fa-spinner fa-spin"></i>' };
+    if (!CATEGORIES_CONFIG)
+      return {
+        name: 'Cargando...',
+        icon: '<i class="fa-solid fa-spinner fa-spin"></i>',
+      };
     const category = CATEGORIES_CONFIG.find(cat => cat.id === categoryId);
-    if (category) return { name: category.name, icon: `<i class="fa-solid fa-${category.icon}"></i>` };
+    if (category)
+      return {
+        name: category.name,
+        icon: `<i class="fa-solid fa-${category.icon}"></i>`,
+      };
     const otros = CATEGORIES_CONFIG.find(cat => cat.id === 'otros');
     return otros
       ? { name: otros.name, icon: `<i class="fa-solid fa-${otros.icon}"></i>` }
@@ -135,7 +157,8 @@ const app = {
     container.innerHTML = html;
 
     const presetNote = document.getElementById('preset-note');
-    if (presetNote) presetNote.style.display = this.activePresetId ? 'block' : 'none';
+    if (presetNote)
+      presetNote.style.display = this.activePresetId ? 'block' : 'none';
   },
 
   /**
@@ -157,7 +180,8 @@ const app = {
 
     if (presetId === null) {
       const defaultUsers = this.calculator.config.userSlider?.default || 5;
-      const defaultStorage = this.calculator.config.storageSlider?.default || 100;
+      const defaultStorage =
+        this.calculator.config.storageSlider?.default || 100;
       this.calculator.updateConfig('userCount', defaultUsers);
       this.calculator.updateConfig('storageGB', defaultStorage);
       this._setSlider('users-input', 'user-count-display', defaultUsers);
@@ -182,7 +206,8 @@ const app = {
         module.selected = true;
         // Apply included quantity (or keep default_qty if not in includedQuantities)
         if (module.hasQuantity()) {
-          module.selectedQty = includedQtys[moduleId] || module.quantity_config.default_qty;
+          module.selectedQty =
+            includedQtys[moduleId] || module.quantity_config.default_qty;
           this._showQuantitySelector(module);
         }
         const el = document.querySelector(`[data-module-id="${moduleId}"]`);
@@ -194,7 +219,11 @@ const app = {
     this.calculator.updateConfig('userCount', preset.includedUsers);
     this.calculator.updateConfig('storageGB', preset.includedStorageGB);
     this._setSlider('users-input', 'user-count-display', preset.includedUsers);
-    this._setSlider('storage-input', 'storage-count-display', preset.includedStorageGB);
+    this._setSlider(
+      'storage-input',
+      'storage-count-display',
+      preset.includedStorageGB
+    );
 
     // Activate preset mode in calculator
     this.calculator.setActivePreset(preset);
@@ -320,7 +349,9 @@ const app = {
     const module = this.calculator.modules.find(m => m.id === moduleId);
     if (!module) return;
 
-    module.selected ? el.classList.add('selected') : el.classList.remove('selected');
+    module.selected
+      ? el.classList.add('selected')
+      : el.classList.remove('selected');
 
     // Maintain preset-included marker
     const presetModules = this.calculator.activePreset?.includedModules || [];
@@ -334,13 +365,17 @@ const app = {
   /* ------------------------------------------------------------------ */
 
   updatePriceUI() {
-    const totalPriceEl       = document.getElementById('total-price');
-    const labelEl            = document.getElementById('price-label');
-    const originalPriceContainer = document.getElementById('original-price-container');
-    const originalPriceEl    = document.getElementById('original-price');
-    const customServicesSummary  = document.getElementById('custom-services-summary');
+    const totalPriceEl = document.getElementById('total-price');
+    const labelEl = document.getElementById('price-label');
+    const originalPriceContainer = document.getElementById(
+      'original-price-container'
+    );
+    const originalPriceEl = document.getElementById('original-price');
+    const customServicesSummary = document.getElementById(
+      'custom-services-summary'
+    );
     const customServicesList = document.getElementById('custom-services-list');
-    const upgradeEl          = document.getElementById('upgrade-recommendation');
+    const upgradeEl = document.getElementById('upgrade-recommendation');
 
     if (!totalPriceEl) return;
 
@@ -353,33 +388,36 @@ const app = {
       if (customServicesSummary) customServicesSummary.style.display = 'none';
       if (upgradeEl) upgradeEl.style.display = 'none';
       const qtySummaryEmpty = document.getElementById('quantity-summary');
-      if (qtySummaryEmpty) { qtySummaryEmpty.innerHTML = ''; qtySummaryEmpty.style.display = 'none'; }
+      if (qtySummaryEmpty) {
+        qtySummaryEmpty.innerHTML = '';
+        qtySummaryEmpty.style.display = 'none';
+      }
       if (labelEl) labelEl.textContent = 'Seleccione módulos para calcular';
       totalPriceEl.textContent = '—';
       return;
     }
 
     // ── Shared setup ──────────────────────────────────────────────────
-    const isAnnual      = this.calculator.billingCycle === 'annual';
-    const currency      = this.calculator.config.currency || 'COP';
-    const exchangeRate  = this.calculator.config.exchangeRate || 4000;
-    const isCOP         = currency === 'COP';
-    const priceLabels   = CONFIGURATOR_TEXTS?.priceLabels || {};
-    const breakdown     = this.calculator.calculateBreakdown();
+    const isAnnual = this.calculator.billingCycle === 'annual';
+    const currency = this.calculator.config.currency || 'COP';
+    const exchangeRate = this.calculator.config.exchangeRate || 4000;
+    const isCOP = currency === 'COP';
+    const priceLabels = CONFIGURATOR_TEXTS?.priceLabels || {};
+    const breakdown = this.calculator.calculateBreakdown();
 
     if (labelEl) {
       labelEl.textContent = isAnnual
-        ? (priceLabels.annual  || 'Precio Estimado (Anual)')
-        : (priceLabels.monthly || 'Precio Estimado (Mensual)');
+        ? priceLabels.annual || 'Precio Estimado (Anual)'
+        : priceLabels.monthly || 'Precio Estimado (Mensual)';
     }
 
-    const formatMoney = (amountUSD) => {
+    const formatMoney = amountUSD => {
       let val = isCOP ? amountUSD * exchangeRate : amountUSD;
       const opts = {
         style: 'currency',
         currency: isCOP ? 'COP' : 'USD',
         minimumFractionDigits: isCOP ? 0 : 2,
-        maximumFractionDigits: isCOP ? 0 : 2
+        maximumFractionDigits: isCOP ? 0 : 2,
       };
       return new Intl.NumberFormat('es-CO', opts).format(val);
     };
@@ -389,13 +427,15 @@ const app = {
       if (!breakdown.isPreset) {
         const referencePlans = this.calculator.config.referencePlans || [];
         const cur = breakdown.totalMonthlyUSD;
-        const match = referencePlans.find(p => cur >= p.priceUSD * 0.6 && cur < p.priceUSD * 1.1);
+        const match = referencePlans.find(
+          p => cur >= p.priceUSD * 0.6 && cur < p.priceUSD * 1.1
+        );
         if (match && selectedModules.length > 0) {
           upgradeEl.style.display = 'block';
           upgradeEl.innerHTML = `
             <div class="alert alert-info small py-2 px-3 mb-3">
               <i class="fa-solid fa-lightbulb me-1"></i>
-              <strong>Tip:</strong> La configuración <strong>${match.name}</strong> incluye bolsas de firmas y emails certificados, además de beneficios adicionales, por <strong>${formatMoney(match.priceUSD)}/mes</strong>. En configuración à la carte puede ajustar cada bolsa según necesidad.
+              <strong>Tip:</strong> La configuración <strong>${match.name}</strong> incluye bolsas de firmas y emails certificados, además de beneficios adicionales, por <strong>${formatMoney(match.priceUSD)}/mes</strong>. En configuración puede ajustar cada bolsa según necesidad.
               <a href="#" data-page="planes" class="alert-link ms-1">Comparar →</a>
             </div>`;
         } else {
@@ -415,26 +455,30 @@ const app = {
       if (qtyModules.length > 0) {
         const preset = this.calculator.activePreset;
         const includedQtys = preset?.includedQuantities || {};
-        const lines = qtyModules.map(m => {
-          const key = m.quantity_config.pricing_key;
-          const includedQty = includedQtys[m.id] || 0;
-          let cost = 0;
-          if (preset) {
-            if (m.selectedQty > includedQty) {
-              cost = this.calculator._getBlockPrice(key, m.selectedQty)
-                   - this.calculator._getBlockPrice(key, includedQty);
+        const lines = qtyModules
+          .map(m => {
+            const key = m.quantity_config.pricing_key;
+            const includedQty = includedQtys[m.id] || 0;
+            let cost = 0;
+            if (preset) {
+              if (m.selectedQty > includedQty) {
+                cost =
+                  this.calculator._getBlockPrice(key, m.selectedQty) -
+                  this.calculator._getBlockPrice(key, includedQty);
+              }
+            } else {
+              cost = this.calculator._getBlockPrice(key, m.selectedQty);
             }
-          } else {
-            cost = this.calculator._getBlockPrice(key, m.selectedQty);
-          }
-          const tag = cost === 0
-            ? `<span class="badge bg-success ms-1" style="font-size:0.7em;">Incluido</span>`
-            : `<span class="qty-cost-tag">+${formatMoney(cost)}/mes</span>`;
-          return `<div class="qty-summary-line">
+            const tag =
+              cost === 0
+                ? `<span class="badge bg-success ms-1" style="font-size:0.7em;">Incluido</span>`
+                : `<span class="qty-cost-tag">+${formatMoney(cost)}/mes</span>`;
+            return `<div class="qty-summary-line">
             <span><i class="fa-solid fa-layer-group me-1 text-primary" style="font-size:0.8em;"></i>${m.name} (${m.selectedQty} ${m.quantity_config.unit}/mes)</span>
             ${tag}
           </div>`;
-        }).join('');
+          })
+          .join('');
         quantitySummaryEl.innerHTML = `
           <div class="qty-summary-block">
             <div class="qty-summary-title">Bolsas de consumo</div>
@@ -456,15 +500,25 @@ const app = {
     }
 
     // ── Custom services summary ───────────────────────────────────────
-    const selectedCustomServices = this.calculator.modules.filter(m => m.selected && !m.calculable);
-    if (selectedCustomServices.length > 0 && customServicesSummary && customServicesList) {
-      const customServiceText = priceLabels.customService || 'Requiere Cotización personalizada';
-      customServicesList.innerHTML = selectedCustomServices.map(s =>
-        `<div class="custom-service-item">
+    const selectedCustomServices = this.calculator.modules.filter(
+      m => m.selected && !m.calculable
+    );
+    if (
+      selectedCustomServices.length > 0 &&
+      customServicesSummary &&
+      customServicesList
+    ) {
+      const customServiceText =
+        priceLabels.customService || 'Requiere Cotización personalizada';
+      customServicesList.innerHTML = selectedCustomServices
+        .map(
+          s =>
+            `<div class="custom-service-item">
            <i class="fa-solid fa-check text-success me-2"></i>
            <span><strong>${s.name}</strong>: ${customServiceText}</span>
          </div>`
-      ).join('');
+        )
+        .join('');
       customServicesSummary.style.display = 'block';
     } else if (customServicesSummary) {
       customServicesSummary.style.display = 'none';
@@ -488,9 +542,12 @@ const app = {
     const pricingDef = this.calculator.pricingTiers[cfg.pricing_key];
     if (!pricingDef?.blocks) return '';
 
-    const options = pricingDef.blocks.map(b =>
-      `<option value="${b.qty}" ${b.qty === module.selectedQty ? 'selected' : ''}>${b.label}</option>`
-    ).join('');
+    const options = pricingDef.blocks
+      .map(
+        b =>
+          `<option value="${b.qty}" ${b.qty === module.selectedQty ? 'selected' : ''}>${b.label}</option>`
+      )
+      .join('');
 
     return `
       <div class="qty-inner">
@@ -532,15 +589,19 @@ const app = {
 
 window.setCurrency = function (curr) {
   app.calculator.updateConfig('currency', curr);
-  document.getElementById('btn-cop').className = `radio-card ${curr === 'COP' ? 'active' : ''}`;
-  document.getElementById('btn-usd').className = `radio-card ${curr === 'USD' ? 'active' : ''}`;
+  document.getElementById('btn-cop').className =
+    `radio-card ${curr === 'COP' ? 'active' : ''}`;
+  document.getElementById('btn-usd').className =
+    `radio-card ${curr === 'USD' ? 'active' : ''}`;
   app.updatePriceUI();
 };
 
 window.setBilling = function (cycle) {
   app.calculator.updateConfig('billingCycle', cycle);
-  document.getElementById('btn-monthly').className = `radio-card ${cycle === 'monthly' ? 'active' : ''}`;
-  document.getElementById('btn-annual').className  = `radio-card ${cycle === 'annual'  ? 'active' : ''}`;
+  document.getElementById('btn-monthly').className =
+    `radio-card ${cycle === 'monthly' ? 'active' : ''}`;
+  document.getElementById('btn-annual').className =
+    `radio-card ${cycle === 'annual' ? 'active' : ''}`;
   app.updatePriceUI();
 };
 
