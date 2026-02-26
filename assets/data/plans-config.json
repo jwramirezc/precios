@@ -16,6 +16,7 @@
     ],
     "buttonText": "Solicitar este modelo",
     "buttonAction": "contact",
+    "ctaType": "solicitar_modelo",
     "style": "standard"
   },
   {
@@ -41,6 +42,7 @@
     ],
     "buttonText": "Solicitar este modelo",
     "buttonAction": "contact",
+    "ctaType": "solicitar_modelo",
     "style": "standard"
   },
   {
@@ -70,6 +72,7 @@
     ],
     "buttonText": "Solicitar este modelo",
     "buttonAction": "contact",
+    "ctaType": "solicitar_modelo",
     "style": "standard"
   },
   {
@@ -89,6 +92,7 @@
     ],
     "buttonText": "Contactar",
     "buttonAction": "contact",
+    "ctaType": "contactar",
     "style": "white",
     "showCustomizeButton": false
   },
@@ -111,6 +115,7 @@
     ],
     "buttonText": "Contactar",
     "buttonAction": "contact",
+    "ctaType": "contactar",
     "style": "standard",
     "showCustomizeButton": false
   },

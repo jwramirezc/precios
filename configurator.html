@@ -143,7 +143,18 @@
 
                 </div>
 
-                <a href="#" class="btn-cta" id="contact-cta" data-link="personalizedQuote">
+                <!-- Hidden inputs: keep configurator state readable by cta-redirect.js -->
+                <input type="hidden" id="saia-users" value="10">
+                <input type="hidden" id="saia-storage-gb" value="100">
+                <input type="hidden" id="saia-currency" value="COP">
+                <input type="hidden" id="saia-price-estimated" value="">
+                <input type="hidden" id="saia-selected-modules" value="">
+
+                <a href="https://www.saiasoftware.com/registro/"
+                   class="btn-cta saia-cta-config"
+                   id="contact-cta"
+                   data-origin="configurador"
+                   data-cta="cotizacion_24h">
                     Obtener Cotización Formal Exacta <br> en 24 Horas
                 </a>
 
@@ -192,6 +203,7 @@
     <script src="assets/js/faq.js"></script>
     <script src="assets/js/main.js"></script>
     <script src="assets/js/iframe-resizer.js"></script>
+    <script src="assets/js/cta-redirect.js"></script>
 </body>
 
 </html>

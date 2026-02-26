@@ -394,6 +394,7 @@ const app = {
       }
       if (labelEl) labelEl.textContent = 'Seleccione módulos para calcular';
       totalPriceEl.textContent = '—';
+      this.syncSaiaInputs();
       return;
     }
 
@@ -526,11 +527,36 @@ const app = {
 
     // ── Total ─────────────────────────────────────────────────────────
     totalPriceEl.textContent = this.calculator.getFormattedTotal();
+    this.syncSaiaInputs();
   },
 
   calculateOriginalAnnualPrice() {
     // Legacy method — kept for compatibility; logic now lives in updatePriceUI
     return 0;
+  },
+
+  /**
+   * Syncs hidden #saia-* inputs so cta-redirect.js can read configurator state
+   * without parsing formatted strings or coupling to internal state.
+   */
+  syncSaiaInputs() {
+    const c = this.calculator;
+    if (!c) return;
+
+    const set = (id, val) => {
+      const el = document.getElementById(id);
+      if (el) el.value = (val != null) ? val : '';
+    };
+
+    set('saia-users',    c.config.userCount  || '');
+    set('saia-storage-gb', c.config.storageGB || '');
+    set('saia-currency', c.config.currency  || 'COP');
+
+    const priceText = (document.getElementById('total-price') || {}).textContent || '';
+    set('saia-price-estimated', priceText);
+
+    const mods = c.getSelectedModules().map(m => m.id).join(',');
+    set('saia-selected-modules', mods);
   },
 
   /* ------------------------------------------------------------------ */
