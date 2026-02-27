@@ -37,11 +37,36 @@
     var planEl = btn.dataset.plan ? btn : btn.closest('[data-plan]');
     var plan = planEl ? planEl.dataset.plan : '';
 
+    // Read preset data attributes attached by plans-renderer.js
+    var ctaUsers   = planEl ? (planEl.dataset.ctaUsers   || '') : '';
+    var ctaStorage = planEl ? (planEl.dataset.ctaStorage || '') : '';
+    var ctaModules = planEl ? (planEl.dataset.ctaModules || '') : '';
+    var priceUsd   = planEl ? (planEl.dataset.ctaPriceUsd || '') : '';
+
+    // Currency: read global from plans-renderer.js, default COP
+    var currency = (typeof currentCurrency !== 'undefined' ? currentCurrency : null) || 'COP';
+
+    // Compute display price in selected currency
+    var price = '';
+    if (priceUsd !== '') {
+      var numPrice = parseFloat(priceUsd);
+      if (!isNaN(numPrice)) {
+        var rate = (typeof PRICING_CONFIG !== 'undefined' && PRICING_CONFIG && PRICING_CONFIG.exchangeRate)
+          ? PRICING_CONFIG.exchangeRate : 1;
+        price = currency === 'COP' ? String(Math.round(numPrice * rate)) : String(numPrice);
+      }
+    }
+
     var params = {
-      origin:        btn.dataset.origin || '',
-      cta:           btn.dataset.cta    || '',
-      selected_plan: plan               || undefined,
-      page_url:      window.location.href
+      origin:           btn.dataset.origin || '',
+      cta:              btn.dataset.cta    || '',
+      selected_plan:    plan               || undefined,
+      users:            ctaUsers           || undefined,
+      storage_gb:       ctaStorage         || undefined,
+      currency:         currency           || undefined,
+      price_estimated:  price              || undefined,
+      selected_modules: ctaModules         || undefined,
+      page_url:         window.location.href
     };
 
     window.location.href = buildUrl(params);
