@@ -45,6 +45,32 @@ function updateLabels() {
   lblAnnual.innerHTML = `Anual ${annualBadge}`;
 }
 
+/**
+ * Renders the main CTA button for a plan card.
+ * Contact-type plans get an <a class="saia-cta"> pointing to /registro/ (JS fallback href).
+ * Custom-type plans keep their onclick navigation to the configurator.
+ */
+function renderMainButton(plan) {
+  const btnClass = getBtnClass(plan);
+  const isDashed = plan.style === 'dashed';
+  const extraClass = isDashed ? 'fw-bold' : '';
+  const arrow = isDashed ? '<i class="fa-solid fa-arrow-right ms-2"></i>' : '';
+
+  if (plan.buttonAction === 'contact') {
+    return `<a href="https://www.saiasoftware.com/registro/"
+                   class="saia-cta ${btnClass} rounded-pill py-2 ${extraClass}"
+                   data-origin="planes"
+                   data-cta="${plan.ctaType || 'solicitar_modelo'}">
+                    ${plan.buttonText} ${arrow}
+                </a>`;
+  }
+
+  // buttonAction === 'custom' — navigates to configurator, no /registro/ redirect
+  return `<button onclick="${getButtonAction(plan)}" class="${btnClass} rounded-pill py-2 ${extraClass}">
+                ${plan.buttonText} ${arrow}
+            </button>`;
+}
+
 function renderPlans(containerId, data) {
   const container = document.getElementById(containerId);
   if (!container) {
@@ -57,6 +83,7 @@ function renderPlans(containerId, data) {
   data.forEach(plan => {
     const col = document.createElement('div');
     col.className = 'col';
+    col.dataset.plan = plan.name;
 
     // --- Card Styles & Badge ---
     let cardClass = 'card h-100 shadow-sm rounded-4 pricing-card';
@@ -115,15 +142,7 @@ function renderPlans(containerId, data) {
                     <div class="d-grid gap-2 mb-4 ${
                       plan.style === 'dashed' ? 'mt-auto' : ''
                     }">
-                        <button onclick="${getButtonAction(plan)}" class="${getBtnClass(plan)} rounded-pill py-2 ${
-      plan.style === 'dashed' ? 'fw-bold' : ''
-    }">
-                            ${plan.buttonText} ${
-      plan.style === 'dashed'
-        ? '<i class="fa-solid fa-arrow-right ms-2"></i>'
-        : ''
-    }
-                        </button>
+                        ${renderMainButton(plan)}
                         ${plan.style !== 'dashed' && plan.showCustomizeButton !== false ? `
                         <button onclick="${getConfiguratorUrl(plan.id)}" class="btn-outline-primary-custom rounded-pill py-2">
                             <i class="fa-solid fa-sliders-h me-2"></i>Personalizar este modelo
