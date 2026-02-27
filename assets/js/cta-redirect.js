@@ -86,6 +86,15 @@
     var modules    = (document.getElementById('saia-selected-modules') || {}).value || '';
     var selPlan    = (document.getElementById('saia-selected-plan')    || {}).value || '';
 
+    // Validate: at least 1 module must be selected
+    var errEl = document.getElementById('cta-no-modules-error');
+    if (!modules) {
+      if (errEl) errEl.style.display = 'block';
+      try { btn.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (_) {}
+      return;
+    }
+    if (errEl) errEl.style.display = 'none';
+
     var params = {
       origin:           btn.dataset.origin || 'configurador',
       cta:              btn.dataset.cta    || 'cotizacion_24h',
