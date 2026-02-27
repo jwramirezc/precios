@@ -38,10 +38,10 @@
     var plan = planEl ? planEl.dataset.plan : '';
 
     var params = {
-      origin:   btn.dataset.origin || '',
-      cta:      btn.dataset.cta    || '',
-      plan:     plan               || undefined,
-      page_url: window.location.href
+      origin:        btn.dataset.origin || '',
+      cta:           btn.dataset.cta    || '',
+      selected_plan: plan               || undefined,
+      page_url:      window.location.href
     };
 
     window.location.href = buildUrl(params);
@@ -59,10 +59,12 @@
     var rawPrice   = (document.getElementById('saia-price-estimated')  || {}).value || '';
     var currency   = (document.getElementById('saia-currency')         || {}).value || '';
     var modules    = (document.getElementById('saia-selected-modules') || {}).value || '';
+    var selPlan    = (document.getElementById('saia-selected-plan')    || {}).value || '';
 
     var params = {
       origin:           btn.dataset.origin || 'configurador',
       cta:              btn.dataset.cta    || 'cotizacion_24h',
+      selected_plan:    selPlan            || undefined,
       users:            sanitizeNumber(rawUsers)   || undefined,
       storage_gb:       sanitizeNumber(rawStorage) || undefined,
       currency:         currency                   || undefined,
