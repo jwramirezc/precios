@@ -14,15 +14,22 @@
     return String(str).replace(/\D/g, '');
   }
 
-  /** Build destination URL; omit params that are null/undefined/empty string */
+  /**
+   * Encode params as a single Base64 string (param "d").
+   * Omits keys with null/undefined/empty values before encoding.
+   * Uses encodeURIComponent/unescape to handle accented characters safely.
+   */
   function buildUrl(params) {
-    var url = new URL(REGISTRO_URL);
+    var filtered = {};
     Object.entries(params).forEach(function (entry) {
       var key = entry[0], val = entry[1];
       if (val !== null && val !== undefined && val !== '') {
-        url.searchParams.set(key, val);
+        filtered[key] = val;
       }
     });
+    var encoded = btoa(unescape(encodeURIComponent(JSON.stringify(filtered))));
+    var url = new URL(REGISTRO_URL);
+    url.searchParams.set('d', encoded);
     return url.toString();
   }
 
