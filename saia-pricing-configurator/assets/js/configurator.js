@@ -558,7 +558,6 @@ const app = {
     const mods = c.getSelectedModules().map(m => m.id).join(',');
     set('saia-selected-modules', mods);
 
-    // selected_plan: nombre del preset activo o "Personalizada" si es config manual
     const preset = c.activePreset;
     set('saia-selected-plan', preset ? preset.name : 'Personalizada');
   },
