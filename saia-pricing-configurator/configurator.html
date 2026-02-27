@@ -149,6 +149,7 @@
                 <input type="hidden" id="saia-currency" value="COP">
                 <input type="hidden" id="saia-price-estimated" value="">
                 <input type="hidden" id="saia-selected-modules" value="">
+                <input type="hidden" id="saia-selected-plan" value="Personalizada">
 
                 <a href="https://www.saiasoftware.com/registro/"
                    class="btn-cta saia-cta-config"
@@ -157,6 +158,9 @@
                    data-cta="cotizacion_24h">
                     Obtener Cotización Formal Exacta <br> en 24 Horas
                 </a>
+                <div id="cta-no-modules-error" style="display:none; margin-top:8px; font-size:13px; color:#d32f2f; text-align:center;">
+                    <i class="fa-solid fa-circle-exclamation me-1"></i>Debe seleccionar un módulo.
+                </div>
 
                 <a href="#" data-link="requestDemo" class="btn-demo rounded-pill mt-3" style="width: 100%;">
                     Solicitar Demo
