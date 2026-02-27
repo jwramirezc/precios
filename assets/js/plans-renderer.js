@@ -85,6 +85,17 @@ function renderPlans(containerId, data) {
     col.className = 'col';
     col.dataset.plan = plan.name;
 
+    // Attach preset CTA data so cta-redirect.js can read it at click time
+    const preset = (PRICING_CONFIG?.configurationPresets || []).find(p => p.id === plan.id);
+    if (preset) {
+      col.dataset.ctaUsers   = preset.includedUsers     || '';
+      col.dataset.ctaStorage = preset.includedStorageGB || '';
+      col.dataset.ctaModules = (preset.includedModules  || []).join(',');
+    }
+    if (typeof plan.price === 'number') {
+      col.dataset.ctaPriceUsd = plan.price;
+    }
+
     // --- Card Styles & Badge ---
     let cardClass = 'card h-100 shadow-sm rounded-4 pricing-card';
     let badgeHTML = '';

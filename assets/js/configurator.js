@@ -548,15 +548,18 @@ const app = {
       if (el) el.value = (val != null) ? val : '';
     };
 
-    set('saia-users',    c.config.userCount  || '');
-    set('saia-storage-gb', c.config.storageGB || '');
-    set('saia-currency', c.config.currency  || 'COP');
+    set('saia-users',      c.userCount         || '');
+    set('saia-storage-gb', c.storageGB         || '');
+    set('saia-currency',   c.config.currency   || 'COP');
 
     const priceText = (document.getElementById('total-price') || {}).textContent || '';
     set('saia-price-estimated', priceText);
 
     const mods = c.getSelectedModules().map(m => m.id).join(',');
     set('saia-selected-modules', mods);
+
+    const preset = c.activePreset;
+    set('saia-selected-plan', preset ? preset.name : 'Personalizada');
   },
 
   /* ------------------------------------------------------------------ */
