@@ -86,9 +86,15 @@
     var modules    = (document.getElementById('saia-selected-modules') || {}).value || '';
     var selPlan    = (document.getElementById('saia-selected-plan')    || {}).value || '';
 
-    // Validate: at least 1 module must be selected
+    // Validate: at least 1 module must be selected.
+    // Double-check via DOM (.module-item.selected) in case the hidden input
+    // was not yet synced (WordPress timing issues).
+    var domSelected = document.querySelectorAll('.module-item.selected').length;
+    var hasModules  = modules.length > 0 && domSelected > 0;
+
     var errEl = document.getElementById('cta-no-modules-error');
-    if (!modules) {
+    if (!hasModules) {
+      e.stopImmediatePropagation();
       if (errEl) errEl.style.display = 'block';
       try { btn.scrollIntoView({ behavior: 'smooth', block: 'center' }); } catch (_) {}
       return;
