@@ -19,7 +19,8 @@ const ComparisonConfigLoader = {
      */
     async load() {
         try {
-            const response = await fetch('assets/data/comparison-config.json');
+            const baseUrl = typeof getDataUrl === 'function' ? getDataUrl() : 'assets/data/';
+            const response = await fetch(baseUrl + 'comparison-config.json');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }

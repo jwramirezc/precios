@@ -1,5 +1,10 @@
 // config.js
 // Loads configuration data from JSON files for easier maintenance
+// NOTE: getDataUrl() is defined globally by saia-wp-bridge.js (loaded first).
+// If running standalone without the bridge, fall back to 'assets/data/'.
+if (typeof getDataUrl !== 'function') {
+    window.getDataUrl = function () { return 'assets/data/'; };
+}
 
 // Global variables to store loaded data
 let PRICING_CONFIG = null;
@@ -16,15 +21,17 @@ const ConfigLoader = {
      * Load all configuration data from JSON files
      */
     async loadAll() {
+        const baseUrl = getDataUrl();
+
         try {
             const [pricing, modules, reasons, proposalBenefits, modulePricing, categories, configuratorTexts] = await Promise.all([
-                fetch('assets/data/pricing-config.json').then(r => r.json()),
-                fetch('assets/data/modules-data.json').then(r => r.json()),
-                fetch('assets/data/reasons-data.json').then(r => r.json()),
-                fetch('assets/data/proposal-benefits.json').then(r => r.json()),
-                fetch('assets/data/module-pricing.json').then(r => r.json()),
-                fetch('assets/data/categories-config.json').then(r => r.json()),
-                fetch('assets/data/configurator-texts.json').then(r => r.json())
+                fetch(baseUrl + 'pricing-config.json').then(r => r.json()),
+                fetch(baseUrl + 'modules-data.json').then(r => r.json()),
+                fetch(baseUrl + 'reasons-data.json').then(r => r.json()),
+                fetch(baseUrl + 'proposal-benefits.json').then(r => r.json()),
+                fetch(baseUrl + 'module-pricing.json').then(r => r.json()),
+                fetch(baseUrl + 'categories-config.json').then(r => r.json()),
+                fetch(baseUrl + 'configurator-texts.json').then(r => r.json())
             ]);
 
             PRICING_CONFIG = this.calculateAnnualMultiplier(pricing);
@@ -48,8 +55,9 @@ const ConfigLoader = {
      * Load pricing configuration
      */
     async loadPricingConfig() {
+        const baseUrl = getDataUrl();
         try {
-            const response = await fetch('assets/data/pricing-config.json');
+            const response = await fetch(baseUrl + 'pricing-config.json');
             const config = await response.json();
             PRICING_CONFIG = this.calculateAnnualMultiplier(config);
             return PRICING_CONFIG;
@@ -64,8 +72,9 @@ const ConfigLoader = {
      * Load modules data
      */
     async loadModulesData() {
+        const baseUrl = getDataUrl();
         try {
-            const response = await fetch('assets/data/modules-data.json');
+            const response = await fetch(baseUrl + 'modules-data.json');
             MODULES_DATA = await response.json();
             return MODULES_DATA;
         } catch (error) {
@@ -78,8 +87,9 @@ const ConfigLoader = {
      * Load reasons data
      */
     async loadReasonsData() {
+        const baseUrl = getDataUrl();
         try {
-            const response = await fetch('assets/data/reasons-data.json');
+            const response = await fetch(baseUrl + 'reasons-data.json');
             REASONS_DATA = await response.json();
             return REASONS_DATA;
         } catch (error) {
@@ -92,8 +102,9 @@ const ConfigLoader = {
      * Load proposal benefits data
      */
     async loadProposalBenefits() {
+        const baseUrl = getDataUrl();
         try {
-            const response = await fetch('assets/data/proposal-benefits.json');
+            const response = await fetch(baseUrl + 'proposal-benefits.json');
             PROPOSAL_BENEFITS = await response.json();
             return PROPOSAL_BENEFITS;
         } catch (error) {

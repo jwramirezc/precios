@@ -13,7 +13,8 @@ const PlansConfigLoader = {
      */
     async load() {
         try {
-            const response = await fetch('assets/data/plans-config.json');
+            const baseUrl = typeof getDataUrl === 'function' ? getDataUrl() : 'assets/data/';
+            const response = await fetch(baseUrl + 'plans-config.json');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }

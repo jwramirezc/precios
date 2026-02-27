@@ -25,7 +25,8 @@ let activeTooltip = null;
  */
 async function loadTooltipsConfig() {
     try {
-        const response = await fetch('assets/data/tooltips-config.json');
+        const baseUrl = typeof getDataUrl === 'function' ? getDataUrl() : 'assets/data/';
+        const response = await fetch(baseUrl + 'tooltips-config.json');
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -45,7 +46,7 @@ function initializeTooltips() {
     if (!TOOLTIPS_CONFIG) return;
 
     const tooltipElements = document.querySelectorAll('[data-tooltip-id]');
-
+    
     tooltipElements.forEach(element => {
         const tooltipId = element.getAttribute('data-tooltip-id');
         const tooltipData = TOOLTIPS_CONFIG[tooltipId];
@@ -58,7 +59,11 @@ function initializeTooltips() {
 
         // Create tooltip element
         const tooltip = createTooltipElement(tooltipId, tooltipData);
-        document.body.appendChild(tooltip);
+        // Append to scoped container in WP, or document.body standalone
+        var tooltipContainer = typeof getSaiaTooltipContainer === 'function'
+            ? getSaiaTooltipContainer()
+            : document.body;
+        tooltipContainer.appendChild(tooltip);
 
         // Setup event listeners
         setupTooltipEvents(element, tooltip, tooltipId);
@@ -102,7 +107,7 @@ function setupTooltipEvents(triggerElement, tooltip, tooltipId) {
     triggerElement.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
-
+        
         if (isTooltipVisible) {
             hideTooltip(tooltip);
             isTooltipVisible = false;
@@ -147,10 +152,12 @@ function showTooltip(triggerElement, tooltip) {
 function positionTooltip(triggerElement, tooltip) {
     const rect = triggerElement.getBoundingClientRect();
     const tooltipRect = tooltip.getBoundingClientRect();
+    const scrollY = window.scrollY;
+    const scrollX = window.scrollX;
 
-    // Position below the icon by default (using viewport coordinates)
-    let top = rect.bottom + 8;
-    let left = rect.left + (rect.width / 2) - (tooltipRect.width / 2);
+    // Position below the icon by default
+    let top = rect.bottom + scrollY + 8;
+    let left = rect.left + scrollX + (rect.width / 2) - (tooltipRect.width / 2);
 
     // Adjust if tooltip goes off screen
     const viewportWidth = window.innerWidth;

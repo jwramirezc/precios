@@ -26,7 +26,8 @@ const FAQManager = {
      */
     async loadFAQData() {
         try {
-            const response = await fetch('assets/data/faq.json');
+            const baseUrl = typeof getDataUrl === 'function' ? getDataUrl() : 'assets/data/';
+            const response = await fetch(baseUrl + 'faq.json');
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
