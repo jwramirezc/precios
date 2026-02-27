@@ -41,8 +41,7 @@
       origin:   btn.dataset.origin || '',
       cta:      btn.dataset.cta    || '',
       plan:     plan               || undefined,
-      page_url: window.location.href,
-      ts:       new Date().toISOString()
+      page_url: window.location.href
     };
 
     window.location.href = buildUrl(params);
@@ -69,8 +68,7 @@
       currency:         currency                   || undefined,
       price_estimated:  sanitizeNumber(rawPrice)   || undefined,
       selected_modules: modules                    || undefined,
-      page_url:         window.location.href,
-      ts:               new Date().toISOString()
+      page_url:         window.location.href
     };
 
     window.location.href = buildUrl(params);
