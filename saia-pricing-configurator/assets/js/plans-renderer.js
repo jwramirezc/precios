@@ -353,7 +353,7 @@ function renderSevenReasons(containerId, data) {
             <div class="d-flex align-items-start gap-3">
                 <div class="text-primary fs-3"><i class="fa-solid ${item.icon}"></i></div>
                 <div>
-                    <h6 class="fw-bold mb-1">${item.title}</h6>
+                    <p class="fw-bold mb-1" style="font-size:1rem;line-height:1.2;margin:0 0 0.25rem;">${item.title}</p>
                     <small class="text-muted">${item.description}</small>
                 </div>
             </div>
