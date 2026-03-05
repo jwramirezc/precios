@@ -2,17 +2,17 @@
   {
     "icon": "fa-cloud",
     "title": "Infraestructura AWS",
-    "description": "Despliegue seguro en Amazon Web Services con disponibilidad empresarial garantizada."
+    "description": "Alta disponibilidad, escalabilidad automática y estándares de seguridad de nivel corporativo."
   },
   {
     "icon": "fa-certificate",
     "title": "Cumplimiento ISO y AGN",
-    "description": "Gestión documental alineada con normas ISO 9001, ISO 27001 y Archivo General de la Nación."
+    "description": "Gestión documental alineada con normas ISO 9001, ISO 27001 y lineamientos Archivo General de la Nación."
   },
   {
     "icon": "fa-shield-halved",
     "title": "Seguridad de Datos",
-    "description": "Encriptación, respaldos diarios automáticos y protección contra accesos no autorizados."
+    "description": "Encriptación de datos, respaldos diarios automáticos y protección contra accesos no autorizados."
   },
   {
     "icon": "fa-cubes",
@@ -22,12 +22,12 @@
   {
     "icon": "fa-brain",
     "title": "Inteligencia Artificial",
-    "description": "Automatización cognitiva, análisis documental y clasificación inteligente integrados."
+    "description": "Automatización, análisis documental y clasificación inteligente integrados."
   },
   {
     "icon": "fa-rotate",
     "title": "Actualizaciones Continuas",
-    "description": "Siempre en la versión más reciente, sin interrupciones ni costos adicionales."
+    "description": "Siempre en la versión más reciente, sin costos adicionales."
   },
   {
     "icon": "fa-headset",

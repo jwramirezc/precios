@@ -297,8 +297,8 @@ function getBtnClass(plan) {
 
 // Initial Render - Wait for configs to load
 function initializePlansRenderer() {
-  // Only render if container exists and config is loaded
-  if (document.getElementById('plans-container-dynamic') && PLANS_CONFIG) {
+  // Only render if container exists and BOTH configs are loaded
+  if (document.getElementById('plans-container-dynamic') && PLANS_CONFIG && PRICING_CONFIG) {
     // Bind Currency Switch (Checked = USD, Unchecked = COP)
     const currencySwitch = document.getElementById('currencySwitch');
     if (currencySwitch) currencySwitch.checked = currentCurrency === 'USD';

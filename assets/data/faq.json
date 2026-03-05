@@ -2,7 +2,7 @@
   {
     "id": "faq-1",
     "question": "¿Puedo agregar módulos sin cambiar de configuración o plan?",
-    "answer": "Sí. La arquitectura de SAIA está diseñada para que pueda agregar módulos en cualquier momento sin migrar datos, sin contratos nuevos y sin interrupciones. Si su configuración actual no incluye un módulo que ahora necesita, simplemente lo activamos en el siguiente ciclo de facturación."
+    "answer": "Sí. La arquitectura de SAIA está diseñada para que pueda agregar módulos. Si su configuración actual no incluye un módulo que ahora necesita, simplemente lo activamos en el siguiente ciclo de facturación. Y si requiere acompañamiento o demos adicionales se agendará la respectiva reunión"
   },
   {
     "id": "faq-2",
@@ -17,7 +17,7 @@
   {
     "id": "faq-4",
     "question": "¿Hay contratos de permanencia mínima?",
-    "answer": "La modalidad mensual no tiene permanencia mínima. Puede cancelar al final de cualquier ciclo de facturación sin penalizaciones. La modalidad anual incluye un descuento del 15% y se factura por período completo."
+    "answer": "La modalidad mensual tiene permanencia mínima de tres meses. Puede cancelar al final de cualquier ciclo de facturación sin penalizaciones. La modalidad anual incluye un % de descuento y se factura por período completo."
   },
   {
     "id": "faq-5",
@@ -32,7 +32,7 @@
   {
     "id": "faq-7",
     "question": "¿Cuánto tiempo toma la implementación?",
-    "answer": "Entre 7 y 30 días según la complejidad de la configuración. Una implementación estándar (módulos base, usuarios definidos, sin integraciones externas) se realiza en 7 a 15 días. Configuraciones con integraciones, flujos personalizados o el módulo ISO pueden requerir hasta 30 días."
+    "answer": "Entre 7 y 30 días según la complejidad de la configuración. Una implementación estándar (módulos base, usuarios definidos, sin integraciones externas) se realiza en 7 a 15 días. Configuraciones con integraciones, flujos personalizados o el módulo ISO pueden requerir alrededor de 30 días."
   },
   {
     "id": "faq-8",
@@ -52,7 +52,7 @@
   {
     "id": "faq-11",
     "question": "¿Qué incluye la Inteligencia Artificial de SAIA?",
-    "answer": "La IA de SAIA incluye clasificación automática de documentos, extracción de datos de documentos digitalizados, análisis de patrones en correspondencia y reportes predictivos de gestión. La IA básica aplica automatización en procesos rutinarios; la IA avanzada incluye modelos entrenados con la información de su organización."
+    "answer": "La IA de SAIA incluye clasificación automática de documentos, chat sobre documentos, extracción de datos de documentos digitalizados, análisis de patrones en correspondencia y reportes predictivos de gestión. La IA básica aplica automatización en procesos rutinarios; la IA avanzada incluye modelos entrenados con la información de su organización."
   },
   {
     "id": "faq-12",
