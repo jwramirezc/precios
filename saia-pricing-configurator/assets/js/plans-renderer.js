@@ -85,6 +85,17 @@ function renderPlans(containerId, data) {
     col.className = 'col';
     col.dataset.plan = plan.name;
 
+    // Attach preset CTA data so cta-redirect.js can read it at click time
+    const preset = (PRICING_CONFIG?.configurationPresets || []).find(p => p.id === plan.id);
+    if (preset) {
+      col.dataset.ctaUsers   = preset.includedUsers     || '';
+      col.dataset.ctaStorage = preset.includedStorageGB || '';
+      col.dataset.ctaModules = (preset.includedModules  || []).join(',');
+    }
+    if (typeof plan.price === 'number') {
+      col.dataset.ctaPriceUsd = plan.price;
+    }
+
     // --- Card Styles & Badge ---
     let cardClass = 'card h-100 shadow-sm rounded-4 pricing-card';
     let badgeHTML = '';
@@ -342,7 +353,7 @@ function renderSevenReasons(containerId, data) {
             <div class="d-flex align-items-start gap-3">
                 <div class="text-primary fs-3"><i class="fa-solid ${item.icon}"></i></div>
                 <div>
-                    <h6 class="fw-bold mb-1">${item.title}</h6>
+                    <p class="fw-bold mb-1" style="font-size:1rem;line-height:1.2;margin:0 0 0.25rem;">${item.title}</p>
                     <small class="text-muted">${item.description}</small>
                 </div>
             </div>
