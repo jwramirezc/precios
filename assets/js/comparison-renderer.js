@@ -13,10 +13,10 @@ function renderComparisonTable(containerId, data) {
                 <thead class="table-light text-center sticky-top" style="z-index: 10;">
                     <tr>
                         <th scope="col" class="text-start py-3 ps-4" style="min-width: 200px;">Funcionalidad</th>
-                        <th scope="col" class="py-3" style="min-width: 120px;">Basic</th>
-                        <th scope="col" class="py-3 text-primary" style="min-width: 120px;">Standard</th>
-                        <th scope="col" class="py-3" style="min-width: 120px;">Professional</th>
-                        <th scope="col" class="py-3" style="min-width: 120px;">Enterprise</th>
+                        <th scope="col" class="py-3" style="min-width: 120px;">Esencial</th>
+                        <th scope="col" class="py-3 text-primary" style="min-width: 120px;">Operativa</th>
+                        <th scope="col" class="py-3" style="min-width: 120px;">Avanzada</th>
+                        <th scope="col" class="py-3" style="min-width: 120px;">Escala Empresarial</th>
                     </tr>
                 </thead>
                 <tbody>
