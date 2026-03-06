@@ -21,10 +21,9 @@ const ComparisonConfigLoader = {
      */
     async load() {
         try {
-            const baseUrl = typeof getDataUrl === 'function' ? getDataUrl() : 'assets/data/';
             const [items, plans] = await Promise.all([
-                fetch(baseUrl + 'comparison-config.json').then(r => r.json()),
-                fetch(baseUrl + 'plans-config.json').then(r => r.json())
+                fetch('assets/data/comparison-config.json').then(r => r.json()),
+                fetch('assets/data/plans-config.json').then(r => r.json())
             ]);
             COMPARISON_ITEMS = items;
             COMPARISON_SUMMARY = plans
