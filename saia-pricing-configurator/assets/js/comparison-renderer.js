@@ -3,9 +3,28 @@
  * Generates the feature comparison table.
  */
 
-function renderComparisonTable(containerId, data) {
+function renderComparisonSummary(containerId, data) {
     const container = document.getElementById(containerId);
     if (!container) return;
+    const cards = data.map(item => `
+        <div class="col-md-3 col-sm-6">
+            <div class="p-3 rounded-3 border bg-white h-100">
+                <strong class="d-block mb-1" style="color: var(--primary);">${item.name}</strong>
+                <small class="text-muted">${item.description}</small>
+            </div>
+        </div>
+    `).join('');
+    container.innerHTML = `<div class="row g-3">${cards}</div>`;
+}
+
+function renderComparisonTable(containerId, data, summary) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    const planNames = (summary || []).map(p => p.name);
+    const headers = planNames.map((name, i) =>
+        `<th scope="col" class="py-3${i === 1 ? ' text-primary' : ''}" style="min-width: 120px;">${name}</th>`
+    ).join('');
 
     let html = `
         <div class="table-responsive">
@@ -13,10 +32,7 @@ function renderComparisonTable(containerId, data) {
                 <thead class="table-light text-center sticky-top" style="z-index: 10;">
                     <tr>
                         <th scope="col" class="text-start py-3 ps-4" style="min-width: 200px;">Funcionalidad</th>
-                        <th scope="col" class="py-3" style="min-width: 120px;">Basic</th>
-                        <th scope="col" class="py-3 text-primary" style="min-width: 120px;">Standard</th>
-                        <th scope="col" class="py-3" style="min-width: 120px;">Professional</th>
-                        <th scope="col" class="py-3" style="min-width: 120px;">Enterprise</th>
+                        ${headers}
                     </tr>
                 </thead>
                 <tbody>
@@ -68,7 +84,10 @@ function renderCell(value) {
 // Initialize - Wait for comparison config to load
 function initializeComparisonRenderer() {
     if (COMPARISON_ITEMS) {
-        renderComparisonTable('comparison-container', COMPARISON_ITEMS);
+        renderComparisonTable('comparison-container', COMPARISON_ITEMS, COMPARISON_SUMMARY);
+    }
+    if (COMPARISON_SUMMARY) {
+        renderComparisonSummary('comparison-summary', COMPARISON_SUMMARY);
     }
 }
 
