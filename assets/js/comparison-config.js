@@ -11,20 +11,24 @@
  */
 
 let COMPARISON_ITEMS = null;
+let COMPARISON_SUMMARY = null;
 
 // Comparison configuration loader
 const ComparisonConfigLoader = {
     /**
-     * Load comparison configuration from JSON file
+     * Load comparison configuration and plan names/summaries from JSON files.
+     * Plan names and summaryDescription come from plans-config.json (single source of truth).
      */
     async load() {
         try {
-            const response = await fetch('assets/data/comparison-config.json');
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            COMPARISON_ITEMS = await response.json();
-            // Dispatch event when comparison config is loaded
+            const [items, plans] = await Promise.all([
+                fetch('assets/data/comparison-config.json').then(r => r.json()),
+                fetch('assets/data/plans-config.json').then(r => r.json())
+            ]);
+            COMPARISON_ITEMS = items;
+            COMPARISON_SUMMARY = plans
+                .filter(p => p.summaryDescription)
+                .map(p => ({ name: p.name, description: p.summaryDescription }));
             document.dispatchEvent(new CustomEvent('comparisonConfigLoaded'));
             return COMPARISON_ITEMS;
         } catch (error) {
