@@ -323,11 +323,11 @@ function equalizeCardTopSections() {
     rows[top].push(s);
   });
 
-  // Apply the max height of each row to all sections in that row
-  Object.values(rows).forEach(rowSections => {
-    const maxH = Math.max(...rowSections.map(s => s.offsetHeight));
-    rowSections.forEach(s => (s.style.minHeight = maxH + 'px'));
-  });
+  // Apply the max height only to the first (top) row; reset subsequent rows
+  const sortedRows = Object.entries(rows)
+    .sort((a, b) => parseFloat(a[0]) - parseFloat(b[0]));
+
+  sections.forEach(s => (s.style.minHeight = '326px'));
 }
 
 // Initial Render - Wait for configs to load
