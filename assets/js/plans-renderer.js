@@ -242,7 +242,7 @@ function renderPriceSection(plan, textColor) {
 
   return `
         ${originalPriceHTML}
-        <h4 class="text-center fw-bold mb-4 ${textColor}"> ${formattedPrice} ${currencyLabel}<small class="text-muted fw-normal">${periodLabel}</small></h4>
+        <h4 class="text-center fw-bold mb-2 ${textColor}"> ${formattedPrice} ${currencyLabel}<small class="text-muted fw-normal">${periodLabel}</small></h4>
     `;
 }
 
