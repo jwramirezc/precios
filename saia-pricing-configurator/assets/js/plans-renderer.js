@@ -137,7 +137,7 @@ function renderPlans(containerId, data) {
                              vertical position. The "Más Popular" badge is position-absolute above. -->
                         <div class="px-3 py-1 small fw-bold invisible" aria-hidden="true">Más Popular</div>
                         <!-- Icon -->
-                        <div class="mb-3 text-center">
+                        <div class="mb-2 text-center">
                             <i class="fa-solid ${plan.icon} ${
       plan.style === 'dashed' ? 'fa-4x opacity-50' : 'fa-3x'
     } ${iconColor}"></i>
@@ -146,12 +146,12 @@ function renderPlans(containerId, data) {
                         <!-- Title -->
                         <h3 class="card-title ${
                           plan.style === 'dashed' ? '' : 'text-center'
-                        } fw-bold mb-3 ${textColor}">${plan.name}</h3>
+                        } fw-bold mb-2 ${textColor}">${plan.name}</h3>
 
                         <!-- Description -->
                         <p class="card-text ${
                           plan.style === 'dashed' ? '' : 'text-center'
-                        } text-muted small mb-4">${plan.description}</p>
+                        } text-muted small mb-2">${plan.description}</p>
 
                         ${renderPriceSection(plan, textColor)}
                     </div>
@@ -181,8 +181,8 @@ function renderPriceSection(plan, textColor) {
 
   if (typeof plan.price === 'string') {
     // Case: "Contactar"
-    return `<h4 class="text-center fw-bold mb-4 ${textColor}">${plan.price}</h4>
-                 <div class="mb-4 invisible"><label class="form-label small fw-bold">&nbsp;</label><input class="form-control invisible"></div>`;
+    return `<h4 class="text-center fw-bold mb-2 ${textColor}">${plan.price}</h4>
+                 <div class="mb-2 invisible"><label class="form-label small fw-bold">&nbsp;</label><input class="form-control invisible"></div>`;
   }
 
   // Config Check
