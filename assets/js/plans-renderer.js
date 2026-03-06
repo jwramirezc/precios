@@ -12,6 +12,7 @@ function toggleCurrency(isUsd) {
   updateLabels();
   if (PLANS_CONFIG) {
     renderPlans('plans-container-dynamic', PLANS_CONFIG);
+    requestAnimationFrame(equalizeCardTopSections);
   }
 }
 
@@ -20,8 +21,11 @@ function toggleBilling(isAnnual) {
   updateLabels();
   if (PLANS_CONFIG) {
     renderPlans('plans-container-dynamic', PLANS_CONFIG);
+    requestAnimationFrame(equalizeCardTopSections);
   }
 }
+
+window.addEventListener('resize', equalizeCardTopSections);
 
 function updateLabels() {
   // Currency Labels
@@ -125,34 +129,35 @@ function renderPlans(containerId, data) {
     }">
                 ${badgeHTML}
                 <div class="card-body p-4 d-flex flex-column ${
-                  plan.highlight ? 'mt-3' : ''
-                } ${
-      plan.style === 'dashed' ? 'justify-content-center text-center' : ''
+      plan.style === 'dashed' ? 'text-center' : ''
     }">
-                    
-                    <!-- Icon -->
-                    <div class="mb-3 text-center">
-                        <i class="fa-solid ${plan.icon} ${
+                    <!-- Top section: equalized by JS so buttons align across cards in the same row -->
+                    <div class="card-top-section">
+                        <!-- Invisible spacer identical in all cards so content starts at the same
+                             vertical position. The "Más Popular" badge is position-absolute above. -->
+                        <div class="px-3 py-1 small fw-bold invisible" aria-hidden="true">Más Popular</div>
+                        <!-- Icon -->
+                        <div class="mb-3 text-center">
+                            <i class="fa-solid ${plan.icon} ${
       plan.style === 'dashed' ? 'fa-4x opacity-50' : 'fa-3x'
     } ${iconColor}"></i>
+                        </div>
+
+                        <!-- Title -->
+                        <h3 class="card-title ${
+                          plan.style === 'dashed' ? '' : 'text-center'
+                        } fw-bold mb-3 ${textColor}">${plan.name}</h3>
+
+                        <!-- Description -->
+                        <p class="card-text ${
+                          plan.style === 'dashed' ? '' : 'text-center'
+                        } text-muted small mb-4">${plan.description}</p>
+
+                        ${renderPriceSection(plan, textColor)}
                     </div>
-                    
-                    <!-- Title -->
-                    <h3 class="card-title ${
-                      plan.style === 'dashed' ? '' : 'text-center'
-                    } fw-bold mb-3 ${textColor}">${plan.name}</h3>
-                    
-                    <!-- Description -->
-                    <p class="card-text ${
-                      plan.style === 'dashed' ? '' : 'text-center'
-                    } text-muted small mb-4">${plan.description}</p>
-                    
-                    ${renderPriceSection(plan, textColor)}
-                    
+
                     <!-- Buttons -->
-                    <div class="d-grid gap-2 mb-4 ${
-                      plan.style === 'dashed' ? 'mt-auto' : ''
-                    }">
+                    <div class="d-grid gap-2 mb-4">
                         ${renderMainButton(plan)}
                         ${plan.style !== 'dashed' && plan.showCustomizeButton !== false ? `
                         <button onclick="${getConfiguratorUrl(plan.id)}" class="btn-outline-primary-custom rounded-pill py-2">
@@ -162,7 +167,7 @@ function renderPlans(containerId, data) {
 
                     <!-- Features -->
                     ${renderFeatureList(plan, iconColor)}
-                    
+
                 </div>
             </div>
         `;
@@ -245,7 +250,7 @@ function renderFeatureList(plan, iconColor) {
   if (!plan.features.length && !plan.userLimit) return '';
 
   const listAlignClass = plan.style === 'dashed' ? ' text-start' : '';
-  let html = `<ul class="list-unstyled flex-grow-1 small${listAlignClass}">`;
+  let html = `<ul class="list-unstyled small${listAlignClass}">`;
 
   // User Limit Item
   if (plan.userLimit) {
@@ -295,6 +300,36 @@ function getBtnClass(plan) {
   return 'btn-primary-custom';
 }
 
+/**
+ * Equalizes the height of .card-top-section elements per visual row,
+ * so buttons start at the same vertical position across all cards in a row.
+ */
+function equalizeCardTopSections() {
+  const sections = Array.from(
+    document.querySelectorAll('#plans-container-dynamic .card-top-section')
+  );
+  if (!sections.length) return;
+
+  // Reset previous min-heights
+  sections.forEach(s => (s.style.minHeight = ''));
+
+  // Group sections by their parent col's offsetTop (same offsetTop = same visual row)
+  const rows = {};
+  sections.forEach(s => {
+    const col = s.closest('[data-plan]');
+    if (!col) return;
+    const top = col.offsetTop;
+    if (!rows[top]) rows[top] = [];
+    rows[top].push(s);
+  });
+
+  // Apply the max height of each row to all sections in that row
+  Object.values(rows).forEach(rowSections => {
+    const maxH = Math.max(...rowSections.map(s => s.offsetHeight));
+    rowSections.forEach(s => (s.style.minHeight = maxH + 'px'));
+  });
+}
+
 // Initial Render - Wait for configs to load
 function initializePlansRenderer() {
   // Only render if container exists and BOTH configs are loaded
@@ -317,6 +352,8 @@ function initializePlansRenderer() {
     }
 
     renderPlans('plans-container-dynamic', PLANS_CONFIG);
+    // Equalize after layout paint
+    requestAnimationFrame(equalizeCardTopSections);
   }
 
   // Render 7 Reasons if container exists and data is loaded
