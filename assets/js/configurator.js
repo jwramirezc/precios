@@ -130,8 +130,9 @@ const app = {
     const container = document.getElementById('presets-container');
     if (!container) return;
 
-    const presets = this.calculator.config.configurationPresets;
-    if (!presets || !presets.length) return;
+    // Use plans with includedModules as presets (basic, standard, professional)
+    const presets = (PLANS_CONFIG || []).filter(p => p.includedModules);
+    if (!presets.length) return;
 
     const customActive = this.activePresetId === null;
     let html = `
@@ -144,12 +145,16 @@ const app = {
 
     presets.forEach(preset => {
       const isActive = this.activePresetId === preset.id;
+      const exchangeRate = this.calculator.config.exchangeRate || 4000;
+      const priceCOP = typeof preset.price === 'number'
+        ? new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(preset.price * exchangeRate) + '/mes'
+        : '';
       html += `
         <div class="preset-card ${isActive ? 'active' : ''}" onclick="app.loadPreset('${preset.id}')">
           <div class="preset-card-icon"><i class="fa-solid ${preset.icon}"></i></div>
           <div class="preset-card-name">${preset.name}</div>
-          <div class="preset-card-sub">${preset.subtitle}</div>
-          <div class="preset-card-price">${preset.priceLabel}</div>
+          <div class="preset-card-sub">${preset.presetSubtitle || ''}</div>
+          <div class="preset-card-price">${priceCOP}</div>
           <div class="preset-card-cta">${isActive ? 'Cargada ✓' : 'Cargar'}</div>
         </div>`;
     });
@@ -193,8 +198,7 @@ const app = {
       return;
     }
 
-    const presets = this.calculator.config.configurationPresets || [];
-    const preset = presets.find(p => p.id === presetId);
+    const preset = (PLANS_CONFIG || []).find(p => p.id === presetId && p.includedModules);
     if (!preset) return;
 
     // Select and mark preset's includedModules
@@ -653,10 +657,12 @@ window.updateModuleQty = function (moduleId, qty) {
 };
 
 // Initialize when configs are loaded (only on configurator page)
+// Requires PLANS_CONFIG because loadPreset() now reads presets from it.
 function initializeConfigurator() {
   if (!document.getElementById('configurator-container')) return;
-  if (PRICING_CONFIG && MODULES_DATA && MODULE_PRICING) app.init();
+  if (PRICING_CONFIG && MODULES_DATA && MODULE_PRICING && PLANS_CONFIG) app.init();
 }
 
 document.addEventListener('configLoaded', initializeConfigurator);
+document.addEventListener('plansConfigLoaded', initializeConfigurator);
 document.addEventListener('DOMContentLoaded', initializeConfigurator);

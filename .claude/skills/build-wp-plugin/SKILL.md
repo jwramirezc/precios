@@ -125,8 +125,8 @@ const p = JSON.parse(require('fs').readFileSync('$PLUGIN/assets/data/module-pric
 **6e. Verificar includedQuantities en presets:**
 ```bash
 node -e "
-const c = JSON.parse(require('fs').readFileSync('$PLUGIN/assets/data/pricing-config.json','utf8'));
-c.configurationPresets.forEach(p=>console.log('  ✓', p.id, '→ includedQuantities:', JSON.stringify(p.includedQuantities || {})));
+const p = JSON.parse(require('fs').readFileSync('$PLUGIN/assets/data/plans-config.json','utf8'));
+p.filter(x=>x.includedModules).forEach(x=>console.log('  ✓', x.id, '→ includedQuantities:', JSON.stringify(x.includedQuantities || {})));
 "
 ```
 

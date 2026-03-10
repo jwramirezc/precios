@@ -90,11 +90,10 @@ function renderPlans(containerId, data) {
     col.dataset.plan = plan.name;
 
     // Attach preset CTA data so cta-redirect.js can read it at click time
-    const preset = (PRICING_CONFIG?.configurationPresets || []).find(p => p.id === plan.id);
-    if (preset) {
-      col.dataset.ctaUsers   = preset.includedUsers     || '';
-      col.dataset.ctaStorage = preset.includedStorageGB || '';
-      col.dataset.ctaModules = (preset.includedModules  || []).join(',');
+    if (plan.includedModules) {
+      col.dataset.ctaUsers   = plan.includedUsers     || '';
+      col.dataset.ctaStorage = plan.includedStorageGB || '';
+      col.dataset.ctaModules = (plan.includedModules  || []).join(',');
     }
     if (typeof plan.price === 'number') {
       col.dataset.ctaPriceUsd = plan.price;
@@ -247,7 +246,20 @@ function renderPriceSection(plan, textColor) {
 }
 
 function renderFeatureList(plan, iconColor) {
-  if (!plan.features.length && !plan.userLimit) return '';
+  // Build feature list: resolve module IDs → names, then append extraFeatures.
+  // Plans without includedModules (enterprise, dev_custom, custom) fall back to features[].
+  let featureList;
+  if (plan.includedModules) {
+    const moduleNames = (plan.includedModules)
+      .map(id => (MODULES_DATA || []).find(m => m.id === id))
+      .filter(Boolean)
+      .map(m => m.name);
+    featureList = [...moduleNames, ...(plan.extraFeatures || [])];
+  } else {
+    featureList = plan.features || [];
+  }
+
+  if (!featureList.length && !plan.userLimit) return '';
 
   const listAlignClass = plan.style === 'dashed' ? ' text-start' : '';
   let html = `<ul class="list-unstyled small${listAlignClass}">`;
@@ -264,8 +276,8 @@ function renderFeatureList(plan, iconColor) {
     html += `<li class="mb-2 fw-bold"><i class="fa-solid fa-users ${iconColor} me-2"></i>${text}</li>`;
   }
 
-  // Other Features
-  plan.features.forEach(feat => {
+  // Feature items
+  featureList.forEach(feat => {
     html += `<li class="mb-2"><i class="fa-solid fa-check ${
       iconColor === 'text-dark' ? 'text-dark' : 'text-success'
     } me-2"></i>${feat}</li>`;
