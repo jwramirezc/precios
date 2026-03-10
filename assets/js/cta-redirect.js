@@ -53,6 +53,10 @@
     // Currency: read global from plans-renderer.js, default COP
     var currency = (typeof currentCurrency !== 'undefined' ? currentCurrency : null) || 'COP';
 
+    // Billing cycle: read global from plans-renderer.js, default monthly
+    var plansBilling = (typeof billingCycle !== 'undefined' ? billingCycle : null) || 'monthly';
+    var tipoPago = plansBilling === 'annual' ? 'anual' : 'mensual';
+
     // Compute display price in selected currency
     var price = '';
     if (priceUsd !== '') {
@@ -73,6 +77,7 @@
       currency:         currency           || undefined,
       price_estimated:  price              || undefined,
       selected_modules: ctaModules         || undefined,
+      tipo_pago:        tipoPago,
       page_url:         window.location.href
     };
 
