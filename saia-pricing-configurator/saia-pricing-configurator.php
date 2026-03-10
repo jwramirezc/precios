@@ -67,6 +67,7 @@ final class SAIA_Loader {
             'scripts' => [
                 'general-config',
                 'config',
+                'plans-config',
                 'calculator',
                 'configurator',
                 'proposal-benefits',

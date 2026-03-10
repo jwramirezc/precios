@@ -62,7 +62,7 @@ class PricingCalculator {
     }
 
     /**
-     * Set the active preset (object from configurationPresets) or null for custom mode.
+     * Set the active preset (object from PLANS_CONFIG) or null for custom mode.
      */
     setActivePreset(preset) {
         this.activePreset = preset || null;
@@ -279,7 +279,7 @@ class PricingCalculator {
      */
     calculatePresetBreakdown() {
         const preset = this.activePreset;
-        const presetBaseUSD = preset.priceUSD;
+        const presetBaseUSD = preset.priceUSD ?? preset.price;
         const includedModuleIds = preset.includedModules || [];
 
         // Extra modules = selected calculable modules NOT in the preset's includedModules
