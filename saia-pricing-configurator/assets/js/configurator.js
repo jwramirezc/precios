@@ -396,7 +396,7 @@ const app = {
         qtySummaryEmpty.innerHTML = '';
         qtySummaryEmpty.style.display = 'none';
       }
-      if (labelEl) labelEl.textContent = 'Seleccione módulos para calcular';
+      if (labelEl) labelEl.textContent = 'Selecciona módulos para calcular';
       totalPriceEl.textContent = '—';
       this.syncSaiaInputs();
       return;
