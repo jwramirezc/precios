@@ -92,6 +92,9 @@
     var currency   = (document.getElementById('saia-currency')         || {}).value || '';
     var modules    = (document.getElementById('saia-selected-modules') || {}).value || '';
     var selPlan    = (document.getElementById('saia-selected-plan')    || {}).value || '';
+    var billingCycle = (typeof app !== 'undefined' && app.calculator && app.calculator.billingCycle)
+      ? app.calculator.billingCycle : 'monthly';
+    var tipoPago   = billingCycle === 'annual' ? 'anual' : 'mensual';
 
     // Validate: at least 1 module must be selected.
     // Double-check via DOM (.module-item.selected) in case the hidden input
@@ -117,6 +120,7 @@
       currency:         currency                   || undefined,
       price_estimated:  sanitizeNumber(rawPrice)   || undefined,
       selected_modules: modules                    || undefined,
+      tipo_pago:        tipoPago,
       page_url:         window.location.href
     };
 
