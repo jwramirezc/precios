@@ -56,15 +56,21 @@ Copiar SOLO los archivos que cambiaron (detectados en el paso 2), excluyendo sie
 - `saia-wp-bridge.js`
 - `wp-scoped.css`
 - `saia-pricing-configurator.php`
+- `config.js` ← usa getDataUrl() con lógica WP específica
+- `faq.js` ← usa getDataUrl()
+- `plans-config.js` ← usa getDataUrl()
+- `tooltips.js` ← usa getDataUrl() y getSaiaTooltipContainer()
+- `comparison-config.js` ← usa getDataUrl() para ambos JSON
 
 Ejemplo de copia segura:
 ```bash
 # CSS
 cp "$ROOT/assets/css/styles.css" "$PLUGIN/assets/css/styles.css"
-# JS (nunca sobreescribir saia-wp-bridge.js)
+# JS (nunca sobreescribir archivos WP-exclusivos)
+WP_ONLY="saia-wp-bridge.js config.js faq.js plans-config.js tooltips.js comparison-config.js"
 for f in "$ROOT/assets/js/"*.js; do
   fname=$(basename "$f")
-  [ "$fname" = "saia-wp-bridge.js" ] && continue
+  echo "$WP_ONLY" | grep -qw "$fname" && continue
   cp "$f" "$PLUGIN/assets/js/$fname"
 done
 # Data
@@ -181,7 +187,7 @@ Instalación: WordPress → Plugins → Añadir nuevo → Subir plugin → Activ
 
 ## Reglas de seguridad
 
-- NUNCA sobreescribir `saia-wp-bridge.js` ni `wp-scoped.css`
+- NUNCA sobreescribir `saia-wp-bridge.js`, `wp-scoped.css`, `config.js`, `faq.js`, `plans-config.js`, `tooltips.js`, ni `comparison-config.js`
 - NUNCA generar el ZIP si alguna validación del paso 6 falló
 - NUNCA hacer commit si el ZIP no se generó correctamente
 - Si el usuario pasa una versión menor a la actual, advertir y pedir confirmación
