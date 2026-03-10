@@ -2,17 +2,17 @@
   {
     "id": "faq-1",
     "question": "¿Puedo agregar módulos sin cambiar de configuración o plan?",
-    "answer": "Sí. La arquitectura de SAIA está diseñada para que pueda agregar módulos. Si su configuración actual no incluye un módulo que ahora necesita, simplemente lo activamos en el siguiente ciclo de facturación. Y si requiere acompañamiento o demos adicionales se agendará la respectiva reunión"
+    "answer": "Sí. La arquitectura de SAIA está diseñada para que puedas agregar módulos. Si tu configuración actual no incluye un módulo que ahora necesitas, simplemente lo activamos en el siguiente ciclo de facturación. Y si requieres acompañamiento o demos adicionales, agendaremos la respectiva reunión."
   },
   {
     "id": "faq-2",
     "question": "¿Qué pasa si mi organización crece en usuarios?",
-    "answer": "SAIA escala con su operación. Puede incrementar el número de usuarios en cualquier momento y el ajuste se calcula de forma proporcional al ciclo de facturación. No hay saltos de configuración forzados: usted define cuántos usuarios necesita y el precio se ajusta en consecuencia."
+    "answer": "SAIA escala con tu operación. Puedes incrementar el número de usuarios en cualquier momento y el ajuste se calcula de forma proporcional al ciclo de facturación. No hay saltos de configuración forzados: tú defines cuántos usuarios necesitas y el precio se ajusta en consecuencia."
   },
   {
     "id": "faq-3",
     "question": "¿Hay costos ocultos o cargos inesperados?",
-    "answer": "No. El configurador muestra el precio real basado en los módulos, usuarios y almacenamiento que usted selecciona. No hay cargos por activación ni mantenimiento adicional. Lo único que puede ajustar el precio es lo que usted mismo controla: módulos, usuarios y almacenamiento."
+    "answer": "No. El configurador muestra el precio real basado en los módulos, usuarios y almacenamiento que tú seleccionas. No hay cargos por activación ni mantenimiento adicional. Lo único que puede ajustar el precio es lo que tú mismo controlas: módulos, usuarios y almacenamiento."
   },
   {
     "id": "faq-4",
@@ -22,12 +22,12 @@
   {
     "id": "faq-5",
     "question": "¿Los datos de mi organización están seguros?",
-    "answer": "Sí. Su información está alojada en infraestructura AWS con encriptación en tránsito y en reposo, respaldos automáticos diarios, control de acceso por roles y auditoría de actividad. Cumplimos con estándares ISO 27001 de seguridad de la información y normativa local de protección de datos."
+    "answer": "Sí. Tu información está alojada en infraestructura AWS con encriptación en tránsito y en reposo, respaldos automáticos diarios, control de acceso por roles y auditoría de actividad. Cumplimos con estándares ISO 27001 de seguridad de la información y normativa local de protección de datos."
   },
   {
     "id": "faq-6",
     "question": "¿Puedo evaluar el sistema antes de contratar?",
-    "answer": "Sí. Coordinamos una demostración personalizada donde puede ver el sistema funcionando con casos de uso de su industria. También puede usar el configurador ahora mismo para obtener una estimación de inversión sin registrarse ni comprometerse."
+    "answer": "Sí. Coordinamos una demostración personalizada donde puedes ver el sistema funcionando con casos de uso de tu industria. También puedes usar el configurador ahora mismo para obtener una estimación de inversión sin registrarte ni comprometerte."
   },
   {
     "id": "faq-7",
@@ -52,7 +52,7 @@
   {
     "id": "faq-11",
     "question": "¿Qué incluye la Inteligencia Artificial de SAIA?",
-    "answer": "La IA de SAIA incluye clasificación automática de documentos, chat sobre documentos, extracción de datos de documentos digitalizados, análisis de patrones en correspondencia y reportes predictivos de gestión. La IA básica aplica automatización en procesos rutinarios; la IA avanzada incluye modelos entrenados con la información de su organización."
+    "answer": "La IA de SAIA incluye clasificación automática de documentos, chat sobre documentos, extracción de datos de documentos digitalizados, análisis de patrones en correspondencia y reportes predictivos de gestión. La IA básica aplica automatización en procesos rutinarios; la IA avanzada incluye modelos entrenados con la información de tu organización."
   },
   {
     "id": "faq-12",

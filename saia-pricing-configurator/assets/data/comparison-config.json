@@ -3,14 +3,14 @@
     "category": "Módulos y Funcionalidades",
     "features": [
       {
-        "name": "Gestión Documental",
+        "name": "Correspondencia",
         "basic": true,
         "standard": true,
         "pro": true,
         "enterprise": true
       },
       {
-        "name": "Correspondencia",
+        "name": "Gestión de Documentos",
         "basic": true,
         "standard": true,
         "pro": true,

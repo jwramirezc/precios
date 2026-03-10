@@ -11,8 +11,8 @@
   },
   {
     "id": "gestion_documental",
-    "name": "Módulo de Gestión Documental",
-    "description": "Gestiones sus documentos en buzones y expedientes.",
+    "name": "Módulo de Documentos",
+    "description": "Gestiona tus documentos en buzones y expedientes.",
     "icon": "<i class=\"fa-solid fa-file-lines\"></i>",
     "url": "https://www.saiasoftware.com/",
     "pricing_tier": "core",
@@ -21,7 +21,7 @@
   },
   {
     "id": "archivo",
-    "name": "Módulo de Archivo Central",
+    "name": "Gestión de Archivo",
     "description": "Gestione archivos históricos, central y gestión con ubicación y ciclo vital.",
     "icon": "<i class=\"fa-solid fa-box-archive\"></i>",
     "url": "https://www.saiasoftware.com/",
@@ -32,7 +32,7 @@
   {
     "id": "gestion_plantillas",
     "name": "Módulo de Creación de Plantillas",
-    "description": "Sistematice sus documentos con plantillas preestablecidas.",
+    "description": "Sistematiza tus documentos con plantillas preestablecidas.",
     "icon": "<i class=\"fa-solid fa-file-lines\"></i>",
     "url": "https://www.saiasoftware.com/",
     "pricing_tier": "advanced",
@@ -62,7 +62,7 @@
   {
     "id": "help_desk",
     "name": "Módulo de Mesa de Servicio (Help Desk)",
-    "description": "Resuelva incidentes con métricas y base de conocimiento integrada.",
+    "description": "Resuelva incidentes con métricas y base de conocimiento integrada. alineado con las mejores prácticas de ITIL 4.",
     "icon": "<i class=\"fa-solid fa-life-ring\"></i>",
     "url": "https://www.saiasoftware.com/",
     "pricing_tier": "advanced",
@@ -72,7 +72,7 @@
   {
     "id": "iso",
     "name": "Módulo Sistema ISO 9001:2015",
-    "description": "Sistematice su SGC con documentación y seguimiento integral.",
+    "description": "Sistematiza tu SGC con documentación y seguimiento integral.",
     "icon": "<i class=\"fa-solid fa-medal\"></i>",
     "url": "https://www.saiasoftware.com/",
     "pricing_tier": "enterprise",
@@ -102,7 +102,7 @@
   {
     "id": "cuentas_pagar",
     "name": "Módulo de Cuentas por Pagar",
-    "description": "Optimice pagos con gestión automatizada de documentos contables.",
+    "description": "Optimiza pagos con gestión automatizada de documentos contables.",
     "icon": "<i class=\"fa-solid fa-file-invoice-dollar\"></i>",
     "url": "https://www.saiasoftware.com/",
     "pricing_tier": "advanced",

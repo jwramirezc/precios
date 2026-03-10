@@ -17,7 +17,7 @@
   {
     "icon": "fa-cubes",
     "title": "Arquitectura Modular",
-    "description": "Active solo los módulos que necesita. Agregue más cuando su operación lo requiera."
+    "description": "Activa solo los módulos que necesitas. Agrega más cuando tu operación lo requiera."
   },
   {
     "icon": "fa-brain",
@@ -37,6 +37,6 @@
   {
     "icon": "fa-business-time",
     "title": "Acceso 24/7",
-    "description": "Desde cualquier dispositivo y lugar. Su operación no se detiene."
+    "description": "Desde cualquier dispositivo y lugar. Tu operación no se detiene."
   }
 ]

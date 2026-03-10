@@ -10,8 +10,8 @@
     "highlight": false,
     "features": [
       "Módulo de Correspondencia",
-      "Módulo de Gestión Documental",
-      "Módulo de Archivo Central",
+      "Módulo de Documentos",
+      "Gestión de Archivo",
       "Firmas Electrónicas Simples Ilimitadas",
       "100 GB de almacenamiento incluidos"
     ],
@@ -31,8 +31,8 @@
     "highlight": true,
     "features": [
       "Módulo de Correspondencia",
-      "Módulo de Gestión Documental",
-      "Módulo de Archivo Central",
+      "Módulo de Documentos",
+      "Gestión de Archivo",
       "Módulo de Creación de Plantillas",
       "Módulo de PQRS",
       "Reportes Avanzados",
@@ -58,8 +58,8 @@
     "highlight": false,
     "features": [
       "Módulo de Correspondencia",
-      "Módulo de Gestión Documental",
-      "Módulo de Archivo Central",
+      "Módulo de Documentos",
+      "Gestión de Archivo",
       "Módulo de Creación de Plantillas",
       "Módulo de PQRS",
       "Reportes Avanzados",

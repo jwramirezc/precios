@@ -1,7 +1,7 @@
 [
   {
     "id": "basic",
-    "name": "Esencial",
+    "name": "Plan Esencial",
     "icon": "fa-rocket",
     "description": "La base para organizaciones que buscan digitalizar y centralizar su gestión documental con agilidad, sin complejidad técnica y con resultados desde el primer día.",
     "summaryDescription": "Gestión documental centralizada: correspondencia, archivo y digitalización de documentos para organizaciones que inician su transformación documental.",
@@ -10,8 +10,8 @@
     "highlight": false,
     "features": [
       "Módulo de Correspondencia",
-      "Módulo de Gestión Documental",
-      "Módulo de Archivo Central",
+      "Módulo de Documentos",
+      "Gestión de Archivo",
       "Firmas Electrónicas Simples Ilimitadas",
       "100 GB de almacenamiento incluidos"
     ],
@@ -22,7 +22,7 @@
   },
   {
     "id": "standard",
-    "name": "Operativa",
+    "name": "Plan Operativo",
     "icon": "fa-layer-group",
     "description": "Para organizaciones que gestionan correspondencia, solicitudes y procesos operativos con trazabilidad documental desde una sola plataforma.",
     "summaryDescription": "Gestión documental con flujos de correspondencia, PQRS y analítica avanzada para organizaciones con procesos operativos de mediana complejidad.",
@@ -31,8 +31,8 @@
     "highlight": true,
     "features": [
       "Módulo de Correspondencia",
-      "Módulo de Gestión Documental",
-      "Módulo de Archivo Central",
+      "Módulo de Documentos",
+      "Gestión de Archivo",
       "Módulo de Creación de Plantillas",
       "Módulo de PQRS",
       "Reportes Avanzados",
@@ -49,7 +49,7 @@
   },
   {
     "id": "professional",
-    "name": "Avanzada",
+    "name": "Plan Avanzado",
     "icon": "fa-briefcase",
     "description": "Plataforma completa para organizaciones que requieren automatización de procesos, control de calidad bajo estándares ISO 9001, inteligencia artificial e integraciones con sistemas corporativos.",
     "summaryDescription": "Gestión documental con automatización de flujos, control de calidad ISO 9001 e inteligencia artificial para organizaciones con procesos documentales maduros.",
@@ -58,8 +58,8 @@
     "highlight": false,
     "features": [
       "Módulo de Correspondencia",
-      "Módulo de Gestión Documental",
-      "Módulo de Archivo Central",
+      "Módulo de Documentos",
+      "Gestión de Archivo",
       "Módulo de Creación de Plantillas",
       "Módulo de PQRS",
       "Reportes Avanzados",
@@ -83,7 +83,7 @@
     "name": "Enterprise",
     "icon": "fa-building",
     "description": "Infraestructura dedicada para grandes empresas o grupos empresariales con operaciones documentales críticas, grandes volúmenes de información e integraciones con sistemas empresariales existentes.",
-    "summaryDescription": "Gestión documental de alto volumen con infraestructura dedicada, integraciones empresariales y arquitectura configurable según la operación de su organización.",
+    "summaryDescription": "Gestión documental de alto volumen con infraestructura dedicada, integraciones empresariales y arquitectura configurable según la operación de tu organización.",
     "price": "",
     "userLimit": "Más de 100",
     "highlight": false,
@@ -104,7 +104,7 @@
     "id": "dev_custom",
     "name": "Procesos a Medida",
     "icon": "fa-code-branch",
-    "description": "Análisis, automatización e integración de los procesos documentales específicos de su organización directamente en la plataforma SAIA.",
+    "description": "Análisis, automatización e integración de los procesos documentales específicos de tu organización directamente en la plataforma SAIA.",
     "price": "",
     "userLimit": "Usuarios según necesidad",
     "highlight": false,
@@ -125,9 +125,9 @@
   },
   {
     "id": "custom",
-    "name": "Diseñe la suya",
+    "name": "Diseña tu Plan",
     "icon": "fa-sliders-h",
-    "description": "¿Necesita una arquitectura exacta para su operación? Solo paga por los módulos que necesita, con su número exacto de usuarios y almacenamiento.",
+    "description": "¿Necesitas una arquitectura exacta para tu operación? Solo pagas por los módulos que necesitas, con tu número exacto de usuarios y almacenamiento.",
     "price": null,
     "userLimit": null,
     "highlight": false,
