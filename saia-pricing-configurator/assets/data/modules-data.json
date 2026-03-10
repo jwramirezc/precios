@@ -11,7 +11,7 @@
   },
   {
     "id": "gestion_documental",
-    "name": "Módulo de Gestión Documental",
+    "name": "Módulo de Documentos",
     "description": "Gestiones sus documentos en buzones y expedientes.",
     "icon": "<i class=\"fa-solid fa-file-lines\"></i>",
     "url": "https://www.saiasoftware.com/",
@@ -21,7 +21,7 @@
   },
   {
     "id": "archivo",
-    "name": "Módulo de Archivo Central",
+    "name": "Gestión de Archivo",
     "description": "Gestione archivos históricos, central y gestión con ubicación y ciclo vital.",
     "icon": "<i class=\"fa-solid fa-box-archive\"></i>",
     "url": "https://www.saiasoftware.com/",
@@ -62,7 +62,7 @@
   {
     "id": "help_desk",
     "name": "Módulo de Mesa de Servicio (Help Desk)",
-    "description": "Resuelva incidentes con métricas y base de conocimiento integrada.",
+    "description": "Resuelva incidentes con métricas y base de conocimiento integrada. Alineada con las mejores prácticas de ITIL 4.",
     "icon": "<i class=\"fa-solid fa-life-ring\"></i>",
     "url": "https://www.saiasoftware.com/",
     "pricing_tier": "advanced",
