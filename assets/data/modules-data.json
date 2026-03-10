@@ -62,7 +62,7 @@
   {
     "id": "help_desk",
     "name": "Módulo de Mesa de Servicio (Help Desk)",
-    "description": "Resuelva incidentes con métricas y base de conocimiento integrada. alineado con las mejores prácticas de ITIL 4.",
+    "description": "Resuelva incidentes con métricas y base de conocimiento integrada. Alineado con las mejores prácticas de ITIL 4.",
     "icon": "<i class=\"fa-solid fa-life-ring\"></i>",
     "url": "https://www.saiasoftware.com/",
     "pricing_tier": "advanced",
