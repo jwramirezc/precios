@@ -4,7 +4,7 @@
     "name": "Módulo de Correspondencia",
     "description": "Centralice la correspondencia empresarial con trazabilidad completa.",
     "icon": "<i class=\"fa-solid fa-inbox\"></i>",
-    "url": "https://www.saiasoftware.com/",
+    "url": "https://www.saiasoftware.com/saia-proceso-gestion-de-correspondencia/",
     "pricing_tier": "core",
     "visible": true,
     "category": "gestion_documental"
@@ -14,7 +14,7 @@
     "name": "Módulo de Documentos",
     "description": "Gestiona tus documentos en buzones y expedientes.",
     "icon": "<i class=\"fa-solid fa-file-lines\"></i>",
-    "url": "https://www.saiasoftware.com/",
+    "url": "https://www.saiasoftware.com/saia-proceso-gestion-documental/",
     "pricing_tier": "core",
     "visible": true,
     "category": "gestion_documental"
@@ -24,7 +24,7 @@
     "name": "Gestión de Archivo",
     "description": "Gestione archivos históricos, central y gestión con ubicación y ciclo vital.",
     "icon": "<i class=\"fa-solid fa-box-archive\"></i>",
-    "url": "https://www.saiasoftware.com/",
+    "url": "https://www.saiasoftware.com/saia-gestion-de-archivo-electronico/",
     "pricing_tier": "core",
     "visible": true,
     "category": "gestion_documental"
@@ -34,7 +34,7 @@
     "name": "Módulo de Creación de Plantillas",
     "description": "Sistematiza tus documentos con plantillas preestablecidas.",
     "icon": "<i class=\"fa-solid fa-file-lines\"></i>",
-    "url": "https://www.saiasoftware.com/",
+    "url": "https://www.saiasoftware.com/saia-proceso-gestion-documental/",
     "pricing_tier": "advanced",
     "visible": true,
     "category": "gestion_documental"
@@ -44,7 +44,7 @@
     "name": "Módulo de Flujos de Trabajo",
     "description": "Automatice aprobaciones y controle cada paso del proceso documental.",
     "icon": "<i class=\"fa-solid fa-diagram-project\"></i>",
-    "url": "https://www.saiasoftware.com/",
+    "url": "https://www.saiasoftware.com/saia-proceso-gestion-documental/",
     "pricing_tier": "advanced",
     "visible": true,
     "category": "gestion_documental"
@@ -54,7 +54,7 @@
     "name": "Módulo de PQRS",
     "description": "Agilice la atención al cliente con gestión sistemática de las PQR.",
     "icon": "<i class=\"fa-solid fa-headset\"></i>",
-    "url": "https://www.saiasoftware.com/",
+    "url": "https://www.saiasoftware.com/saia-proceso-de-peticiones-quejas-y-reclamos/",
     "pricing_tier": "core",
     "visible": true,
     "category": "atencion_servicio"
@@ -64,7 +64,7 @@
     "name": "Módulo de Mesa de Servicio (Help Desk)",
     "description": "Resuelva incidentes con métricas y base de conocimiento integrada. Alineado con las mejores prácticas de ITIL 4.",
     "icon": "<i class=\"fa-solid fa-life-ring\"></i>",
-    "url": "https://www.saiasoftware.com/",
+    "url": "https://www.saiasoftware.com/saia-proceso-de-mesa-de-ayuda/",
     "pricing_tier": "advanced",
     "visible": true,
     "category": "atencion_servicio"
@@ -74,7 +74,7 @@
     "name": "Módulo Sistema ISO 9001:2015",
     "description": "Sistematiza tu SGC con documentación y seguimiento integral.",
     "icon": "<i class=\"fa-solid fa-medal\"></i>",
-    "url": "https://www.saiasoftware.com/",
+    "url": "https://www.saiasoftware.com/saia-gestion-de-calidad/",
     "pricing_tier": "enterprise",
     "visible": true,
     "category": "cumplimiento_gobierno"
@@ -84,7 +84,7 @@
     "name": "Módulo de Contratos",
     "description": "Simplifique procesos contractuales con plantillas y aprobaciones digitales.",
     "icon": "<i class=\"fa-solid fa-file-contract\"></i>",
-    "url": "https://www.saiasoftware.com/",
+    "url": "https://www.saiasoftware.com/saia-proceso-de-gestion-de-contratos/",
     "pricing_tier": "advanced",
     "visible": true,
     "category": "cumplimiento_gobierno"
@@ -94,7 +94,7 @@
     "name": "Módulo de Historias Laborales",
     "description": "Consolide documentos del personal con gestión digital integrada.",
     "icon": "<i class=\"fa-solid fa-id-card\"></i>",
-    "url": "https://www.saiasoftware.com/",
+    "url": "https://www.saiasoftware.com/saia-gestion-de-historias-laborales/",
     "pricing_tier": "advanced",
     "visible": true,
     "category": "cumplimiento_gobierno"
@@ -104,7 +104,7 @@
     "name": "Módulo de Cuentas por Pagar",
     "description": "Optimiza pagos con gestión automatizada de documentos contables.",
     "icon": "<i class=\"fa-solid fa-file-invoice-dollar\"></i>",
-    "url": "https://www.saiasoftware.com/",
+    "url": "https://www.saiasoftware.com/saia-cuentas-por-pagar/",
     "pricing_tier": "advanced",
     "visible": true,
     "category": "procesos_operaciones"
@@ -114,7 +114,7 @@
     "name": "Módulo de Actas de Reunión",
     "description": "Documente reuniones con gestión efectiva de pendientes y responsables.",
     "icon": "<i class=\"fa-solid fa-clipboard-check\"></i>",
-    "url": "https://www.saiasoftware.com/",
+    "url": "https://www.saiasoftware.com/saia-gestion-de-actas-de-reunion/",
     "pricing_tier": "core",
     "visible": true,
     "category": "procesos_operaciones"
@@ -124,7 +124,7 @@
     "name": "Módulo de Firma Certificada",
     "description": "Firme electrónicamente con respaldo normativo y seguridad.",
     "icon": "<i class=\"fa-solid fa-signature\"></i>",
-    "url": "https://www.saiasoftware.com/",
+    "url": "https://www.saiasoftware.com/saia-proceso-de-firma-electronica/",
     "pricing_tier": "core",
     "visible": true,
     "category": "procesos_operaciones",
