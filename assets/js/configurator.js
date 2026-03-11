@@ -427,29 +427,8 @@ const app = {
       return new Intl.NumberFormat('es-CO', opts).format(val);
     };
 
-    // ── Upgrade recommendation (solo en modo custom) ──────────────────
-    if (upgradeEl) {
-      if (!breakdown.isPreset) {
-        const referencePlans = this.calculator.config.referencePlans || [];
-        const cur = breakdown.totalMonthlyUSD;
-        const match = referencePlans.find(
-          p => cur >= p.priceUSD * 0.6 && cur < p.priceUSD * 1.1
-        );
-        if (match && selectedModules.length > 0) {
-          upgradeEl.style.display = 'block';
-          upgradeEl.innerHTML = `
-            <div class="alert alert-info small py-2 px-3 mb-3">
-              <i class="fa-solid fa-lightbulb me-1"></i>
-              <strong>Tip:</strong> La configuración <strong>${match.name}</strong> incluye bolsas de firmas y emails certificados, además de beneficios adicionales, por <strong>${formatMoney(match.priceUSD)}/mes</strong>. En configuración puede ajustar cada bolsa según necesidad.
-              <a href="#" data-page="planes" class="alert-link ms-1">Comparar →</a>
-            </div>`;
-        } else {
-          upgradeEl.style.display = 'none';
-        }
-      } else {
-        upgradeEl.style.display = 'none';
-      }
-    }
+    // ── Upgrade recommendation (desactivado) ──────────────────
+    if (upgradeEl) upgradeEl.style.display = 'none';
 
     // ── Quantity modules summary (líneas de bolsa en sidebar) ─────────
     const quantitySummaryEl = document.getElementById('quantity-summary');
