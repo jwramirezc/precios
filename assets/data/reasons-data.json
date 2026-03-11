@@ -7,7 +7,7 @@
   {
     "icon": "fa-certificate",
     "title": "Cumplimiento ISO y AGN",
-    "description": "Gestión documental alineada con normas ISO 9001, ISO 27001 y lineamientos Archivo General de la Nación."
+    "description": "Gestión documental alineada con normas ISO 9001, ISO 27000, ISO 29110, Lineamientos AGN en Colombia."
   },
   {
     "icon": "fa-shield-halved",
@@ -37,6 +37,6 @@
   {
     "icon": "fa-business-time",
     "title": "Acceso 24/7",
-    "description": "Desde cualquier dispositivo y lugar. Tu operación no se detiene."
+    "description": "Desde cualquier dispositivo, con internet, y lugar. Tu operación no se detiene."
   }
 ]

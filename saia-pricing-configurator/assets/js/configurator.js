@@ -161,9 +161,6 @@ const app = {
 
     container.innerHTML = html;
 
-    const presetNote = document.getElementById('preset-note');
-    if (presetNote)
-      presetNote.style.display = this.activePresetId ? 'block' : 'none';
   },
 
   /**
