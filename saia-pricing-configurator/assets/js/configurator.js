@@ -314,10 +314,11 @@ const app = {
 
   toggleModuleUI(id) {
     // Prevent deselecting a module that belongs to the active preset bundle
+    // EXCEPTION: quantity modules (firma, email) can always be toggled off
     const presetModules = this.calculator.activePreset?.includedModules || [];
     const module = this.calculator.getModuleById(id);
 
-    if (presetModules.includes(id) && module?.selected) {
+    if (presetModules.includes(id) && module?.selected && !module.hasQuantity()) {
       // Visual shake: module is locked in the preset
       const el = document.querySelector(`[data-module-id="${id}"]`);
       if (el) {
@@ -333,8 +334,14 @@ const app = {
     // Show or hide quantity selector
     if (module?.hasQuantity()) {
       if (module.selected) {
-        // Reset to default qty when activating manually
-        module.selectedQty = module.quantity_config.default_qty;
+        // If re-selecting a preset-included quantity module, restore preset qty
+        const preset = this.calculator.activePreset;
+        const includedQtys = preset?.includedQuantities || {};
+        if (preset && presetModules.includes(id) && includedQtys[id]) {
+          module.selectedQty = includedQtys[id];
+        } else {
+          module.selectedQty = module.quantity_config.default_qty;
+        }
         this._showQuantitySelector(module);
       } else {
         this._hideQuantitySelector(id);
@@ -354,9 +361,9 @@ const app = {
       ? el.classList.add('selected')
       : el.classList.remove('selected');
 
-    // Maintain preset-included marker
+    // Maintain preset-included marker (only if module is still selected)
     const presetModules = this.calculator.activePreset?.includedModules || [];
-    presetModules.includes(moduleId)
+    presetModules.includes(moduleId) && module.selected
       ? el.classList.add('preset-included')
       : el.classList.remove('preset-included');
   },

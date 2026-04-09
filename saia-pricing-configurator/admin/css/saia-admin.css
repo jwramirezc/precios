@@ -1,0 +1,518 @@
+/* ═══════════════════════════════════════════
+ * SAIA Admin — Estilos de la página de gestión
+ * ═══════════════════════════════════════════ */
+
+.saia-admin-wrap {
+    max-width: 1100px;
+}
+
+.saia-admin-wrap h1 {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+/* ── Tabs ── */
+
+.saia-tabs {
+    margin-bottom: 0;
+}
+
+.saia-tab-panel {
+    display: none;
+    padding: 20px 0;
+}
+
+.saia-tab-panel.active {
+    display: block;
+}
+
+/* ── Secciones colapsables ── */
+
+.saia-section {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+
+.saia-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    cursor: pointer;
+    user-select: none;
+    border-bottom: 1px solid #c3c4c7;
+    background: #f6f7f7;
+    border-radius: 4px 4px 0 0;
+}
+
+.saia-section-header:hover {
+    background: #f0f0f1;
+}
+
+.saia-section-header h2 {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.saia-section-header .dashicons {
+    transition: transform 0.2s;
+    color: #50575e;
+}
+
+.saia-section.collapsed .saia-section-header {
+    border-bottom: none;
+    border-radius: 4px;
+}
+
+.saia-section.collapsed .saia-section-header .dashicons {
+    transform: rotate(-90deg);
+}
+
+.saia-section.collapsed .saia-section-body {
+    display: none;
+}
+
+.saia-section-body {
+    padding: 16px;
+}
+
+.saia-section-body h3 {
+    font-size: 13px;
+    font-weight: 600;
+    margin: 20px 0 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #e2e4e7;
+    color: #1d2327;
+}
+
+.saia-section-body h3:first-child {
+    margin-top: 4px;
+}
+
+/* ── Textos de ayuda ── */
+
+.saia-help-box {
+    display: flex;
+    gap: 10px;
+    padding: 12px 14px;
+    margin-bottom: 16px;
+    background: #f0f6fc;
+    border: 1px solid #c3d5e8;
+    border-left: 4px solid #2271b1;
+    border-radius: 4px;
+    font-size: 12.5px;
+    line-height: 1.6;
+    color: #1d2327;
+}
+
+.saia-help-box .dashicons {
+    color: #2271b1;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.saia-help-box strong {
+    color: #1d2327;
+}
+
+.saia-help-box em {
+    color: #2271b1;
+    font-style: normal;
+    font-weight: 600;
+}
+
+.saia-help-text {
+    font-size: 12px;
+    color: #646970;
+    line-height: 1.5;
+    margin: -4px 0 10px;
+    padding: 0;
+    font-style: normal;
+}
+
+.saia-help-text strong {
+    color: #50575e;
+}
+
+/* ── Campos ── */
+
+.saia-field-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.saia-field {
+    flex: 1 1 200px;
+    min-width: 160px;
+}
+
+.saia-field label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #50575e;
+    margin-bottom: 4px;
+}
+
+.saia-field input,
+.saia-field select,
+.saia-field textarea {
+    width: 100%;
+    max-width: 100%;
+}
+
+.saia-field input[type="number"] {
+    width: 100%;
+}
+
+.saia-field input.saia-changed,
+.saia-field select.saia-changed,
+.saia-field textarea.saia-changed {
+    border-color: #2271b1;
+    background: #f0f6fc;
+}
+
+/* ── Tablas editables ── */
+
+.saia-tier-table {
+    margin-bottom: 12px;
+}
+
+.saia-tier-table thead th {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 8px 10px;
+    background: #f6f7f7;
+}
+
+.saia-tier-table tbody td {
+    padding: 4px 6px;
+    vertical-align: middle;
+}
+
+.saia-tier-table tbody input {
+    width: 100%;
+    margin: 0;
+    padding: 4px 8px;
+    border: 1px solid #c3c4c7;
+    border-radius: 3px;
+    background: #fff;
+}
+
+.saia-tier-table tbody input:focus {
+    border-color: #2271b1;
+    box-shadow: 0 0 0 1px #2271b1;
+    outline: none;
+}
+
+.saia-tier-table tbody input.saia-changed {
+    border-color: #2271b1;
+    background: #f0f6fc;
+}
+
+/* ── Plans Accordion ── */
+
+.saia-plan-card {
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    background: #fff;
+}
+
+.saia-plan-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    cursor: pointer;
+    user-select: none;
+    background: #fafafa;
+    border-radius: 4px 4px 0 0;
+}
+
+.saia-plan-header:hover {
+    background: #f0f0f1;
+}
+
+.saia-plan-header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.saia-plan-header .saia-plan-name {
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.saia-plan-header .saia-plan-price-badge {
+    font-size: 12px;
+    color: #2271b1;
+    background: #f0f6fc;
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+
+.saia-plan-header .dashicons {
+    transition: transform 0.2s;
+    color: #787c82;
+}
+
+.saia-plan-card.collapsed .saia-plan-header {
+    border-radius: 4px;
+}
+
+.saia-plan-card.collapsed .saia-plan-header .dashicons {
+    transform: rotate(-90deg);
+}
+
+.saia-plan-card.collapsed .saia-plan-body {
+    display: none;
+}
+
+.saia-plan-body {
+    padding: 14px;
+    border-top: 1px solid #dcdcde;
+}
+
+/* ── Modules checkboxes ── */
+
+.saia-modules-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 6px;
+    margin: 8px 0;
+}
+
+.saia-modules-grid label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.saia-modules-grid label:hover {
+    background: #f0f6fc;
+}
+
+/* ── Extra Features list ── */
+
+.saia-features-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.saia-features-list li {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 4px;
+}
+
+.saia-features-list input[type="text"] {
+    flex: 1;
+}
+
+.saia-features-list .saia-remove-feature {
+    color: #b32d2e;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-size: 18px;
+    line-height: 1;
+    padding: 0 4px;
+}
+
+.saia-add-feature {
+    margin-top: 4px;
+}
+
+/* ── Section Actions (Save button) ── */
+
+.saia-section-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 20px;
+    padding-top: 16px;
+    border-top: 1px solid #e2e4e7;
+}
+
+.saia-save-btn:not(:disabled) {
+    position: relative;
+}
+
+.saia-save-status {
+    font-size: 12px;
+    color: #50575e;
+}
+
+.saia-save-status.success {
+    color: #00a32a;
+}
+
+.saia-save-status.error {
+    color: #d63638;
+}
+
+/* ── Modal ── */
+
+.saia-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.saia-modal-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.saia-modal-content {
+    position: relative;
+    background: #fff;
+    border-radius: 6px;
+    width: 90%;
+    max-width: 640px;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.saia-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px;
+    border-bottom: 1px solid #dcdcde;
+}
+
+.saia-modal-header h3 {
+    margin: 0;
+    font-size: 15px;
+}
+
+.saia-modal-close {
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    color: #50575e;
+    line-height: 1;
+    padding: 0 4px;
+}
+
+.saia-modal-body {
+    padding: 18px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.saia-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    padding: 14px 18px;
+    border-top: 1px solid #dcdcde;
+}
+
+/* ── Diff table ── */
+
+.saia-diff-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+.saia-diff-table th,
+.saia-diff-table td {
+    padding: 6px 10px;
+    border: 1px solid #dcdcde;
+    text-align: left;
+}
+
+.saia-diff-table th {
+    background: #f6f7f7;
+    font-weight: 600;
+}
+
+.saia-diff-table .diff-old {
+    color: #b32d2e;
+    background: #fcecec;
+}
+
+.saia-diff-table .diff-new {
+    color: #00a32a;
+    background: #edfaef;
+}
+
+/* ── Placeholder notice ── */
+
+.saia-placeholder-notice {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 20px;
+    background: #f6f7f7;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    color: #50575e;
+}
+
+.saia-placeholder-notice .dashicons {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+    color: #2271b1;
+}
+
+.saia-placeholder-notice p {
+    margin: 0;
+}
+
+/* ── Spinner ── */
+
+.saia-saving .button-primary {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+/* ── Responsive ── */
+
+@media (max-width: 782px) {
+    .saia-field-row {
+        flex-direction: column;
+    }
+
+    .saia-field {
+        flex: 1 1 100%;
+    }
+
+    .saia-modules-grid {
+        grid-template-columns: 1fr;
+    }
+}
