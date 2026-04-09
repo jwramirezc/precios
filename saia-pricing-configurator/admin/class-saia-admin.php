@@ -4,6 +4,10 @@
  *
  * Página de administración para editar los archivos JSON
  * de configuración del pricing configurator.
+ *
+ * Persistencia: los cambios se guardan en wp_options además de en
+ * los archivos JSON, de modo que al subir un ZIP nuevo las
+ * personalizaciones se restauran automáticamente.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -41,6 +45,49 @@ final class SAIA_Admin {
         add_action( 'admin_menu', [ $this, 'register_menu' ] );
         add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_assets' ] );
         add_action( 'wp_ajax_saia_save_config', [ $this, 'ajax_save' ] );
+        add_action( 'wp_ajax_saia_restore_defaults', [ $this, 'ajax_restore_defaults' ] );
+        add_action( 'admin_init', [ $this, 'maybe_restore_after_update' ] );
+    }
+
+    /* ───────────────────────────────────────────
+     * Restaurar personalizaciones tras update
+     *
+     * Cuando se sube un ZIP nuevo (versión distinta), los JSONs del
+     * ZIP sobreescriben los anteriores.  Este hook:
+     *   1. Guarda los defaults frescos del ZIP en wp_options
+     *   2. Si hay customizaciones previas, las reescribe sobre los JSONs
+     * ─────────────────────────────────────────── */
+
+    public function maybe_restore_after_update() {
+        $stored_ver = get_option( 'saia_plugin_version', '' );
+        if ( $stored_ver === SAIA_VER ) {
+            return;
+        }
+
+        // Guardar los defaults del ZIP nuevo
+        foreach ( self::$allowed_files as $key => $rel ) {
+            $path = SAIA_DIR . $rel;
+            if ( ! file_exists( $path ) ) {
+                continue;
+            }
+            $data = json_decode( file_get_contents( $path ), true );
+            if ( null !== $data ) {
+                update_option( 'saia_default_' . $key, $data, false );
+            }
+        }
+
+        // Restaurar customizaciones del admin sobre los JSONs frescos
+        foreach ( self::$allowed_files as $key => $rel ) {
+            $custom = get_option( 'saia_custom_' . $key );
+            if ( false === $custom ) {
+                continue; // no hay personalización para este archivo
+            }
+            $path = SAIA_DIR . $rel;
+            $json = json_encode( $custom, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES );
+            file_put_contents( $path, $json . "\n" );
+        }
+
+        update_option( 'saia_plugin_version', SAIA_VER );
     }
 
     /* ───────────────────────────────────────────
@@ -87,6 +134,7 @@ final class SAIA_Admin {
 
         // Cargar TODOS los JSON del tab actual + módulos (para validación cruzada)
         $files_data = [];
+        $has_custom = [];
         foreach ( self::$allowed_files as $key => $rel ) {
             $path = SAIA_DIR . $rel;
             if ( file_exists( $path ) ) {
@@ -96,13 +144,16 @@ final class SAIA_Admin {
                     $files_data[ $key ] = $decoded;
                 }
             }
+            // Indicar al JS si este archivo tiene personalizaciones
+            $has_custom[ $key ] = ( false !== get_option( 'saia_custom_' . $key ) );
         }
 
         wp_localize_script( 'saia-admin', 'saiaAdmin', [
-            'ajaxUrl'   => admin_url( 'admin-ajax.php' ),
-            'nonce'     => wp_create_nonce( 'saia_save_config' ),
-            'files'     => $files_data,
-            'writable'  => is_writable( $this->data_dir ),
+            'ajaxUrl'    => admin_url( 'admin-ajax.php' ),
+            'nonce'      => wp_create_nonce( 'saia_save_config' ),
+            'files'      => $files_data,
+            'writable'   => is_writable( $this->data_dir ),
+            'hasCustom'  => $has_custom,
         ] );
     }
 
@@ -196,12 +247,58 @@ final class SAIA_Admin {
             wp_send_json_error( [ 'message' => 'El archivo se escribió pero el JSON no es válido. Restaurá desde backup.' ], 500 );
         }
 
-        // 11. Set throttle
+        // 11. Persistir en wp_options (sobrevive a deploys de ZIP nuevo)
+        update_option( 'saia_custom_' . $file_key, $data, false );
+
+        // 12. Set throttle
         set_transient( $throttle_key, true, 5 );
 
         wp_send_json_success( [
             'message' => 'Guardado correctamente.',
             'mtime'   => filemtime( $file_path ),
+        ] );
+    }
+
+    /* ───────────────────────────────────────────
+     * AJAX Restore Defaults
+     *
+     * Elimina la personalización de wp_options y
+     * reescribe el JSON con los defaults del ZIP.
+     * ─────────────────────────────────────────── */
+
+    public function ajax_restore_defaults() {
+        check_ajax_referer( 'saia_save_config', 'nonce' );
+
+        if ( ! current_user_can( 'manage_options' ) ) {
+            wp_send_json_error( [ 'message' => 'Permisos insuficientes.' ], 403 );
+        }
+
+        $file_key = isset( $_POST['file_key'] ) ? sanitize_text_field( $_POST['file_key'] ) : '';
+        if ( ! isset( self::$allowed_files[ $file_key ] ) ) {
+            wp_send_json_error( [ 'message' => 'Archivo no permitido.' ], 400 );
+        }
+
+        // Obtener defaults guardados al instalar el ZIP
+        $defaults = get_option( 'saia_default_' . $file_key );
+        if ( false === $defaults ) {
+            wp_send_json_error( [ 'message' => 'No hay defaults guardados para este archivo.' ], 404 );
+        }
+
+        // Backup del estado actual antes de restaurar
+        $file_path = SAIA_DIR . self::$allowed_files[ $file_key ];
+        $this->create_backup( $file_key, $file_path );
+
+        // Escribir defaults al JSON
+        $json_output = json_encode( $defaults, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES );
+        file_put_contents( $file_path, $json_output . "\n" );
+
+        // Eliminar la personalización
+        delete_option( 'saia_custom_' . $file_key );
+
+        wp_send_json_success( [
+            'message'  => 'Valores restaurados a los defaults del plugin.',
+            'mtime'    => filemtime( $file_path ),
+            'defaults' => $defaults,
         ] );
     }
 

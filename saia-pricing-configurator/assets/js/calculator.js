@@ -47,10 +47,6 @@ class PricingCalculator {
         // Active preset: null = custom mode; object = preset bundle mode
         this.activePreset = null;
 
-        // Enterprise Flags (can be toggled via updateConfig)
-        this.isEnterprise = false;
-        this.isDedicated = false;
-        this.isCompliance = false;
     }
 
     setModules(modulesData) {
@@ -82,12 +78,6 @@ class PricingCalculator {
     }
 
     updateConfig(key, value) {
-        // Handle enterprise flags directly
-        if (['isEnterprise', 'isDedicated', 'isCompliance'].includes(key)) {
-            this[key] = !!value;
-            return;
-        }
-
         if (this.hasOwnProperty(key)) {
             this[key] = value;
         } else if (this.config.hasOwnProperty(key)) {
@@ -268,15 +258,6 @@ class PricingCalculator {
         return totalStorageCost;
     }
 
-    getSzaasMultiplier() {
-        let multiplier = 1.0;
-        const multipliers = this.config.saasMultipliers || {};
-        if (this.isEnterprise) multiplier *= (multipliers.enterprise || 1.3);
-        if (this.isDedicated) multiplier *= (multipliers.dedicatedInstance || 1.5);
-        if (this.isCompliance) multiplier *= (multipliers.compliance || 1.2);
-        return multiplier;
-    }
-
     /**
      * PRESET MODE breakdown: fixed bundle price + à-la-carte add-ons on top.
      * Reads priceUSD, includedModules, includedUsers, includedStorageGB from preset JSON.
@@ -361,8 +342,7 @@ class PricingCalculator {
         const quantityCost = this.calculateQuantityModulesCost();
         const subtotal = platformFee + userCost + modulesCost + storageCost + quantityCost;
 
-        const multiplier = this.getSzaasMultiplier();
-        const totalMonthlyUSD = subtotal * multiplier;
+        const totalMonthlyUSD = subtotal;
 
         return {
             isPreset: false,
@@ -372,7 +352,6 @@ class PricingCalculator {
             storageCost,
             quantityCost,
             subtotal,
-            multiplier,
             totalMonthlyUSD
         };
     }

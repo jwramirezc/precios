@@ -201,12 +201,6 @@
       { key: 'pricePerGB', type: 'number', min: 0, step: 0.01 },
     ]);
 
-    renderTierTable('referencePlans-tbody', fk, 'referencePlans', [
-      { key: 'id', type: 'text' },
-      { key: 'name', type: 'text' },
-      { key: 'priceUSD', type: 'number', min: 0, step: 1 },
-      { key: 'users', type: 'number', min: 1, step: 1 },
-    ]);
   }
 
   // ── module-pricing.json ──
@@ -664,6 +658,17 @@
         showDiffModal(fileKey, changes, () => ajaxSave(fileKey));
       });
     });
+
+    // Restore defaults buttons
+    document.querySelectorAll('.saia-restore-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const fileKey = btn.dataset.file;
+        if (!confirm('¿Restaurar los valores por defecto del plugin? Se perderán las personalizaciones de esta sección.')) {
+          return;
+        }
+        ajaxRestoreDefaults(fileKey);
+      });
+    });
   }
 
   function ajaxSave(fileKey) {
@@ -724,6 +729,41 @@
           // Re-enable if still dirty
           if (state.dirty[fileKey]) btn.disabled = false;
         }
+      });
+  }
+
+  function ajaxRestoreDefaults(fileKey) {
+    const body = new URLSearchParams();
+    body.append('action', 'saia_restore_defaults');
+    body.append('nonce', saiaAdmin.nonce);
+    body.append('file_key', fileKey);
+
+    fetch(saiaAdmin.ajaxUrl, {
+      method: 'POST',
+      credentials: 'same-origin',
+      body: body,
+    })
+      .then(r => r.json())
+      .then(result => {
+        if (result.success) {
+          // Update state with restored defaults
+          if (result.data && result.data.defaults) {
+            state.original[fileKey] = deepClone(result.data.defaults);
+            state.current[fileKey] = deepClone(result.data.defaults);
+            state.dirty[fileKey] = false;
+            if (result.data.mtime) {
+              state.mtimes[fileKey] = result.data.mtime;
+            }
+          }
+          renderAllForms();
+          showStatus(fileKey, 'Defaults restaurados correctamente.', 'success');
+        } else {
+          const msg = result.data && result.data.message ? result.data.message : 'Error desconocido.';
+          showStatus(fileKey, msg, 'error');
+        }
+      })
+      .catch(err => {
+        showStatus(fileKey, 'Error de red: ' + err.message, 'error');
       });
   }
 

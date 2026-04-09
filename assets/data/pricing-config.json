@@ -17,16 +17,6 @@
       { "upTo": 999999, "pricePerGB": 0.3 }
     ]
   },
-  "saasMultipliers": {
-    "enterprise": 1.3,
-    "dedicatedInstance": 1.5,
-    "compliance": 1.2
-  },
-  "additionalFees": {
-    "setupFee": 1000,
-    "onboardingFee": 2000,
-    "slaPremiumFee": 1000
-  },
   "annualDiscountPercent": 15,
   "userSlider": {
     "min": 5,
@@ -39,10 +29,5 @@
     "max": 1000,
     "default": 100,
     "step": 10
-  },
-  "referencePlans": [
-    { "id": "basic", "name": "Configuración Esencial", "priceUSD": 200, "users": 10 },
-    { "id": "standard", "name": "Configuración Operativa", "priceUSD": 670, "users": 50 },
-    { "id": "professional", "name": "Configuración Avanzada", "priceUSD": 1700, "users": 100 }
-  ]
+  }
 }

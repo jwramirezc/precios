@@ -98,42 +98,6 @@ if ( ! defined( 'ABSPATH' ) ) {
                     <tbody id="storageTiers-tbody"></tbody>
                 </table>
 
-                <!-- Additional Fees -->
-                <h3>Tarifas Adicionales (USD)</h3>
-                <p class="saia-help-text">Tarifas opcionales que se pueden aplicar al momento de la implementación. Estos valores son de referencia y no se suman automáticamente al precio mensual del configurador.</p>
-                <div class="saia-field-row">
-                    <div class="saia-field">
-                        <label>Setup Fee</label>
-                        <input type="number" data-path="additionalFees.setupFee" min="0" step="1">
-                    </div>
-                    <div class="saia-field">
-                        <label>Onboarding Fee</label>
-                        <input type="number" data-path="additionalFees.onboardingFee" min="0" step="1">
-                    </div>
-                    <div class="saia-field">
-                        <label>SLA Premium Fee</label>
-                        <input type="number" data-path="additionalFees.slaPremiumFee" min="0" step="1">
-                    </div>
-                </div>
-
-                <!-- SaaS Multipliers -->
-                <h3>Multiplicadores SaaS</h3>
-                <p class="saia-help-text">Factores que multiplican el precio base para modalidades especiales de servicio. Valor 1.0 = sin cambio. Ejemplo: Enterprise 1.3 = 30% adicional sobre el precio base. Solo aplican en cotizaciones personalizadas, no en los planes predefinidos de la página pública.</p>
-                <div class="saia-field-row">
-                    <div class="saia-field">
-                        <label>Enterprise</label>
-                        <input type="number" data-path="saasMultipliers.enterprise" min="1" step="0.1">
-                    </div>
-                    <div class="saia-field">
-                        <label>Dedicated Instance</label>
-                        <input type="number" data-path="saasMultipliers.dedicatedInstance" min="1" step="0.1">
-                    </div>
-                    <div class="saia-field">
-                        <label>Compliance</label>
-                        <input type="number" data-path="saasMultipliers.compliance" min="1" step="0.1">
-                    </div>
-                </div>
-
                 <!-- Sliders -->
                 <h3>Configuración de Sliders</h3>
                 <p class="saia-help-text">Controlan los rangos de los sliders de usuarios y almacenamiento en el configurador personalizado. <strong>Min/Max</strong> = límites del slider, <strong>Default</strong> = valor inicial al cargar la página, <strong>Step</strong> = incremento por cada movimiento del slider.</p>
@@ -150,24 +114,12 @@ if ( ! defined( 'ABSPATH' ) ) {
                     <div class="saia-field"><label>Storage Step (GB)</label><input type="number" data-path="storageSlider.step" min="1"></div>
                 </div>
 
-                <!-- Reference Plans -->
-                <h3>Planes de Referencia</h3>
-                <p class="saia-help-text">Planes de referencia internos usados como puntos de comparación en el motor de cálculo. Estos NO son los planes que se muestran al público (esos se configuran en "Planes Predefinidos" más abajo).</p>
-                <table class="widefat saia-tier-table" data-path="referencePlans">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Precio (USD)</th>
-                            <th>Usuarios</th>
-                        </tr>
-                    </thead>
-                    <tbody id="referencePlans-tbody"></tbody>
-                </table>
-
                 <div class="saia-section-actions">
                     <button type="button" class="button button-primary saia-save-btn" data-file="pricing-config" disabled>
                         Guardar Configuración Base
+                    </button>
+                    <button type="button" class="button saia-restore-btn" data-file="pricing-config" style="margin-left:8px;">
+                        Restaurar Defaults
                     </button>
                     <span class="saia-save-status"></span>
                 </div>
@@ -238,6 +190,9 @@ if ( ! defined( 'ABSPATH' ) ) {
                     <button type="button" class="button button-primary saia-save-btn" data-file="module-pricing" disabled>
                         Guardar Precios de Módulos
                     </button>
+                    <button type="button" class="button saia-restore-btn" data-file="module-pricing" style="margin-left:8px;">
+                        Restaurar Defaults
+                    </button>
                     <span class="saia-save-status"></span>
                 </div>
             </div>
@@ -266,6 +221,9 @@ if ( ! defined( 'ABSPATH' ) ) {
                 <div class="saia-section-actions">
                     <button type="button" class="button button-primary saia-save-btn" data-file="plans-config" disabled>
                         Guardar Planes
+                    </button>
+                    <button type="button" class="button saia-restore-btn" data-file="plans-config" style="margin-left:8px;">
+                        Restaurar Defaults
                     </button>
                     <span class="saia-save-status"></span>
                 </div>
