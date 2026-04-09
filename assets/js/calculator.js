@@ -281,6 +281,7 @@ class PricingCalculator {
         const preset = this.activePreset;
         const presetBaseUSD = preset.priceUSD ?? preset.price;
         const includedModuleIds = preset.includedModules || [];
+        const includedQtys = preset.includedQuantities || {};
 
         // Extra modules = selected calculable modules NOT in the preset's includedModules
         const extraModules = this.modules.filter(
@@ -288,6 +289,18 @@ class PricingCalculator {
         );
         const extraModulesCost = extraModules.reduce((sum, m) => {
             return sum + (this.pricingTiers[m.pricing_tier] || 0);
+        }, 0);
+
+        // Discount for quantity modules that are included in the preset but were deselected
+        const removedQtyModules = this.modules.filter(
+            m => !m.selected && m.visible && m.hasQuantity() && includedModuleIds.includes(m.id)
+        );
+        const removedModulesDiscount = removedQtyModules.reduce((sum, m) => {
+            const moduleCost = m.calculable ? (this.pricingTiers[m.pricing_tier] || 0) : 0;
+            const qtyCost = includedQtys[m.id]
+                ? this._getBlockPrice(m.quantity_config.pricing_key, includedQtys[m.id])
+                : 0;
+            return sum + moduleCost + qtyCost;
         }, 0);
 
         // Extra users above preset's included count
@@ -299,7 +312,7 @@ class PricingCalculator {
         // Extra quantity cost (delta between selected tier and included tier)
         const extraQtyCost = this.calculatePresetExtraQuantityCost(preset);
 
-        const totalMonthlyUSD = presetBaseUSD + extraModulesCost + extraUsersCost + extraStorageCost + extraQtyCost;
+        const totalMonthlyUSD = presetBaseUSD + extraModulesCost - removedModulesDiscount + extraUsersCost + extraStorageCost + extraQtyCost;
 
         return {
             isPreset: true,
@@ -311,6 +324,8 @@ class PricingCalculator {
             includedStorageGB: preset.includedStorageGB,
             extraModules,
             extraModulesCost,
+            removedQtyModules,
+            removedModulesDiscount,
             extraUsersCost,
             extraStorageCost,
             extraQtyCost,
