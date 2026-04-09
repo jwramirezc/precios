@@ -42,7 +42,7 @@
   },
   "referencePlans": [
     { "id": "basic", "name": "Configuración Esencial", "priceUSD": 200, "users": 10 },
-    { "id": "standard", "name": "Configuración Operativa", "priceUSD": 750, "users": 50 },
-    { "id": "professional", "name": "Configuración Avanzada", "priceUSD": 2000, "users": 100 }
+    { "id": "standard", "name": "Configuración Operativa", "priceUSD": 670, "users": 50 },
+    { "id": "professional", "name": "Configuración Avanzada", "priceUSD": 1700, "users": 100 }
   ]
 }

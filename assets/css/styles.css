@@ -684,7 +684,7 @@ input[type='number'] {
   transform: scale(1.1);
 }
 
-.tooltip {
+.saia-tooltip {
   position: fixed;
   z-index: 1000;
   opacity: 0;
@@ -696,7 +696,7 @@ input[type='number'] {
   max-width: 280px;
 }
 
-.tooltip.tooltip-visible {
+.saia-tooltip.saia-tooltip-visible {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;

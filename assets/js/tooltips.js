@@ -71,7 +71,7 @@ function initializeTooltips() {
 function createTooltipElement(tooltipId, tooltipData) {
     const tooltip = document.createElement('div');
     tooltip.id = `tooltip-${tooltipId}`;
-    tooltip.className = 'tooltip';
+    tooltip.className = 'saia-tooltip';
     tooltip.setAttribute('role', 'tooltip');
     tooltip.setAttribute('aria-hidden', 'true');
     tooltip.innerHTML = `
@@ -135,7 +135,7 @@ function showTooltip(triggerElement, tooltip) {
 
     activeTooltip = tooltip;
     tooltip.setAttribute('aria-hidden', 'false');
-    tooltip.classList.add('tooltip-visible');
+    tooltip.classList.add('saia-tooltip-visible');
 
     // Position tooltip
     positionTooltip(triggerElement, tooltip);
@@ -171,7 +171,7 @@ function positionTooltip(triggerElement, tooltip) {
 function hideTooltip(tooltip) {
     if (!tooltip) return;
     tooltip.setAttribute('aria-hidden', 'true');
-    tooltip.classList.remove('tooltip-visible');
+    tooltip.classList.remove('saia-tooltip-visible');
     if (activeTooltip === tooltip) {
         activeTooltip = null;
     }
@@ -181,7 +181,7 @@ function hideTooltip(tooltip) {
  * Hide all tooltips (fallback)
  */
 function hideAllTooltips() {
-    document.querySelectorAll('.tooltip').forEach(tooltip => {
+    document.querySelectorAll('.saia-tooltip').forEach(tooltip => {
         hideTooltip(tooltip);
     });
 }

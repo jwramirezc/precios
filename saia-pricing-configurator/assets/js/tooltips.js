@@ -1,208 +1,126 @@
 /**
- * Generic Tooltips System
- * 
- * This system allows you to add tooltips to any element by:
- * 1. Adding a data-tooltip-id attribute to the element
- * 2. Adding the corresponding entry in tooltips-config.json
- * 
- * Example usage:
- * <span class="help-icon" data-tooltip-id="numero_usuarios">?</span>
- * 
- * Then in tooltips-config.json:
- * {
- *   "numero_usuarios": {
- *     "titulo": "Title here",
- *     "texto": "Description text here"
- *   }
- * }
+ * SAIA Tooltips — WordPress version (ultra-simple)
+ * Creates/destroys a single popup div on hover. No caching, no CSS dependency.
+ * NOTE: Element IDs avoid the word "tooltip" entirely because Bootstrap/WP themes
+ * may have CSS rules targeting [id*="tooltip"] with opacity:0 / visibility:hidden.
  */
 
-let TOOLTIPS_CONFIG = null;
-let activeTooltip = null;
+var SAIA_HINTS_CONFIG = null;
 
-/**
- * Load tooltips configuration from JSON
- */
 async function loadTooltipsConfig() {
     try {
-        const baseUrl = typeof getDataUrl === 'function' ? getDataUrl() : 'assets/data/';
-        const response = await fetch(baseUrl + 'tooltips-config.json');
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        TOOLTIPS_CONFIG = await response.json();
-        initializeTooltips();
-    } catch (error) {
-        console.warn('Tooltips config not available:', error);
-        // Don't break the page if tooltips can't load
-        hideAllTooltips();
+        var baseUrl = typeof getDataUrl === 'function' ? getDataUrl() : 'assets/data/';
+        var r = await fetch(baseUrl + 'tooltips-config.json');
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        SAIA_HINTS_CONFIG = await r.json();
+        bindHintEvents();
+    } catch (e) {
+        console.warn('Hints:', e);
     }
 }
 
-/**
- * Initialize tooltips for all elements with data-tooltip-id
- */
-function initializeTooltips() {
-    if (!TOOLTIPS_CONFIG) return;
+function bindHintEvents() {
+    var root = document.getElementById('saia-app-root') || document;
 
-    const tooltipElements = document.querySelectorAll('[data-tooltip-id]');
-    
-    tooltipElements.forEach(element => {
-        const tooltipId = element.getAttribute('data-tooltip-id');
-        const tooltipData = TOOLTIPS_CONFIG[tooltipId];
+    root.addEventListener('mouseover', function (e) {
+        var trigger = e.target.closest('[data-tooltip-id]');
+        if (!trigger || !SAIA_HINTS_CONFIG) return;
+        if (document.getElementById('saia-info-popup')) return;
 
-        if (!tooltipData) {
-            // Tooltip ID not found in config - handle gracefully
-            element.style.display = 'none'; // Hide icon if no config
+        var id = trigger.getAttribute('data-tooltip-id');
+        var data = SAIA_HINTS_CONFIG[id];
+        if (!data) return;
+
+        var rect = trigger.getBoundingClientRect();
+
+        var d = document.createElement('div');
+        d.id = 'saia-info-popup';
+        d.innerHTML =
+            '<div><strong>' + escapeHtml(data.titulo) + '</strong>' +
+            '<p>' + escapeHtml(data.texto) + '</p></div>' +
+            '<div id="saia-popup-arrow"></div>';
+        document.body.appendChild(d);
+
+        // All styles inline — no classes, no external CSS dependency
+        var s = d.style;
+        s.position = 'fixed';
+        s.zIndex = '999999';
+        s.maxWidth = '280px';
+        s.background = '#1f2937';
+        s.color = '#fff';
+        s.padding = '12px 16px';
+        s.borderRadius = '12px';
+        s.fontSize = '14px';
+        s.lineHeight = '1.5';
+        s.fontFamily = 'Outfit, Inter, system-ui, sans-serif';
+        s.boxShadow = '0 10px 15px -3px rgba(0,0,0,.1), 0 4px 6px -2px rgba(0,0,0,.05)';
+        s.pointerEvents = 'none';
+        s.opacity = '1';
+        s.visibility = 'visible';
+        s.display = 'block';
+
+        // Style title
+        var title = d.querySelector('strong');
+        if (title) { title.style.display = 'block'; title.style.marginBottom = '6px'; title.style.fontWeight = '600'; }
+
+        // Style paragraph
+        var para = d.querySelector('p');
+        if (para) { para.style.margin = '0'; para.style.color = 'rgba(255,255,255,.9)'; para.style.fontSize = '14px'; }
+
+        // Style arrow
+        var arrow = document.getElementById('saia-popup-arrow');
+        if (arrow) {
+            arrow.style.position = 'absolute';
+            arrow.style.top = '-6px';
+            arrow.style.left = '50%';
+            arrow.style.transform = 'translateX(-50%)';
+            arrow.style.width = '0';
+            arrow.style.height = '0';
+            arrow.style.borderLeft = '6px solid transparent';
+            arrow.style.borderRight = '6px solid transparent';
+            arrow.style.borderBottom = '6px solid #1f2937';
+        }
+
+        // Position below trigger
+        var tw = d.offsetWidth;
+        var top = rect.bottom + 8;
+        var left = rect.left + (rect.width / 2) - (tw / 2);
+        var vw = window.innerWidth;
+        if (left + tw > vw - 10) left = vw - tw - 10;
+        if (left < 10) left = 10;
+
+        s.top = top + 'px';
+        s.left = left + 'px';
+    });
+
+    root.addEventListener('mouseout', function (e) {
+        var trigger = e.target.closest('[data-tooltip-id]');
+        if (!trigger) return;
+        if (trigger.contains(e.relatedTarget)) return;
+        var tip = document.getElementById('saia-info-popup');
+        if (tip) tip.remove();
+    });
+
+    root.addEventListener('click', function (e) {
+        var trigger = e.target.closest('[data-tooltip-id]');
+        if (!trigger) {
+            var tip = document.getElementById('saia-info-popup');
+            if (tip) tip.remove();
             return;
         }
-
-        // Create tooltip element
-        const tooltip = createTooltipElement(tooltipId, tooltipData);
-        // Append to scoped container in WP, or document.body standalone
-        var tooltipContainer = typeof getSaiaTooltipContainer === 'function'
-            ? getSaiaTooltipContainer()
-            : document.body;
-        tooltipContainer.appendChild(tooltip);
-
-        // Setup event listeners
-        setupTooltipEvents(element, tooltip, tooltipId);
-    });
-}
-
-/**
- * Create tooltip DOM element
- */
-function createTooltipElement(tooltipId, tooltipData) {
-    const tooltip = document.createElement('div');
-    tooltip.id = `tooltip-${tooltipId}`;
-    tooltip.className = 'tooltip';
-    tooltip.setAttribute('role', 'tooltip');
-    tooltip.setAttribute('aria-hidden', 'true');
-    tooltip.innerHTML = `
-        <div class="tooltip-content">
-            <strong class="tooltip-title">${escapeHtml(tooltipData.titulo)}</strong>
-            <p class="tooltip-text">${escapeHtml(tooltipData.texto)}</p>
-        </div>
-        <div class="tooltip-arrow"></div>
-    `;
-    return tooltip;
-}
-
-/**
- * Setup event listeners for tooltip interactions
- */
-function setupTooltipEvents(triggerElement, tooltip, tooltipId) {
-    // Desktop: hover
-    triggerElement.addEventListener('mouseenter', () => {
-        showTooltip(triggerElement, tooltip);
-    });
-
-    triggerElement.addEventListener('mouseleave', () => {
-        hideTooltip(tooltip);
-    });
-
-    // Mobile/touch: click/tap
-    let isTooltipVisible = false;
-    triggerElement.addEventListener('click', (e) => {
         e.preventDefault();
-        e.stopPropagation();
-        
-        if (isTooltipVisible) {
-            hideTooltip(tooltip);
-            isTooltipVisible = false;
-        } else {
-            // Hide any other active tooltip
-            if (activeTooltip && activeTooltip !== tooltip) {
-                hideTooltip(activeTooltip);
-            }
-            showTooltip(triggerElement, tooltip);
-            isTooltipVisible = true;
-        }
-    });
-
-    // Close tooltip when clicking outside
-    document.addEventListener('click', (e) => {
-        if (isTooltipVisible && !triggerElement.contains(e.target) && !tooltip.contains(e.target)) {
-            hideTooltip(tooltip);
-            isTooltipVisible = false;
-        }
+        var existing = document.getElementById('saia-info-popup');
+        if (existing) { existing.remove(); return; }
+        trigger.dispatchEvent(new MouseEvent('mouseover', { bubbles: true }));
     });
 }
 
-/**
- * Show tooltip positioned near the trigger element
- */
-function showTooltip(triggerElement, tooltip) {
-    if (activeTooltip && activeTooltip !== tooltip) {
-        hideTooltip(activeTooltip);
-    }
-
-    activeTooltip = tooltip;
-    tooltip.setAttribute('aria-hidden', 'false');
-    tooltip.classList.add('tooltip-visible');
-
-    // Position tooltip
-    positionTooltip(triggerElement, tooltip);
-}
-
-/**
- * Position tooltip relative to trigger element
- */
-function positionTooltip(triggerElement, tooltip) {
-    const rect = triggerElement.getBoundingClientRect();
-    const tooltipRect = tooltip.getBoundingClientRect();
-    const scrollY = window.scrollY;
-    const scrollX = window.scrollX;
-
-    // Position below the icon by default
-    let top = rect.bottom + scrollY + 8;
-    let left = rect.left + scrollX + (rect.width / 2) - (tooltipRect.width / 2);
-
-    // Adjust if tooltip goes off screen
-    const viewportWidth = window.innerWidth;
-    if (left + tooltipRect.width > viewportWidth) {
-        left = viewportWidth - tooltipRect.width - 10;
-    }
-    if (left < 10) {
-        left = 10;
-    }
-
-    tooltip.style.top = `${top}px`;
-    tooltip.style.left = `${left}px`;
-}
-
-/**
- * Hide tooltip
- */
-function hideTooltip(tooltip) {
-    if (!tooltip) return;
-    tooltip.setAttribute('aria-hidden', 'true');
-    tooltip.classList.remove('tooltip-visible');
-    if (activeTooltip === tooltip) {
-        activeTooltip = null;
-    }
-}
-
-/**
- * Hide all tooltips (fallback)
- */
-function hideAllTooltips() {
-    document.querySelectorAll('.tooltip').forEach(tooltip => {
-        hideTooltip(tooltip);
-    });
-}
-
-/**
- * Escape HTML to prevent XSS
- */
 function escapeHtml(text) {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
+    var d = document.createElement('div');
+    d.textContent = text;
+    return d.innerHTML;
 }
 
-// Initialize when DOM is ready
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', loadTooltipsConfig);
 } else {

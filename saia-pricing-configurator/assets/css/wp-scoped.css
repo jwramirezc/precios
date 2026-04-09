@@ -77,6 +77,20 @@
     line-height: 1.2;
 }
 
+/* Bootstrap font-weight utilities must win over the heading reset above */
+#saia-app-root .fw-bold {
+    font-weight: 700 !important;
+}
+
+#saia-app-root .fw-normal {
+    font-weight: 400 !important;
+}
+
+/* Ensure Bootstrap heading sizes aren't shrunk by WP theme */
+#saia-app-root h4 {
+    font-size: 1.5rem;
+}
+
 #saia-app-root p {
     margin-top: 0;
     margin-bottom: 1rem;
@@ -347,11 +361,62 @@
 }
 
 /* ------------------------------------------------------------------ */
-/*  8. Tooltip container — keeps tooltips inside the scoped root      */
+/*  8. Tooltips — override Bootstrap's .tooltip which hides ours      */
 /* ------------------------------------------------------------------ */
 
 #saia-app-root .saia-tooltip-container {
     position: relative;
+}
+
+#saia-app-root .saia-tooltip {
+    position: fixed;
+    z-index: 10000;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    max-width: 280px;
+}
+
+#saia-app-root .saia-tooltip.saia-tooltip-visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+#saia-app-root .saia-tooltip .tooltip-content {
+    background-color: var(--dark);
+    color: white;
+    padding: 12px 16px;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+
+#saia-app-root .saia-tooltip .tooltip-title {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: white;
+}
+
+#saia-app-root .saia-tooltip .tooltip-text {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.875rem;
+}
+
+#saia-app-root .saia-tooltip .tooltip-arrow {
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid var(--dark);
 }
 
 /* ------------------------------------------------------------------ */

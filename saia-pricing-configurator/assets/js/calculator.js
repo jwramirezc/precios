@@ -178,7 +178,11 @@ class PricingCalculator {
         const def = this.pricingTiers[pricingKey];
         if (!def) return 0;
         if (def.type === 'block') {
-            const block = (def.blocks || []).find(b => b.qty === qty);
+            const blocks = (def.blocks || []).sort((a, b) => a.qty - b.qty);
+            // Exact match first, then nearest block >= qty
+            const block = blocks.find(b => b.qty === qty)
+                || blocks.find(b => b.qty >= qty)
+                || blocks[blocks.length - 1];
             return block ? block.priceUSD : 0;
         }
         if (def.type === 'per_unit') {
@@ -312,7 +316,7 @@ class PricingCalculator {
         // Extra quantity cost (delta between selected tier and included tier)
         const extraQtyCost = this.calculatePresetExtraQuantityCost(preset);
 
-        const totalMonthlyUSD = presetBaseUSD + extraModulesCost - removedModulesDiscount + extraUsersCost + extraStorageCost + extraQtyCost;
+        const totalMonthlyUSD = Math.max(0, presetBaseUSD + extraModulesCost - removedModulesDiscount + extraUsersCost + extraStorageCost + extraQtyCost);
 
         return {
             isPreset: true,
