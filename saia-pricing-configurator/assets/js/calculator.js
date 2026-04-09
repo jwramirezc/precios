@@ -324,6 +324,8 @@ class PricingCalculator {
             includedStorageGB: preset.includedStorageGB,
             extraModules,
             extraModulesCost,
+            removedQtyModules,
+            removedModulesDiscount,
             extraUsersCost,
             extraStorageCost,
             extraQtyCost,
