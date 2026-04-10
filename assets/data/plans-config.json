@@ -27,7 +27,7 @@
     "icon": "fa-layer-group",
     "description": "Para organizaciones que gestionan correspondencia, solicitudes y procesos operativos con trazabilidad documental desde una sola plataforma.",
     "summaryDescription": "Gestión documental con flujos de correspondencia, PQRS y analítica avanzada para organizaciones con procesos operativos de mediana complejidad.",
-    "price": 670,
+    "price": 770,
     "userLimit": 50,
     "highlight": true,
     "includedModules": ["correspondencia", "gestion_documental", "archivo", "gestion_plantillas", "pqr", "actas", "firma", "email"],
