@@ -34,7 +34,7 @@
     "name": "Módulo de Creación de Plantillas",
     "description": "Sistematiza tus documentos con plantillas preestablecidas.",
     "icon": "<i class=\"fa-solid fa-file-lines\"></i>",
-    "url": "https://www.saiasoftware.com/saia-proceso-gestion-documental/",
+    "url": "https://www.saiasoftware.com/saia-modulo-de-c…matos-plantillas/",
     "pricing_tier": "advanced",
     "visible": true,
     "category": "gestion_documental"
@@ -44,7 +44,7 @@
     "name": "Módulo de Flujos de Trabajo",
     "description": "Automatice aprobaciones y controle cada paso del proceso documental.",
     "icon": "<i class=\"fa-solid fa-diagram-project\"></i>",
-    "url": "https://www.saiasoftware.com/saia-proceso-gestion-documental/",
+    "url": "https://www.saiasoftware.com/saia-modulo-de-creacion-de-flujos-de-trabajo/",
     "pricing_tier": "advanced",
     "visible": true,
     "category": "gestion_documental"
@@ -141,7 +141,7 @@
     "name": "Módulo de Emails Certificados",
     "description": "Envíe comunicaciones con valor probatorio y acuse de recibo certificado.",
     "icon": "<i class=\"fa-solid fa-envelope-circle-check\"></i>",
-    "url": "https://www.saiasoftware.com/",
+    "url": "https://www.saiasoftware.com/saia-proceso-de-correo-electronico-certificado/",
     "pricing_tier": "core",
     "visible": true,
     "category": "procesos_operaciones",

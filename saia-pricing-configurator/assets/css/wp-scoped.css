@@ -110,6 +110,10 @@
     text-decoration: underline !important;
 }
 
+#saia-app-root a.module-item-info-link {
+    text-decoration: none !important;
+}
+
 #saia-app-root a:hover {
     color: var(--primary-hover) !important;
 }
